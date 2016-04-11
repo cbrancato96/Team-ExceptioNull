@@ -1,0 +1,47 @@
+Team ExceptioNull
+Chris Brancato, Ihsan Gunay, Krishna T.
+
+Our basic instruction formats will be the following:
+
+R: 4 bits Opcode, 2 bits Reg RS, 2 bits Reg Rt
+
+I: 4 bits Opcode, 2 bits Reg RS, 2 bits Immediate
+
+J: 4 bits Opcode, 4 bit Address Offset
+
+Our Design considerations are the following:
+
+First bit of the opcode decides whether the instruction is R or (I|J)
+
+All of the our R instructions, except for move, have the destination register as the same register (ex:$t0). This means that we will
+have four available registers for our instructions, including the default register.
+
+Because of our design choice of making the common case have an implied destination register, the programmer needs to call the move command to
+not overwrite previous results.
+
+R Instruction Set
+All instructions, unless otherwise noted, have rd implied as $t0.
+
+0000 	Mv 	Mv is add with rt implied as zero for this instruction
+0001 	Add 
+0010 	And 
+0011 	Not
+0100 	Nor
+0101 	Slt
+0110 	Sll	Implied Shamt = 1, To shift by 2 call function Sll twice
+0111 	Srl	Implied Shamt = 1, To shift by 2 call function Slr twice
+
+J Instruction Set
+
+1000	J
+1001	Jal
+
+I Instruction Set
+
+1010	lw	
+1011	sw
+1100	beq	Implied that branch offset is in $t0
+1101	bne	Implied that branch offset is in $t0
+1110	addi	The destination reg is the source register
+1111	li	The destination reg is the source register
+
