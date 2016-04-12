@@ -1,6 +1,8 @@
 Team ExceptioNull
 Chris Brancato, Ihsan Gunay, Krishna T.
 
+Steps: Fetch ---> Decode ---> Execute ---> MemRead ---> Writeback
+
 Our basic instruction formats will be the following:
 
 R: 4 bits Opcode, 2 bits Reg RS, 2 bits Reg Rt
@@ -44,4 +46,10 @@ I Instruction Set
 1101	bne	Implied that branch offset is in $t0
 1110	addi	The destination reg is the source register
 1111	li	The destination reg is the source register
+
+MEMORY: 2^8 bits high by 8 bits wide
+Stack & Heap:
+Data:
+Text: 
+Reserved:
 
