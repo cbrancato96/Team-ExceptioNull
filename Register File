@@ -1,0 +1,22 @@
+module registerfile ();
+
+input clk;
+input ra1;
+input ra2;
+input regwrite_control;
+output rd1;
+reg ra1;
+reg ra2;
+reg rd1;
+reg regwrite_control;
+
+always @ (posedge clk)
+if (regwrite_control) begin
+  writedata = writereg;
+end else begin
+  rd1 = ra1;
+  rd2 = ra2;
+end
+
+endmodule
+
