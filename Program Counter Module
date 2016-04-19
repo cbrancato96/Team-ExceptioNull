@@ -1,0 +1,20 @@
+module pc ();
+
+input pc';
+input pc_src;
+input clk;
+output pc;
+
+reg pc';
+reg pc;
+
+pc_src = branch_control & zero;
+
+always @ (posedge clk)
+if pc_src begin
+  pc' = pc_branch;
+end else begin
+  pc' = pc + 1;
+end
+
+endmodule
