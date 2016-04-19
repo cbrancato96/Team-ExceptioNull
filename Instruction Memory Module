@@ -1,1 +1,13 @@
+module instruction_memory ();
 
+reg [7:0] instruction_bit;
+reg [7:0] data;
+input instruction_bit;
+input clk;
+output data;
+
+always @ (posedge clk)
+instruction_bit = data;
+end
+
+endmodule
