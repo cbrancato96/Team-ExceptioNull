@@ -21,42 +21,117 @@ module control_unit(
   always @(op)
   begin
     if op = 0000
-    
+          alu control = 011;
+      branch = 0;
+      reg_dest = ;
+      alu_src = 1;
+      wren_reg = 1;
+      wren_data = 0;
+      datamem_toreg = 1;
     
     else
     if op = 0001
-    
+          alu control = 011;
+      branch = 0;
+      reg_dest = ;
+      alu_src = 1;
+      wren_reg = 1;
+      wren_data = 0;
+      datamem_toreg = 1;
     
     else 
     if op = 0010
-    
+          alu control = 011;
+      branch = 0;
+      reg_dest = ;
+      alu_src = 1;
+      wren_reg = 1;
+      wren_data = 0;
+      datamem_toreg = 1;
+      
     else 
     if op = 0011
-    
+          alu control = 011;
+      branch = 0;
+      reg_dest = ;
+      alu_src = 1;
+      wren_reg = 1;
+      wren_data = 0;
+      datamem_toreg = 1;
+      
     else 
     if op = 0100
-    
+          alu control = 011;
+      branch = 0;
+      reg_dest = ;
+      alu_src = 1;
+      wren_reg = 1;
+      wren_data = 0;
+      datamem_toreg = 1;
+      
     else 
     if op = 0101
-    
+          alu control = 011;
+      branch = 0;
+      reg_dest = ;
+      alu_src = 1;
+      wren_reg = 1;
+      wren_data = 0;
+      datamem_toreg = 1;
+      
     else
     if op = 0110
-    
+          alu control = 011;
+      branch = 0;
+      reg_dest = ;
+      alu_src = 1;
+      wren_reg = 1;
+      wren_data = 0;
+      datamem_toreg = 1;
+      
     else 
     if op = 0111
-    
+          alu control = 011;
+      branch = 0;
+      reg_dest = ;
+      alu_src = 1;
+      wren_reg = 1;
+      wren_data = 0;
+      datamem_toreg = 1;
+      
     else 
     if op = 1000
-    
+          alu control = 011;
+      branch = 0;
+      reg_dest = ;
+      alu_src = 1;
+      wren_reg = 1;
+      wren_data = 0;
+      datamem_toreg = 1;
+      
     else 
     if op = 1001
-   
+         alu control = 011;
+      branch = 0;
+      reg_dest = ;
+      alu_src = 1;
+      wren_reg = 1;
+      wren_data = 0;
+      datamem_toreg = 1;
+      
    else 
     if op = 1010
-    
+          alu control = 011;
+      branch = 0;
+      reg_dest = ;
+      alu_src = 1;
+      wren_reg = 1;
+      wren_data = 0;
+      datamem_toreg = 1;
+      
    else 
     if op = 1011
-      alu control = 111;
+      alu control = 011;
       branch = 0;
       reg_dest = ;
       alu_src = 1;
@@ -64,7 +139,7 @@ module control_unit(
       wren_data = 0;
       datamem_toreg = 1;
    else 
-    if op == 1100   //branch if equal
+    if op = 1100   //branch if equal
       alu control = 100;
       branch = 1;
       reg_dest = ;
@@ -75,7 +150,7 @@ module control_unit(
       
     
    else 
-    if op == 1101   //branch not equal
+    if op = 1101   //branch not equal
       alu control = 101;
       branch = 1;
       reg_dest = ;
@@ -85,7 +160,7 @@ module control_unit(
       datamem_toreg = x;
       
    else 
-    if op == 1110   //add immediate
+    if op = 1110   //add immediate
       alu control = 110;
       branch = 0;
       reg_dest = ;
@@ -95,7 +170,7 @@ module control_unit(
       datamem_toreg = 0;
    
    else 
-    if op == 1111   //load immediate
+    if op = 1111   //load immediate
       alu control = 111;
       branch = 0;
       reg_dest = ;
