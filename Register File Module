@@ -1,16 +1,15 @@
-module registerfile ();
+module register_file ();
 
-input clk;
-input ra1;
-input ra2;
+reg [1:0] ra1;
+reg [1:0] ra2;
+reg [1:0] rd1;
+
+input [1:0] ra1;
+input [1:0] ra2;
 input regwrite_control;
-output rd1;
-reg ra1;
-reg ra2;
-reg rd1;
-reg regwrite_control;
+output [1:0] rd1;
 
-always @ (posedge clk)
+always
 if (regwrite_control) begin
   writedata = writereg;
 end else begin
