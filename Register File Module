@@ -1,4 +1,4 @@
-module register_file ();
+module reg_file ();
 
 reg [1:0] ra1;
 reg [1:0] ra2;
