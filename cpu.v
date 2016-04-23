@@ -9,11 +9,11 @@ module cpu()
   
   wire [7:0] reg_sdata0;
   wire [7:0] reg_sdata1;
-  wire [7:0] imm_data;
+  wire [7:0] op1;
   wire [7:0] reg_wdata;
   
   wire [3:0] opcode;
-  wire [7:0] op1;
+  wire [7:0] imm_data;
   wire sel_op1;
   wire sel_w_loc;
   wire sel_w_result;
