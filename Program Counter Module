@@ -1,16 +1,16 @@
 module pc ();
 
-input pc';
+input [7:0] pc';
 input pc_src;
-input clk;
-output pc;
 
-reg pc';
-reg pc;
+output [7:0] pc;
+
+reg [7:0] pc';
+reg [7:0] pc;
 
 pc_src = branch_control & zero;
 
-always @ (posedge clk)
+/* always 
 if pc_src begin
   pc' = pc_branch;
 end else begin
