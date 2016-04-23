@@ -1,4 +1,5 @@
 module data_mem () ;
+
 input [5:0] data_address; //data RAM depth is 64 lines
 input [7:0] write_data; 
 input write_enable;
