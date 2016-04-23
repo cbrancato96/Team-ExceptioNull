@@ -1,22 +1,22 @@
-addi $r1 01 //Specify data address
+addi $r1 01 //Specify data address, r1 = 1
 sll $r1 10 //multiply r1 by 4, r1 = 4
-addi $r1 00 //r1 = 4, rd = 4
-sll $r1 10 //
-addi $r1 10
-sll $r1 10
-addi $r1 10
-lw $r2 $r1 //Load data
-addi $r1 11 //Specify target address
-addi $r1 10
-addi $r3 10
-sll $r3 10
-addi $r3 10
-add $r2 $r3
+addi $r1 00 //r1 = 4, r0 = 4
+sll $r1 10 //multiply r1 by 4, r1 = 16
+addi $r1 10 //r1 = 18, r0 = 18
+sll $r1 10 //multiply r1 by 4, r1 = 72
+addi $r1 10 //r1 = 74, r0 = 74
+lw $r2 $r1 //Load data, r1 = r2
+addi $r1 11 //Specify target address, r1 = 3
+addi $r1 10 //r1 = 5, r0 = 5
+addi $r3 10 //r3 = 2, r0 = 2
+sll $r3 10 //multiply by 4, r3 = 8
+addi $r3 10 //r3 = 10
+add $r2 $r3 // r0 = r2+r3, r0 = 84
 mv $r3 $r0 //$r3 = $r2 + 10
 sll $r0 11 //Reset $r0
 sll $r0 11
-sll $r0 10
+sll $r0 10 //r0 = 0
 addi $r0 10 //Specify offset
 addi $r2 01
 bne $r2 $r3 //Branch PC+1-$r0
-sw $r2 $r1 //Store the result
+sw $r2 $r1 //Store the result in $r1
