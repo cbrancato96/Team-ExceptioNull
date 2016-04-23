@@ -20,7 +20,7 @@ module control_unit(
   assign instruction = op [0:3]
   always @(op)
   begin
-    if op = 0000
+    if op = 0000    //Move
       alu control = 011;
       branch = 0;
       reg_dest = ;
@@ -30,7 +30,7 @@ module control_unit(
       datamem_toreg = 1;
     
     else
-    if op = 0001
+    if op = 0001    //Add
       alu control = 011;
       branch = 0;
       reg_dest = ;
@@ -40,7 +40,7 @@ module control_unit(
       datamem_toreg = 1;
     
     else 
-    if op = 0010
+    if op = 0010    //And
       alu control = 011;
       branch = 0;
       reg_dest = ;
@@ -50,7 +50,7 @@ module control_unit(
       datamem_toreg = 1;
       
     else 
-    if op = 0011
+    if op = 0011    //Not
       alu control = 011;
       branch = 0;
       reg_dest = ;
@@ -60,7 +60,7 @@ module control_unit(
       datamem_toreg = 1;
       
     else 
-    if op = 0100
+    if op = 0100    //Nor
       alu control = 011;
       branch = 0;
       reg_dest = ;
