@@ -50,6 +50,5 @@ I Instruction Set
 MEMORY: 2^8 bits high by 8 bits wide
 Stack & Heap:
 Data: 64 lines
-Text: 64 lines
-Reserved:
+Text and Reserved: 64 lines
 
