@@ -1,21 +1,43 @@
-module reg_file ();
+module reg_file(
+  raddr0,
+  raddr1,
+  waddr,
+  wdata,
+  wren,
+  rdata0,
+  rdata1);
 
-reg [1:0] ra1;
-reg [1:0] ra2;
-reg [1:0] rd1;
+  input [1:0] raddr0;
+  input [1:0] raddr1;
+  input [1:0] waddr;
+  input [7:0] wdata;
+  input wren;
+  
+  output [7:0] rdata0;
+  output [7:0] rdata1;
 
-input [1:0] ra1;
-input [1:0] ra2;
-input regwrite_control;
-output [1:0] rd1;
+  reg [3:0] reg_file [7:0]
+  
+  assign rdata0 = reg_file[raddr0];
+  assign rdata1 = reg_file[raddr1];
+  
+  integer i;
+  
+  initial
+  begin
+    for (i=0; i<8; i=i+1)
+      begin
+      reg_file[i] = 0;
+      end
+  end
 
-always
-if (regwrite_control) begin
-  writedata = writereg;
-end else begin
-  rd1 = ra1;
-  rd2 = ra2;
-end
+  always
+  begin
+  if (regwrite_control) begin
+    writedata = writereg;
+  end else begin
+    rd1 = ra1;
+    rd2 = ra2;
+  end
 
 endmodule
-
