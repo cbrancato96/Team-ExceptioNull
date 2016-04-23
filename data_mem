@@ -1,4 +1,4 @@
-module ram () ;
+module data_mem () ;
 input [5:0] data_address; //RAM depth is 64
 input [7:0] write_data; 
 input write_enable;
