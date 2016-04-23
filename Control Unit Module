@@ -21,4 +21,50 @@ module control_unit(
   assign op = instruction [0:3]
   always @(instruction)
   begin
-    if (
+    if instruction == 0000
+    
+    else
+    if instruction == 0001
+    
+    else 
+    if instruction == 0010
+    
+    else 
+    if instruction == 0011
+    
+    else 
+    if instruction == 0100
+    
+    else 
+    if instruction == 0101
+    
+    else
+    if instruction == 0110
+    
+    else 
+    if instruction == 0111
+    
+    else 
+    if instruction == 1000
+    
+    else 
+    if instruction == 1001
+   
+   else 
+    if instruction == 1010
+    
+   else 
+    if instruction == 1011
+   
+   else 
+    if instruction == 1100
+    
+   else 
+    if instruction == 1101
+    
+   else 
+    if instruction == 1110
+   
+   else 
+    if instruction == 1111
+    
