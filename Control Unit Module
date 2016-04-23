@@ -9,13 +9,12 @@ module control_unit(
   alu_zero,
   pc_control);
 
+
   input [0:7] instruction;
   input alu_zero;
   
-  outputs
-  #
-  #
-  #
+  output 
+  
   
   wire [3:0]
   assign instruction = op [0:3]
@@ -61,7 +60,7 @@ module control_unit(
    else 
     if op == 1100
       branch = 1;
-      pc_src = branch & zero;
+      
       
     
    else 
