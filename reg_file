@@ -16,7 +16,7 @@ module reg_file(
   output [7:0] rdata0;
   output [7:0] rdata1;
 
-  reg [3:0] reg_file [7:0]
+  reg [3:0] reg_file [7:0];
   
   assign rdata0 = reg_file[raddr0];
   assign rdata1 = reg_file[raddr1];
