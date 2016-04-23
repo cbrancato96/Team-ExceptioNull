@@ -1,13 +1,13 @@
 module instruction_memory ();
 
-reg [7:0] instruction_bit;
-reg [7:0] data;
-input instruction_bit;
-input clk;
-output data;
+reg [7:0] instruction_address;
+reg [7:0] instruction_data;
 
-always @ (posedge clk)
-instruction_bit = data;
+input instruction_address;
+output instruction_data;
+
+always
+instruction_address = instuction_data;
 end
 
 endmodule
