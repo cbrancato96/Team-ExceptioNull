@@ -1,1 +1,18 @@
+module ram () ;
+input [5:0] data_address; //RAM depth is 64
+input [7:0] write_data; 
+input write_enable;
+ouput [7:0] read_data;
 
+reg [5:0] data_address;
+reg [7:0] write_data;
+reg [7:0] mem[4:0];
+
+always @ (write_enable) begin
+  if (wr_enable)
+    write_data = mem[data_address];
+  else begin
+  mem[data_address] = read_data;
+end
+
+endmodule
