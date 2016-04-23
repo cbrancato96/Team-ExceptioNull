@@ -1,1 +1,24 @@
+module control_unit(
+  inst instruction,
+  data_mem_wren,
+  reg_file_wren,
+  reg_file_dmux_select,
+  reg_file_rmux_select,
+  alu_mux_select,
+  alu_control,
+  alu_zero,
+  pc_control);
 
+  input [0:7] instruction;
+  input alu_zero;
+  
+  outputs
+  #
+  #
+  #
+  
+  wire [3:0]
+  assign op = instruction [0:3]
+  always @(instruction)
+  begin
+    if (
