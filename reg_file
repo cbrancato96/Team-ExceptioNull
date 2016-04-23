@@ -33,11 +33,8 @@ module reg_file(
 
   always
   begin
-  if (regwrite_control) begin
-    writedata = writereg;
-  end else begin
-    rd1 = ra1;
-    rd2 = ra2;
+  if (wren) begin
+    reg_file[waddr] <= wdata;
   end
 
 endmodule
