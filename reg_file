@@ -24,14 +24,14 @@ module reg_file(
   integer i;
   
   initial
-  begin
+  begin                     //initializing the regfile bits to 0
     for (i=0; i<8; i=i+1)
       begin
       reg_file[i] = 0;
       end
   end
 
-  always
+  always                    //always condition for when write enable is 1
   begin
   if (wren) begin
     reg_file[waddr] <= wdata;
