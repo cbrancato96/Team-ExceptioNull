@@ -14,7 +14,7 @@ module program_counter(
   wire [7:0] offset;
   
   assign offset = 8{pc_controll} & jump_offset;
-  assign pc_update = pc + 1 + jump_offset;
+  assign pc_update = pc + 1 + offset;
   
   always
   begin
