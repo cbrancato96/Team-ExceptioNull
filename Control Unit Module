@@ -1,5 +1,5 @@
 module control_unit(
-  inst instruction,
+  inst op,
   data_mem_wren,
   reg_file_wren,
   reg_file_dmux_select,
@@ -18,53 +18,58 @@ module control_unit(
   #
   
   wire [3:0]
-  assign op = instruction [0:3]
-  always @(instruction)
+  assign instruction = op [0:3]
+  always @(op)
   begin
-    if instruction == 0000
+    if op = 0000
+    
     
     else
-    if instruction == 0001
+    if op == 0001
+    
     
     else 
-    if instruction == 0010
+    if op == 0010
     
     else 
-    if instruction == 0011
+    if op == 0011
     
     else 
-    if instruction == 0100
+    if op == 0100
     
     else 
-    if instruction == 0101
+    if op == 0101
     
     else
-    if instruction == 0110
+    if op == 0110
     
     else 
-    if instruction == 0111
+    if op == 0111
     
     else 
-    if instruction == 1000
+    if op == 1000
     
     else 
-    if instruction == 1001
+    if op == 1001
    
    else 
-    if instruction == 1010
+    if op == 1010
     
    else 
-    if instruction == 1011
+    if op == 1011
    
    else 
-    if instruction == 1100
+    if op == 1100
+      branch = 1;
+      pc_src = branch & zero;
+      
     
    else 
-    if instruction == 1101
+    if op == 1101
     
    else 
-    if instruction == 1110
+    if op == 1110
    
    else 
-    if instruction == 1111
+    if op == 1111
     
