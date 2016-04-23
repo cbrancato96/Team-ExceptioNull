@@ -11,13 +11,13 @@ Programs have:
 Parts: PC, Instruction Memory, Registers, ALU, Data Memory
 
 
+Modules:
+Finte State Machine: Fetch, Decode, Execute, Memread, Writeback
+PC  
+Instruction Memory
+Register Files 
+ALU
+Data Memory Module
 
-PC Counter Module: 
-
-Instruction Memory Module:
-
-Register Files Module:
-
-8 bit ALU Module: done
-
-Data Memory Module: 
+Compiler Program needed
+Module needed which loads binary (compiled) code into RAM before Finite statemachine starts and reads from those instructions
