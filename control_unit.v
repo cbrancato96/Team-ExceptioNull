@@ -10,7 +10,7 @@ module control_unit(
   pc_control);
 
 
-  input [0:7] instruction;
+  input [7:4] op;
   input alu_zero;
   
   output 
