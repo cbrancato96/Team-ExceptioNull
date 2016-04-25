@@ -27,7 +27,8 @@ module control_unit(
       wren_reg = 1;
       wren_data = 0;
       datamem_toreg = 1;
-    
+      end 
+      
     else
     if op = 0001    //Add
       alu control = 011;
@@ -36,7 +37,8 @@ module control_unit(
       wren_reg = 1;
       wren_data = 0;
       datamem_toreg = 1;
-    
+      end
+      
     else 
     if op = 0010    //And
       alu control = 011;
@@ -45,6 +47,7 @@ module control_unit(
       wren_reg = 1;
       wren_data = 0;
       datamem_toreg = 1;
+      end
       
     else 
     if op = 0011    //Not
@@ -54,6 +57,7 @@ module control_unit(
       wren_reg = 1;
       wren_data = 0;
       datamem_toreg = 1;
+      end
       
     else 
     if op = 0100    //Nor
@@ -63,6 +67,7 @@ module control_unit(
       wren_reg = 1;
       wren_data = 0;
       datamem_toreg = 1;
+      end
       
     else 
     if op = 0101    //Slt: Set Less Than 
@@ -72,6 +77,7 @@ module control_unit(
       wren_reg = 1;
       wren_data = 0;
       datamem_toreg = 1;
+      end
       
     else
     if op = 0110    //Sll: Shift Left Logical
@@ -81,6 +87,7 @@ module control_unit(
       wren_reg = 0;
       wren_data = 0;
       datamem_toreg = 1;
+      end
       
     else 
     if op = 0111    //Srl: Shift Right Logical
@@ -90,6 +97,7 @@ module control_unit(
       wren_reg = 0;
       wren_data = 0;
       datamem_toreg = 1;
+      end
       
     else 
     if op = 1000    //J: Jump
@@ -99,6 +107,7 @@ module control_unit(
       wren_reg = 0;
       wren_data = x;
       datamem_toreg = x;
+      end
       
     else 
     if op = 1001    //Jal: Jump and link
@@ -108,6 +117,7 @@ module control_unit(
       wren_reg = 0;
       wren_data = x;
       datamem_toreg = x;
+      end
       
    else 
     if op = 1010    //lw: load word
@@ -117,6 +127,7 @@ module control_unit(
       wren_reg = 0;
       wren_data = 0;
       datamem_toreg = 1;
+      end
       
    else 
     if op = 1011    //sw: store word
@@ -126,6 +137,8 @@ module control_unit(
       wren_reg = 1;
       wren_data = 1;
       datamem_toreg = 1;
+      end
+      
    else 
     if op = 1100   //beq: branch if equal
       alu control = 100;
@@ -134,8 +147,8 @@ module control_unit(
       wren_reg = 0;
       wren_data = 0;
       datamem_toreg = 0;
+      end
       
-    
    else 
     if op = 1101   //bne: branch not equal
       alu control = 101;
@@ -144,6 +157,7 @@ module control_unit(
       wren_reg = 0;
       wren_data = 0;
       datamem_toreg = x;
+      end
       
    else 
     if op = 1110   //addi: add immediate
@@ -162,4 +176,7 @@ module control_unit(
       wren_reg = 1;
       wren_data = 0;
       datamem_toreg = 1;
+      end
       
+      
+endmodule
