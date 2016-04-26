@@ -12,25 +12,26 @@
 
 module alu(
     control,	//specifies the alu operation
-    input0, 	//first input
-    input1, 	//second input
-    alu_output, 	//alu output
+    inputA, 	//first input
+    inputB, 	//second input
+    outputALU, 	//alu output
     zero, 		//zero flag
-	overflow);
+	overflow
+	);
 
     //--------------------------
 	// Inputs
 	//--------------------------
 
     input 		[2:0]	control;
-	input 		[7:0] 	input0; 
-	input		[7:0]	input1;
+	input 		[7:0] 	inputA; 
+	input		[7:0]	inputB;
 	
     //--------------------------
     // Outputs
     //--------------------------
 
-	output 	[7:0] 	alu_output; 
+	output 	[7:0] 	outputALU; 
 	output			overflow;
 	output			zero;
 	
@@ -41,9 +42,9 @@ module alu(
     //--------------------------
     // Register Declarations: 
     //-------------------------- 
-	reg [7:0]		alu_output;
-	reg 		overflow;
-	reg 		zero;
+	reg [7:0]		outputALU;
+	reg 			overflow;
+	reg 			zero;
 	
     //--------------------------
     // Combinational Logic
@@ -55,42 +56,58 @@ module alu(
 		case (control)
 			3'b000 : // Move
 				begin
-					alu_output = input0;
-                  zero = (alu_output == 0) ? 1 : 0;
+					outputALU = inputA;
+					overflow = 0; 
+                  	zero = (outputALU == 0) ? 1 : 0;
 				end	
-			3'b001: // ADD
+			3'b001: // Signed ADD
 				begin
-					alu_output = input0 + input1;
-                  zero = (alu_output == 0) ? 1 : 0;
+					outputALU = inputA + inputB;
+					
+					if ((inputA >= 0 && inputB >= 0 && outputALU < 0) || (inputA < 0 && inputB < 0 && outputALU >= 0)) 
+						begin
+							overflow = 1;
+						end 
+					else 
+						begin
+							overflow = 0;
+						end
+					zero = (outputALU == 0) ? 1 : 0;
 				end	
 			3'b010: // AND
 				begin
-					alu_output = input0 & input1;
-                  zero = (alu_output == 0) ? 1 : 0;
+					outputALU = inputA & inputB;
+					overflow = 0; 
+                  	zero = (outputALU == 0) ? 1 : 0;
 				end
 			3'b011: // NOT
 				begin
-					alu_output = ~input0;
-                  zero = (alu_output == 0) ? 1 : 0;
+					outputALU = ~inputA;
+					overflow = 0;
+                  	zero = (outputALU == 0) ? 1 : 0;
 				end
 			3'b100: // NOR
 				begin
-					alu_output = ~(input0 | input1);
-                  zero = (alu_output == 0) ? 1 : 0;
+					outputALU = ~(inputA | inputB);
+					overflow = 0; 
+                  	zero = (outputALU == 0) ? 1 : 0;
 				end
 			3'b110: // Shift Left Logical
 				begin
-					alu_output = input0 << 1;
-                  zero = (alu_output == 0) ? 1 : 0;
+					outputALU = inputA << 1;
+					overflow=0;
+                  	zero = (outputALU == 0) ? 1 : 0;
 				end
 			3'b111: // Shift Right Logical
 				begin
-					alu_output = input0 >> 1;
-                  zero = (alu_output == 0) ? 1 : 0;
+					outputALU = inputA >> 1;
+					overflow=0;
+                  	zero = (outputALU == 0) ? 1 : 0;
 				end
 			default:
 				begin
 					zero = 0;
+					overflow=0;
 				end				
 		endcase
 		
@@ -103,26 +120,26 @@ module alu(
 // or browse Examples
 module test();
   reg [2:0] control;
-  reg [7:0] input0;
-  reg [7:0] input1;
-  wire [7:0] alu_output;
+  reg [7:0] inputA;
+  reg [7:0] inputB;
+  wire [7:0] outputALU;
   wire overflow;
   wire zero; 
   
   alu ALU(
     .control(control),
-    .input0(input0),
-    .input1(input1),
-    .alu_output(alu_output),
+    .inputA(inputA),
+    .inputB(inputB),
+    .outputALU(outputALU),
     .overflow(overflow),
     .zero(zero));
  
   initial begin
-    $display("control=%b, input0=%b, input1=%b, alu_output=%b, overflow=%b, zero=%b", control, input0, input1, alu_output, overflow, zero);
+    $display("control=%b, inputA=%b, inputB=%b, outputALU=%b, overflow=%b, zero=%b", control, inputA, inputB, outputALU, overflow, zero);
     control = 3'b000;
-    input0 = 8'b01;
-    input1 = 8'b11111111;
-    $monitor("control=%b, input0=%b, input1=%b, alu_output=%b, overflow=%b, zero=%b", control, input0, input1, alu_output, overflow, zero);
+    inputA = 8'b01;
+    inputB = 8'b11111111;
+    $monitor("control=%b, inputA=%b, inputB=%b, outputALU=%b, overflow=%b, zero=%b", control, inputA, inputB, outputALU, overflow, zero);
   end
 
 endmodule
