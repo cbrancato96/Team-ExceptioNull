@@ -23,7 +23,7 @@ module control_unit(
   output wren_data;
   output datamem_toreg;
   
-  wire [2:0] alu_control;
+  reg [2:0] alu_control;
   reg alu_zero;
   reg branch;
   reg alu_src;
