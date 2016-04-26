@@ -1,182 +1,163 @@
 module control_unit(
-  inst op,
-  data_mem_wren,
-  reg_file_wren,
-  reg_file_dmux_select,
-  reg_file_rmux_select,
-  alu_mux_select,
+  instruction,
+  op,
   alu_control,
   alu_zero,
-  pc_control);
+  branch,
+  alu_src,
+  wren_reg,
+  wren_data,
+  datamem_toreg);
 
+  input [7:0] instruction;
+  input [3:0] op;
+  
+  wire [3:0] op;
+  wire [7:0] instruction;
+  
+  output alu_zero;
+  output [2:0] alu_control;
+  output branch;
+  output alu_src;
+  output wren_reg;
+  output wren_data;
+  output datamem_toreg;
+  
+  reg [2:0] alu_control;
+  reg alu_zero;
+  reg branch;
+  reg alu_src;
+  reg wren_reg;
+  reg wren_data;
+  reg datamem_toreg;
+  
 
-  input [7:4] op;
-  input alu_zero;
-  
-  output 
-  
-  
-  wire [3:0]
-  assign instruction = op [0:3]
-  always @(op)
-  begin
-    if op = 0000    //Move
-      alu control = 011;
+  assign op = instruction [7:4];
+  always @(instruction) 
+    begin
+      
+    if (op == 4'b0000) begin   //Move
+      alu_control = 3'b011;
       branch = 0;
       alu_src = 1;
       wren_reg = 1;
       wren_data = 0;
       datamem_toreg = 1;
-      end 
-      
-    else
-    if op = 0001    //Add
-      alu control = 011;
+      end else
+        
+    if (op == 4'b0001) begin   //Add
+      alu_control = 3'b011;
       branch = 0;
       alu_src = 1;
       wren_reg = 1;
       wren_data = 0;
       datamem_toreg = 1;
-      end
-      
-    else 
-    if op = 0010    //And
-      alu control = 011;
+      end else 
+        
+    if (op == 4'b0010) begin   //And
+      alu_control = 3'b011;
       branch = 0;
       alu_src = 1;
       wren_reg = 1;
       wren_data = 0;
       datamem_toreg = 1;
-      end
-      
-    else 
-    if op = 0011    //Not
-      alu control = 011;
+      end else
+        
+    if (op == 4'b0011) begin//Not
+      alu_control = 3'b011;
       branch = 0;
       alu_src = 1;
       wren_reg = 1;
       wren_data = 0;
       datamem_toreg = 1;
-      end
-      
-    else 
-    if op = 0100    //Nor
-      alu control = 011;
+      end else
+        
+    if (op == 4'b0100) begin   //Nor
+      alu_control = 3'b011;
       branch = 0;
       alu_src = 1;
       wren_reg = 1;
       wren_data = 0;
       datamem_toreg = 1;
-      end
-      
-    else 
-    if op = 0101    //Slt: Set Less Than 
-      alu control = 101;
+  	  end else 
+        
+    if (op == 4'b0101) begin   //Slt: Set Less Than 
+      alu_control = 3'b101;
       branch = 0;
       alu_src = 1;
       wren_reg = 1;
       wren_data = 0;
       datamem_toreg = 1;
-      end
-      
-    else
-    if op = 0110    //Sll: Shift Left Logical
-      alu control = 110;
+      end else
+        
+    if (op == 4'b0110) begin    //Sll: Shift Left Logical
+      alu_control = 3'b110;
       branch = 0;
       alu_src = 1;
       wren_reg = 0;
       wren_data = 0;
       datamem_toreg = 1;
-      end
-      
-    else 
-    if op = 0111    //Srl: Shift Right Logical
-      alu control = 111;
+      end else
+        
+    if (op == 4'b0111) begin   //Srl: Shift Right Logical
+      alu_control = 3'b111;
       branch = 0;
       alu_src = 1;
       wren_reg = 0;
       wren_data = 0;
       datamem_toreg = 1;
-      end
-      
-    else 
-    if op = 1000    //J: Jump
-      alu control = 000;
+      end else 
+    
+    if (op == 4'b1000) begin   //J: Jump
+      alu_control = 3'b000;
       branch = 1;
       alu_src = 1;
       wren_reg = 0;
-      wren_data = x;
-      datamem_toreg = x;
-      end
-      
-    else 
-    if op = 1001    //Jal: Jump and link
-      alu control = 001;
+      wren_data = 0;
+      datamem_toreg = 0;
+  	  end else 
+        
+    if (op == 4'b1001) begin    //Jal: Jump and link
+      alu_control = 3'b001;
       branch = 1;
       alu_src = 1;
       wren_reg = 0;
-      wren_data = x;
-      datamem_toreg = x;
-      end
-      
-   else 
-    if op = 1010    //lw: load word
-      alu control = 010;
+      wren_data = 0;
+      datamem_toreg = 0;
+  	  end else
+        
+    if (op == 4'b1010) begin   //lw: load word
+      alu_control = 3'b010;
       branch = 0;
       alu_src = 1;
       wren_reg = 0;
       wren_data = 0;
       datamem_toreg = 1;
-      end
-      
-   else 
-    if op = 1011    //sw: store word
-      alu control = 011;
+      end else 
+        
+    if (op == 4'b1011) begin  //sw: store word
+      alu_control = 3'b011;
       branch = 0;
-      alu_src = x;
+      alu_src = 0;
       wren_reg = 1;
       wren_data = 1;
       datamem_toreg = 1;
-      end
-      
-   else 
-    if op = 1100   //beq: branch if equal
-      alu control = 100;
+      end else
+        
+    if (op == 4'b1100) begin   //beq: branch if equal
+      alu_control = 3'b100;
       branch = 1;
       alu_src = 1;
       wren_reg = 0;
       wren_data = 0;
       datamem_toreg = 0;
-      end
-      
-   else 
-    if op = 1101   //bne: branch not equal
-      alu control = 101;
+      end else
+        
+    if (op == 4'b1101) begin   //bne: branch not equal
+      alu_control = 3'b101;
       branch = 1;
       alu_src = 1;
       wren_reg = 0;
       wren_data = 0;
-      datamem_toreg = x;
-      end
-      
-   else 
-    if op = 1110   //addi: add immediate
-      alu control = 110;
-      branch = 0;
-      alu_src = 1;
-      wren_reg = 0;
-      wren_data = 0;
       datamem_toreg = 0;
-   
-   else 
-    if op = 1111   //li: load immediate
-      alu control = 111;
-      branch = 0;
-      alu_src = 1;
-      wren_reg = 1;
-      wren_data = 0;
-      datamem_toreg = 1;
-      end
-      
-      
-endmodule
+      end else
