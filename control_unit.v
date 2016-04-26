@@ -23,7 +23,7 @@ module control_unit(
   output wren_data;
   output datamem_toreg;
   
-  reg [2:0] alu_control;
+  wire [2:0] alu_control;
   reg alu_zero;
   reg branch;
   reg alu_src;
@@ -32,7 +32,7 @@ module control_unit(
   reg datamem_toreg;
   
 
-  assign op = instruction [7:4];
+  assign instruction [7:4] = op;
   always @(instruction) 
     begin
       
@@ -161,3 +161,47 @@ module control_unit(
       wren_data = 0;
       datamem_toreg = 0;
       end else
+        
+    if (op == 4'b1110) begin  //addi: add immediate
+      alu_control = 3'b110;
+      branch = 0;
+      alu_src = 1;
+      wren_reg = 0;
+      wren_data = 0;
+      datamem_toreg = 0;
+  	  end else 
+        
+    if (op == 4'b1111) begin //li: load immediate
+      alu_control = 3'b111;
+      branch = 0;
+      alu_src = 1;
+      wren_reg = 1;
+      wren_data = 0;
+      datamem_toreg = 1;
+      end
+    end   
+    
+endmodule
+
+
+module test;
+  
+  wire [2:0] alu_control;
+  reg alu_zero;
+  reg branch;
+  reg alu_src;
+  reg wren_reg;
+  reg wren_data;
+  reg datamem_toreg;
+  
+  wire [3:0] op;
+  reg [7:0] instruction;
+  
+  initial begin
+    instruction = 8'b0;
+    #1;
+ 	$monitor ("op=%b,instruction=%b,alu_control=%b",op,instruction,alu_control);
+    #10 instruction = 8'b10;
+  end
+ 
+endmodule
