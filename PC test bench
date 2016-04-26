@@ -1,0 +1,27 @@
+// Testbench
+module test;
+  
+  reg clk;
+  reg pc_control;
+  reg [7:0] jump_offset;
+  reg [7:0] pc;
+  wire [7:0] pc_update;
+  
+  initial begin
+    clk = 0;
+    pc_control = 0;
+    jump_offset = 1111111;
+    pc = 0;
+    $monitor("pc:%b",pc_update, pc);
+    $display("Initial conditions");
+    #5 clk = 1;
+  end
+  
+  task monitor;
+    begin
+      $monitor("pc:%b pc_control:%b",pc_update, pc, pc_control);
+    end
+  endtask
+  
+
+endmodule
