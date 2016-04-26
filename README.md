@@ -15,11 +15,12 @@ Parts: PC, Instruction Memory, Registers, ALU, Data Memory
 Modules:
 Finte State Machine: Fetch, Decode, Execute, Memread, Writeback
 
-PC  
-Instruction Memory
-Register Files 
-ALU
-Data Memory Module
+PC   - testbench not working
+Instruction Memory - testbench working but it needs memory to test (because instruction mem reads the address and reads from mem)
+Register Files - testbench working
+ALU - testbench working
+control unit - testbench working
+Data Memory - testbench working for write, read needs an input/memory to test (idk if its actually loading from mem, same problem as instruction mem)
 
 Compiler Program needed
 
