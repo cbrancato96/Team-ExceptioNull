@@ -1,4 +1,5 @@
-`timescale 1ns / 1ps
+// Code your design here
+
 //-----------------------------------------------------------------------
 // Engineers	: 	Krishna Thiyagarjan, Chirs Brancato, Ihsan Gunay
 // College		:	The Cooper Union for the Advancement of Science & Art
@@ -13,9 +14,9 @@ module alu(
     control,	//specifies the alu operation
     input0, 	//first input
     input1, 	//second input
-    output, 	//alu output
-    zero 		//zero flag
-);
+    alu_output, 	//alu output
+    zero, 		//zero flag
+	overflow);
 
     //--------------------------
 	// Inputs
@@ -29,7 +30,7 @@ module alu(
     // Outputs
     //--------------------------
 
-    output 	[7:0] 	output; 
+	output 	[7:0] 	alu_output; 
 	output			overflow;
 	output			zero;
 	
@@ -40,7 +41,7 @@ module alu(
     //--------------------------
     // Register Declarations: 
     //-------------------------- 
-    reg [7:0]	output;
+	reg [7:0]		alu_output;
 	reg 		overflow;
 	reg 		zero;
 	
@@ -54,38 +55,38 @@ module alu(
 		case (control)
 			3'b000 : // Move
 				begin
-					output = input0;
-					zero = (output == 0) ? 1 : 0;
+					alu_output = input0;
+                  zero = (alu_output == 0) ? 1 : 0;
 				end	
 			3'b001: // ADD
 				begin
-					output = input0 + input1;
-					zero = (output == 0) ? 1 : 0;
+					alu_output = input0 + input1;
+                  zero = (alu_output == 0) ? 1 : 0;
 				end	
 			3'b010: // AND
 				begin
-					output = input0 & input1;
-					zero = (output == 0) ? 1 : 0;
+					alu_output = input0 & input1;
+                  zero = (alu_output == 0) ? 1 : 0;
 				end
 			3'b011: // NOT
 				begin
-					output = ~input0;
-					zero = (output == 0) ? 1 : 0;
+					alu_output = ~input0;
+                  zero = (alu_output == 0) ? 1 : 0;
 				end
 			3'b100: // NOR
 				begin
-					output = ~(input0 | input1);
-					zero = (output == 0) ? 1 : 0;
+					alu_output = ~(input0 | input1);
+                  zero = (alu_output == 0) ? 1 : 0;
 				end
 			3'b110: // Shift Left Logical
 				begin
-					output = input0 << 1;
-					zero = (output == 0) ? 1 : 0;
+					alu_output = input0 << 1;
+                  zero = (alu_output == 0) ? 1 : 0;
 				end
 			3'b111: // Shift Right Logical
 				begin
-					output = input0 >> 1;
-					zero = (output == 0) ? 1 : 0;
+					alu_output = input0 >> 1;
+                  zero = (alu_output == 0) ? 1 : 0;
 				end
 			default:
 				begin
@@ -97,3 +98,31 @@ module alu(
 
 
  endmodule
+ 
+ // Code your testbench here
+// or browse Examples
+module test();
+  reg [2:0] control;
+  reg [7:0] input0;
+  reg [7:0] input1;
+  wire [7:0] alu_output;
+  wire overflow;
+  wire zero; 
+  
+  alu ALU(
+    .control(control),
+    .input0(input0),
+    .input1(input1),
+    .alu_output(alu_output),
+    .overflow(overflow),
+    .zero(zero));
+ 
+  initial begin
+    $display("control=%b, input0=%b, input1=%b, alu_output=%b, overflow=%b, zero=%b", control, input0, input1, alu_output, overflow, zero);
+    control = 3'b000;
+    input0 = 8'b01;
+    input1 = 8'b11111111;
+    $monitor("control=%b, input0=%b, input1=%b, alu_output=%b, overflow=%b, zero=%b", control, input0, input1, alu_output, overflow, zero);
+  end
+
+endmodule
