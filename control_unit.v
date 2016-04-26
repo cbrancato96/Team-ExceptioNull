@@ -1,3 +1,4 @@
+// Code your design here
 module control_unit(
   instruction,
   op,
@@ -10,7 +11,7 @@ module control_unit(
   datamem_toreg);
 
   input [7:0] instruction;
-  input [3:0] op;
+  inout [3:0] op;
   
   wire [3:0] op;
   wire [7:0] instruction;
@@ -32,12 +33,12 @@ module control_unit(
   reg datamem_toreg;
   
 
-  assign instruction [7:4] = op;
+  assign op = instruction[7:4];
   always @(instruction) 
     begin
       
     if (op == 4'b0000) begin   //Move
-      alu_control = 3'b011;
+      alu_control = 3'b000;
       branch = 0;
       alu_src = 1;
       wren_reg = 1;
@@ -46,7 +47,7 @@ module control_unit(
       end else
         
     if (op == 4'b0001) begin   //Add
-      alu_control = 3'b011;
+      alu_control = 3'b001;
       branch = 0;
       alu_src = 1;
       wren_reg = 1;
@@ -55,7 +56,7 @@ module control_unit(
       end else 
         
     if (op == 4'b0010) begin   //And
-      alu_control = 3'b011;
+      alu_control = 3'b010;
       branch = 0;
       alu_src = 1;
       wren_reg = 1;
@@ -73,7 +74,7 @@ module control_unit(
       end else
         
     if (op == 4'b0100) begin   //Nor
-      alu_control = 3'b011;
+      alu_control = 3'b100;
       branch = 0;
       alu_src = 1;
       wren_reg = 1;
@@ -183,8 +184,11 @@ module control_unit(
     
 endmodule
 
+////////////////////////////////////
+// Code your testbench here
+// or browse Examples
 
-module test;
+module test();
   
   wire [2:0] alu_control;
   reg alu_zero;
@@ -197,11 +201,22 @@ module test;
   wire [3:0] op;
   reg [7:0] instruction;
   
+  control_unit CONTROL_UNIT(
+    .alu_control(alu_control),
+    .op(op),
+    .instruction(instruction),
+    .alu_zero(alu_zero),
+    .branch(branch),
+    .alu_src(alu_src),
+    .wren_reg(wren_reg),
+    .wren_data(wren_data),
+    .datamem_toreg(datamem_toreg));
+ 
   initial begin
     instruction = 8'b0;
-    #1;
- 	$monitor ("op=%b,instruction=%b,alu_control=%b",op,instruction,alu_control);
-    #10 instruction = 8'b10;
+    #10ns;
+    $monitor ("op=%b,	instruction=%b,	alu_control=%b,	branch=%b,	alu_src=%b,	wren_reg=%b,	wren_data=%b,	datamem_toreg=%b",op,instruction,alu_control,branch,alu_src,wren_reg,wren_data,datamem_toreg);
+    #10 instruction = 8'b11101111;
   end
- 
+
 endmodule
