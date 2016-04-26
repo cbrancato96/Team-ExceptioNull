@@ -14,6 +14,7 @@ assign instruction_data = instruction_mem[instruction_address];
 endmodule
 
 
+
 // Code your testbench here
 // or browse Examples
 
@@ -26,6 +27,7 @@ module test();
     .instruction_data(instruction_data));
  
   initial begin
+	instruction_address = 8'b0;
     $display("instruction_address=%b,instruction_data=%b",instruction_address, instruction_data);
 
 $monitor("instruction_address=%b,instruction_data=%b",instruction_address, instruction_data);
