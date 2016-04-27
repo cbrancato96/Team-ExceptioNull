@@ -14,7 +14,14 @@ assign instruction_data = instruction_mem[instruction_address];
   
 endmodule
 
+// Code your design here
+module  memory();
+  reg [7:0] instruction_memory [0:5];
 
+initial begin
+  $readmemh("memory.list", instruction_memory);
+end
+endmodule
 
 // Code your testbench here
 // or browse Examples
