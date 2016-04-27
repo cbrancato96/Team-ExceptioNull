@@ -23,6 +23,15 @@ wire [7:0] read_data;
         end
 endmodule
 
+// Code your design here
+module  memory();
+  reg [7:0] data_memory [0:5];
+
+initial begin
+  $readmemh("datamemory.list", data_memory);
+end
+endmodule
+
 module test();
   reg [5:0] data_address;
   reg [7:0] write_data;
