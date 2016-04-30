@@ -18,7 +18,6 @@ int main () {
 	while ( getline (assFile,assRawCmd) ){
 
 		assCmd = assRawCmd.substr(0,assRawCmd.find('#'));
-		cout << assCmd << endl;
 		string oper, inOne, inTwo;
 		string opCode, binInOne, binInTwo; 
 		assSplitter << assCmd; 
