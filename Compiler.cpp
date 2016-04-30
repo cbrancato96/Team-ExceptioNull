@@ -1,17 +1,23 @@
-	#include <iostream>
+#include <iostream>
+#include <string>
+#include <vector>
+#include <sstream>
+#include <cstdlib>
 #include <fstream>
+
 using namespace std;
 
 int main () {
-	ofstream assFile, binFile;
+	ifstream assFile;
+	ofstream binFile;
 	stringstream assSplitter; 
 	assFile.open ("Program.txt");
 	binFile.open("CompiledBinary.txt"); 
-  	string assRawCmd, asCmd;
+  	string assRawCmd, assCmd;
 
 	while ( getline (assFile,assRawCmd) ){
 
-		assCmd = assRawCmd.substr(0,assRawCmd.fild('#'));
+		assCmd = assRawCmd.substr(0,assRawCmd.find('#'));
 		string oper, inOne, inTwo;
 		string opCode, binInOne, binInTwo; 
 		assSplitter << assCmd; 
