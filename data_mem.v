@@ -1,4 +1,3 @@
-// Code your design here
 module data_mem (
 data_address,
 write_data,
@@ -17,13 +16,13 @@ wire [7:0] read_data;
   
 	always @(write_enable)
 		begin
-          if (write_enable == 1) begin     
-    		mem[data_address] <= write_data;
-		  end
+          		if (write_enable == 1) begin     
+    			mem[data_address] <= write_data;
+		end
         end
 endmodule
 
-// Code your design here
+//Load Data into Memory Module
 module  memory();
   reg [7:0] data_memory [0:5];
 
@@ -32,7 +31,9 @@ initial begin
 end
 endmodule
 
+//Testbench
 module test();
+
   reg [5:0] data_address;
   reg [7:0] write_data;
   reg write_enable;
@@ -47,8 +48,8 @@ module test();
   initial begin
     $display("data_address=%b, write_data=%b, write_enable=%b, read_data=%b", data_address, write_data, write_enable, read_data);
 	write_enable = 0;
-    data_address = 0;
-    write_data = 1;
+    	data_address = 0;
+	 write_data = 1;
     $monitor("data_address=%b, write_data=%b, write_enable=%b, read_data=%b", data_address, write_data, write_enable, read_data);
   end
 
