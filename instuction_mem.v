@@ -1,20 +1,18 @@
-// Code your design here
 module instruction_mem (
 instruction_address,
-instruction_data,
-);
+instruction_data);
 
 input [7:0] instruction_address;
 output [7:0] instruction_data;  
 
 reg [7:0] instruction_data;
-  reg [7:0] instruction_mem [5:0];
+reg [7:0] instruction_mem [5:0];
   
 assign instruction_data = instruction_mem[instruction_address];
   
 endmodule
 
-// Code your design here
+//Loading into Memory Module
 module  memory();
   reg [7:0] instruction_memory [0:5];
 
@@ -23,9 +21,7 @@ initial begin
 end
 endmodule
 
-// Code your testbench here
-// or browse Examples
-
+//Testbench
 module test();
   reg [7:0] instruction_address;
   wire [7:0] instruction_data;
