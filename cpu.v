@@ -1,5 +1,7 @@
 module cpu()
   
+  //Declarations
+  
   wire [7:0] pc;
   wire [7:0] instruction;
   wire [7:0] stack_state;
@@ -25,3 +27,9 @@ module cpu()
   
   wire [7:0] alu_result;
   wire [7:0] mem_r_result;
+
+  // Operations
+  instruction_mem instMem()
+  
+  
+  
