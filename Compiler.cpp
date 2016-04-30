@@ -11,13 +11,14 @@ int main () {
 	ifstream assFile;
 	ofstream binFile;
 	stringstream assSplitter; 
-	assFile.open ("Program.txt");
+	assFile.open ("text.mem");
 	binFile.open("CompiledBinary.txt"); 
   	string assRawCmd, assCmd;
 
 	while ( getline (assFile,assRawCmd) ){
 
 		assCmd = assRawCmd.substr(0,assRawCmd.find('#'));
+		cout << assCmd << endl;
 		string oper, inOne, inTwo;
 		string opCode, binInOne, binInTwo; 
 		assSplitter << assCmd; 
@@ -59,28 +60,31 @@ int main () {
 			opCode = "1111";
 		}
 
-		if(!inOne.compare("$t0")){
+		if(!inOne.compare("$r0")){
 			binInOne = "00";
-		}else if(!inOne.compare("$t1")){
+		}else if(!inOne.compare("$r1")){
 			binInOne = "01";
 		}
-		else if(!inOne.compare("$t2")){
+		else if(!inOne.compare("$r2")){
 			binInOne = "10";
 		}
-		else if(!inOne.compare("$t3")){
+		else if(!inOne.compare("$r3")){
 			binInOne ="11";
 		}
 
-		if(!inTwo.compare("$t0")){
+		if(!inTwo.compare("$r0")){
 			binInTwo = "00";
-		}else if(!inTwo.compare("$t1")){
+		}else if(!inTwo.compare("$r1")){
 			binInTwo = "01";
 		}
-		else if(!inTwo.compare("$t2")){
+		else if(!inTwo.compare("$r2")){
 			binInTwo = "10";
 		}
-		else if(!inTwo.compare("$t3")){
+		else if(!inTwo.compare("$r3")){
 			binInTwo ="11";
+		}
+		else{
+			binInTwo = inTwo;
 		}
 
 		binFile << opCode << binInOne << binInTwo << "\n";
