@@ -16,24 +16,15 @@ module alu(
     inputB, 	//second input
     outputALU, 	//alu output
     zero, 		//zero flag
-	overflow
-	);
+    overflow);
 
-    //--------------------------
-	// Inputs
-	//--------------------------
+input 		[2:0]	control;
+input 		[7:0] 	inputA; 
+input		[7:0]	inputB;
 
-    input 		[2:0]	control;
-	input 		[7:0] 	inputA; 
-	input		[7:0]	inputB;
-	
-    //--------------------------
-    // Outputs
-    //--------------------------
-
-	output 	[7:0] 	outputALU; 
-	output			overflow;
-	output			zero;
+output 	[7:0] 	outputALU; 
+output			overflow;
+output			zero;
 	
     //--------------------------
     // Begin Design
@@ -115,9 +106,9 @@ module alu(
 
 
  endmodule
- 
- // Code your testbench here
-// or browse Examples
+
+//Testbench
+
 module test();
   reg [2:0] control;
   reg [7:0] inputA;
@@ -136,9 +127,9 @@ module test();
  
   initial begin
     $display("control=%b, inputA=%b, inputB=%b, outputALU=%b, overflow=%b, zero=%b", control, inputA, inputB, outputALU, overflow, zero);
-    control = 3'b000;
-    inputA = 8'b01;
-    inputB = 8'b11111111;
+    	control = 3'b000;
+    	inputA = 8'b01;
+    	inputB = 8'b11111111;
     $monitor("control=%b, inputA=%b, inputB=%b, outputALU=%b, overflow=%b, zero=%b", control, inputA, inputB, outputALU, overflow, zero);
   end
 

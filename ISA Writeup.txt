@@ -30,13 +30,13 @@ All instructions, unless otherwise noted, have rd implied as $t0.
 0011 	Not
 0100 	Nor
 0101 	Slt
-0110 	Sll	Implied Shamt = 1, To shift by 2 call function Sll twice
-0111 	Srl	Implied Shamt = 1, To shift by 2 call function Slr twice
+0110 	Sll	unsigned shamt $rd = $rs
+0111 	Srl	unsigned shamt $rd = $rs
 
 J Instruction Set
 
-1000	J
-1001	Jal
+1000	J $rs back_en
+1001	Jal $rs num_of_saved_regs
 
 I Instruction Set
 

@@ -10,8 +10,10 @@ module program_counter(
   input [7:0] pc_control;
   inout [7:0] offset;
   input [7:0] jump_offset;
+  
   output [7:0] pc;
   output[7:0] pc_update;
+  
   reg [7:0] pc;
   wire [7:0] pc_update;
   wire [7:0] offset;
@@ -26,12 +28,13 @@ module program_counter(
   always @ (posedge clk)
     begin 
       if (clk) begin 
-  	 pc <= pc_update;
-    end
+  	    pc <= pc_update;
+      end
   end 
 endmodule
 
-#########################################
+
+//Testbench
 module test;
   
   reg clk;
