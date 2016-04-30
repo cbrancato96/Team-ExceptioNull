@@ -2,6 +2,7 @@ module cpu()
   
   wire [7:0] pc;
   wire [7:0] instruction;
+  wire [7:0] stack_state;
   
   wire [1:0] reg_add_s0;
   wire [1:0] reg_add_s1;
@@ -19,6 +20,8 @@ module cpu()
   wire sel_w_result;
   wire mem_w_en;
   wire reg_w_en;
+  wire stack_w_en;
+  wire stack_r_en;
   
   wire [7:0] alu_result;
   wire [7:0] mem_r_result;
