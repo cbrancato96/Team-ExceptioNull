@@ -4,6 +4,7 @@
 #include <sstream>
 #include <cstdlib>
 #include <fstream>
+#include <string.h>
 
 using namespace std;
 
@@ -18,6 +19,11 @@ int main () {
 	while ( getline (assFile,assRawCmd) ){
 
 		assCmd = assRawCmd.substr(0,assRawCmd.find('#'));
+
+		if(!assRawCmd.compare("") || !assCmd.compare(""))
+			continue; 
+		else assCmd = assCmd + " ";
+
 		string oper, inOne, inTwo;
 		string opCode, binInOne, binInTwo; 
 		assSplitter << assCmd; 
@@ -26,7 +32,7 @@ int main () {
 		assSplitter >> inTwo; 
 
 		if(!oper.compare("mv")){
-			opCode = "0000"; 
+			opCode = "0000";
 		}else if(!oper.compare("add")){
 			opCode = "0001";
 		} else if(!oper.compare("and")){
