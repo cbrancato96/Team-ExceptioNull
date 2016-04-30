@@ -1,4 +1,3 @@
-// Code your design here
 module program_counter(
   clk,
   pc_control,
@@ -28,13 +27,11 @@ module program_counter(
     begin 
       if (clk) begin 
   	 pc <= pc_update;
-
     end
   end 
 endmodule
 
-// Code your testbench here
-// or browse Examples
+#########################################
 module test;
   
   reg clk;
@@ -67,6 +64,13 @@ module test;
     display;
     
     pc_control = 8'b11111111;
+    clk = 1;
+    display;
+    
+    pc_control = 8'b0;
+    clk = 0;
+    display;
+    
     clk = 1;
     display;
   end
