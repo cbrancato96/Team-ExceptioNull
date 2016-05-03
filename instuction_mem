@@ -6,34 +6,34 @@
 :vpi_module "vhdl_sys";
 :vpi_module "v2005_math";
 :vpi_module "va_math";
-S_0x1fdb4d0 .scope module, "memory" "memory" 2 16;
+S_0x1de54d0 .scope module, "memory" "memory" 2 16;
  .timescale 0 0;
-v0x1fdb7d0 .array "instruction_memory", 5 0, 7 0;
-S_0x1fdb650 .scope module, "test" "test" 2 25;
+v0x1de57d0 .array "instruction_memory", 5 0, 7 0;
+S_0x1de5650 .scope module, "test" "test" 2 25;
  .timescale 0 0;
-v0x1fffe70_0 .var "instruction_address", 7 0;
-v0x1ffff60_0 .net "instruction_data", 7 0, L_0x2000120;  1 drivers
-S_0x1fdc1e0 .scope module, "INSTRUCTION_MEM" "instruction_mem" 2 29, 2 1 0, S_0x1fdb650;
+v0x1e09f50_0 .var "instruction_address", 7 0;
+v0x1e0a040_0 .net "instruction_data", 7 0, L_0x1e0a200;  1 drivers
+S_0x1de61e0 .scope module, "INSTRUCTION_MEM" "instruction_mem" 2 29, 2 1 0, S_0x1de5650;
  .timescale 0 0;
     .port_info 0 /INPUT 8 "instruction_address"
     .port_info 1 /OUTPUT 8 "instruction_data"
-L_0x2000120 .functor BUFZ 8, L_0x2000030, C4<00000000>, C4<00000000>, C4<00000000>;
-v0x1fdc3b0_0 .net *"_s0", 7 0, L_0x2000030;  1 drivers
-v0x1fffb80_0 .net "instruction_address", 7 0, v0x1fffe70_0;  1 drivers
-v0x1fffc60_0 .net "instruction_data", 7 0, L_0x2000120;  alias, 1 drivers
-v0x1fffd50 .array "instruction_mem", 0 5, 7 0;
-L_0x2000030 .array/port v0x1fffd50, v0x1fffe70_0;
-    .scope S_0x1fdb4d0;
+L_0x1e0a200 .functor BUFZ 8, L_0x1e0a110, C4<00000000>, C4<00000000>, C4<00000000>;
+v0x1de63b0_0 .net *"_s0", 7 0, L_0x1e0a110;  1 drivers
+v0x1e09c60_0 .net "instruction_address", 7 0, v0x1e09f50_0;  1 drivers
+v0x1e09d40_0 .net "instruction_data", 7 0, L_0x1e0a200;  alias, 1 drivers
+v0x1e09e30 .array "instruction_mem", 0 5, 7 0;
+L_0x1e0a110 .array/port v0x1e09e30, v0x1e09f50_0;
+    .scope S_0x1de54d0;
 T_0 ;
-    %vpi_call 2 20 "$readmemh", "memory.list", v0x1fdb7d0 {0 0 0};
+    %vpi_call 2 20 "$readmemh", "CompiledBinary.txt", v0x1de57d0 {0 0 0};
     %end;
     .thread T_0;
-    .scope S_0x1fdb650;
+    .scope S_0x1de5650;
 T_1 ;
     %pushi/vec4 0, 0, 8;
-    %store/vec4 v0x1fffe70_0, 0, 8;
-    %vpi_call 2 35 "$display", "instruction_address=%b,instruction_data=%b", v0x1fffe70_0, v0x1ffff60_0 {0 0 0};
-    %vpi_call 2 37 "$monitor", "instruction_address=%b,instruction_data=%b", v0x1fffe70_0, v0x1ffff60_0 {0 0 0};
+    %store/vec4 v0x1e09f50_0, 0, 8;
+    %vpi_call 2 35 "$display", "instruction_address=%b,instruction_data=%b", v0x1e09f50_0, v0x1e0a040_0 {0 0 0};
+    %vpi_call 2 37 "$monitor", "instruction_address=%b,instruction_data=%b", v0x1e09f50_0, v0x1e0a040_0 {0 0 0};
     %end;
     .thread T_1;
 # The file index is used to find the file name in the following table.

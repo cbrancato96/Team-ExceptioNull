@@ -17,7 +17,7 @@ module  memory();
   reg [7:0] instruction_memory [0:5];
 
 initial begin
-  $readmemh("memory.list", instruction_memory);
+  $readmemh("CompiledBinary.txt", instruction_memory);
 end
 endmodule
 
