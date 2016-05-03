@@ -21,7 +21,7 @@ module alu(
 input 		[2:0]	control;
 input 		[7:0] 	inputA; 
 input		[7:0]	inputB;
-
+	
 output 	[7:0] 	outputALU; 
 output			overflow;
 output			zero;
