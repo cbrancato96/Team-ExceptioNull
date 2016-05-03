@@ -5,7 +5,7 @@ instruction_data);
 input [7:0] instruction_address;
 output [7:0] instruction_data;  
 
-reg [7:0] instruction_data;
+
 reg [7:0] instruction_mem [5:0];
   
 assign instruction_data = instruction_mem[instruction_address];
