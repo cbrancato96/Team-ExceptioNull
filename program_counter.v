@@ -8,7 +8,7 @@ module program_counter(
 
   input clk;
   input [7:0] pc_control;
-  inout [7:0] offset;
+  //inout [7:0] offset;
   input [7:0] jump_offset;
   
   output [7:0] pc;
