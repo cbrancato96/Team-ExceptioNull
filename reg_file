@@ -1,0 +1,86 @@
+#! /usr/bin/vvp
+:ivl_version "0.9.7 " "(v0_9_7)";
+:vpi_time_precision + 0;
+:vpi_module "system";
+:vpi_module "v2005_math";
+:vpi_module "va_math";
+S_0x85f790 .scope module, "test" "test" 2 43;
+ .timescale 0 0;
+v0x896670_0 .var "raddr0", 1 0;
+v0x896710_0 .var "raddr1", 1 0;
+v0x8967c0_0 .net "rdata0", 7 0, L_0x896bd0; 1 drivers
+v0x896870_0 .net "rdata1", 7 0, L_0x896dc0; 1 drivers
+v0x896950_0 .var "waddr", 1 0;
+v0x896a00_0 .var "wdata", 7 0;
+v0x896a80_0 .var "wren", 0 0;
+S_0x84d690 .scope module, "REG_FILE" "reg_file" 2 52, 2 1, S_0x85f790;
+ .timescale 0 0;
+L_0x896bd0 .functor BUFZ 8, L_0x896b30, C4<00000000>, C4<00000000>, C4<00000000>;
+L_0x896dc0 .functor BUFZ 8, L_0x896cd0, C4<00000000>, C4<00000000>, C4<00000000>;
+v0x85fde0_0 .net *"_s0", 7 0, L_0x896b30; 1 drivers
+v0x895f50_0 .net *"_s4", 7 0, L_0x896cd0; 1 drivers
+v0x895ff0_0 .var/i "i", 31 0;
+v0x896090_0 .net "raddr0", 1 0, v0x896670_0; 1 drivers
+v0x896140_0 .net "raddr1", 1 0, v0x896710_0; 1 drivers
+v0x8961e0_0 .alias "rdata0", 7 0, v0x8967c0_0;
+v0x8962c0_0 .alias "rdata1", 7 0, v0x896870_0;
+v0x896360 .array "reg_file", 0 7, 7 0;
+v0x896430_0 .net "waddr", 1 0, v0x896950_0; 1 drivers
+v0x8964d0_0 .net "wdata", 7 0, v0x896a00_0; 1 drivers
+v0x8965d0_0 .net "wren", 0 0, v0x896a80_0; 1 drivers
+E_0x85f8d0 .event edge, v0x8965d0_0;
+L_0x896b30 .array/port v0x896360, v0x896670_0;
+L_0x896cd0 .array/port v0x896360, v0x896710_0;
+    .scope S_0x84d690;
+T_0 ;
+    %set/v v0x895ff0_0, 0, 32;
+T_0.0 ;
+    %load/v 8, v0x895ff0_0, 32;
+   %cmpi/s 8, 8, 32;
+    %jmp/0xz T_0.1, 5;
+    %ix/getv/s 3, v0x895ff0_0;
+   %jmp/1 t_0, 4;
+   %ix/load 1, 0, 0;
+   %set/av v0x896360, 0, 8;
+t_0 ;
+    %ix/load 0, 1, 0;
+    %load/vp0/s 8, v0x895ff0_0, 32;
+    %set/v v0x895ff0_0, 8, 32;
+    %jmp T_0.0;
+T_0.1 ;
+    %end;
+    .thread T_0;
+    .scope S_0x84d690;
+T_1 ;
+    %wait E_0x85f8d0;
+    %load/v 8, v0x8965d0_0, 1;
+    %mov 9, 0, 2;
+    %cmpi/u 8, 1, 3;
+    %jmp/0xz  T_1.0, 4;
+    %load/v 8, v0x8964d0_0, 8;
+    %ix/getv 3, v0x896430_0;
+    %jmp/1 t_1, 4;
+    %ix/load 0, 8, 0; word width
+    %ix/load 1, 0, 0; part off
+    %assign/av v0x896360, 0, 8;
+t_1 ;
+T_1.0 ;
+    %jmp T_1;
+    .thread T_1, $push;
+    .scope S_0x85f790;
+T_2 ;
+    %vpi_call 2 62 "$display", "rdata0=%b, rdata1=%b", v0x8967c0_0, v0x896870_0;
+    %set/v v0x896670_0, 0, 2;
+    %set/v v0x896710_0, 1, 2;
+    %set/v v0x896a80_0, 1, 1;
+    %set/v v0x896950_0, 0, 2;
+    %movi 8, 170, 8;
+    %set/v v0x896a00_0, 8, 8;
+    %vpi_call 2 68 "$monitor", "raddr0=%b,raddr1=%b, rdata0=%b,\011rdata1=%b", v0x896670_0, v0x896710_0, v0x8967c0_0, v0x896870_0;
+    %end;
+    .thread T_2;
+# The file index is used to find the file name in the following table.
+:file_names 3;
+    "N/A";
+    "<interactive>";
+    "reg_file.v";
