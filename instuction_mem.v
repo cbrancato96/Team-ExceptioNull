@@ -14,7 +14,7 @@ endmodule
 
 //Loading into Memory Module
 module  memory();
-  reg [7:0] instruction_memory [0:5];
+  reg [7:0] instruction_memory [5:0];
 
 initial begin
   $readmemh("CompiledBinary.txt", instruction_memory);
