@@ -5,8 +5,6 @@ instruction_data);
 input [7:0] instruction_address;
 output [7:0] instruction_data;  
 
-
-<<<<<<< HEAD
 reg [7:0] instruction_mem;
 
 =======
@@ -18,9 +16,8 @@ endmodule
 
 //Loading into Memory Module
 module  memory();
-<<<<<<< HEAD
   reg [1:0] instruction_memory [1:0];
-=======
+
   reg [7:0] instruction_memory [0:255];
 
 
