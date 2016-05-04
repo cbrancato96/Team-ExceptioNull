@@ -27,11 +27,12 @@ always @(opcode) begin
     begin
     out = in0;
     overflow = 0;
-       jump = 0;
+       jump = 8'b0;
     end	
     
     4'b0001: // Signed ADD
     begin
+      jump = 8'b0;
     out = (in0 + in1);
       if ((in0 >= 0 && in1 >= 0 && out < 0) || (in0 < 0 && in1 < 0 	 && out >= 0)) 
 	begin
@@ -46,25 +47,25 @@ always @(opcode) begin
 		begin
 		out = in0 & in1;
 		overflow = 0;
-           jump = 0;
+           jump = 8'b0;
 		end
 			
 		4'b0011: // NOT
 		begin
 		out = ~in0;
 		overflow = 0;
-           jump = 0;
+           jump = 8'b0;
     end
 		
 		4'b0100: // NOR
 		begin
 		out = ~(in0 | in1);
 		overflow = 0; 
-           jump = 0;
+           jump = 8'b0;
     end
     	4'b0101: //Set Less Than
         begin
-           jump = 0;
+           jump = 8'b0;
         if (in0 > in1)
           out = 8'b1;
         else 
@@ -75,27 +76,30 @@ always @(opcode) begin
 		begin
 		out = in1 << 1;
 		overflow=0;
-           jump = 0;
+           jump = 8'b0;
     end
 			
 		4'b0111: // Shift Right Logical
 		begin
 		out = in1 >> 1;
 		overflow=0;
-           jump = 0;
+           jump = 8'b0;
     end
     	4'b1000: // Jump
           begin
-            
+            jump = 8'b11111111;
           end
     	4'b1001: // Jump and Link
           begin
+            jump = 8'b11111111;
           end
     	4'b1010: // Load Word
           begin
+            jump = 8'b0;
           end
     	4'b1011: // Store Word
           begin
+            jump = 8'b0;
           end
     	4'b1100: // Branch On Equal
         begin
@@ -119,7 +123,7 @@ always @(opcode) begin
     	4'b1111: // Load Immediate
           begin
             out = in0;
-             jump = 0;
+             jump = 8'b0;
           end
 		default:
 		begin
