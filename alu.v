@@ -1,105 +1,80 @@
-// Code your design here
-
-//-----------------------------------------------------------------------
-// Engineers	: 	Krishna Thiyagarjan, Chirs Brancato, Ihsan Gunay
-// College		:	The Cooper Union for the Advancement of Science & Art
-// Create Date	:	04/23/2016
-// Design Name	:	Arithmetic Logic Unit
-// Module Name	: 	alu.v
-// Project Name	: 	8-Bit MIPS Processor
-// Purpose:		Describes an ALU
-//-----------------------------------------------------------------------
-
 module alu(
-    control,	//specifies the alu operation
-    inputA, 	//first input
-    inputB, 	//second input
-    outputALU, 	//alu output
-    zero, 		//zero flag
+    instruction,	//specifies the alu operation
+    in0, 		//first input
+    in1, 		//second input
+    out, 		//alu output
     overflow);
 
-input 		[2:0]	control;
-input 		[7:0] 	inputA; 
-input		[7:0]	inputB;
+input [7:0] instruction;
+input [7:0] in0; 
+input [7:0] in1;
 	
-output 	[7:0] 	outputALU; 
-output			overflow;
-output			zero;
-	
-    //--------------------------
-    // Begin Design
-    //--------------------------
-    
-    //--------------------------
-    // Register Declarations: 
-    //-------------------------- 
-	reg [7:0]		outputALU;
-	reg 			overflow;
-	reg 			zero;
-	
-    //--------------------------
-    // Combinational Logic
-    //--------------------------
+output [7:0] out; 
+output overflow;
 
-	always @(control)
-	begin
-	
-		case (control)
-			3'b000 : // Move
-				begin
-					outputALU = inputA;
-					overflow = 0; 
-                  	zero = (outputALU == 0) ? 1 : 0;
-				end	
-			3'b001: // Signed ADD
-				begin
-					outputALU = inputA + inputB;
-					
-					if ((inputA >= 0 && inputB >= 0 && outputALU < 0) || (inputA < 0 && inputB < 0 && outputALU >= 0)) 
-						begin
+reg [7:0] out;
+reg overflow;
+wire [3:0] opcode;
+
+assign opcode = instruction[7:4];
+
+always @(opcode) begin
+
+  case (opcode)
+    3'b0000 : // Move
+    begin
+    out = in0;
+    overflow = 0; 
+    end	
+    
+    3'b0001: // Signed ADD
+    begin
+    out = input0 + input1;
+    if ((in0 >= 0 && in1 >= 0 && out < 0) || (in0 < 0 && in1 < 0 && out >= 0)) 
+			begin
 							overflow = 1;
 						end 
 					else 
 						begin
 							overflow = 0;
 						end
-					zero = (outputALU == 0) ? 1 : 0;
-				end	
-			3'b010: // AND
-				begin
-					outputALU = inputA & inputB;
-					overflow = 0; 
-                  	zero = (outputALU == 0) ? 1 : 0;
-				end
-			3'b011: // NOT
-				begin
-					outputALU = ~inputA;
-					overflow = 0;
-                  	zero = (outputALU == 0) ? 1 : 0;
-				end
-			3'b100: // NOR
-				begin
-					outputALU = ~(inputA | inputB);
-					overflow = 0; 
-                  	zero = (outputALU == 0) ? 1 : 0;
-				end
-			3'b110: // Shift Left Logical
-				begin
-					outputALU = inputA << 1;
-					overflow=0;
-                  	zero = (outputALU == 0) ? 1 : 0;
-				end
-			3'b111: // Shift Right Logical
-				begin
-					outputALU = inputA >> 1;
-					overflow=0;
-                  	zero = (outputALU == 0) ? 1 : 0;
-				end
-			default:
-				begin
-					zero = 0;
-					overflow=0;
-				end				
+		end	
+		
+		3'b010: // AND
+		begin
+		out = in0 & in1;
+		overflow = 0; 
+		end
+			
+		3'b011: // NOT
+		begin
+		out = ~in0;
+		overflow = 0;
+    end
+		
+		3'b100: // NOR
+		begin
+		out = ~(in0 | in1);
+		overflow = 0; 
+    end
+    
+		3'b110: // Shift Left Logical
+		begin
+		out = in0 << 1;
+		overflow=0;
+    end
+			
+		3'b111: // Shift Right Logical
+		begin
+		out = in0 >> 1;
+		overflow=0;
+    end
+		
+		default:
+		begin
+		overflow=0;
+		end				
+		
 		endcase
 		
 	end
@@ -110,27 +85,42 @@ output			zero;
 //Testbench
 
 module test();
-  reg [2:0] control;
-  reg [7:0] inputA;
-  reg [7:0] inputB;
-  wire [7:0] outputALU;
+  reg [7:0] instruction;
+  reg [7:0] in0;
+  reg [7:0] in1;
+  wire [7:0] out;
   wire overflow;
-  wire zero; 
   
   alu ALU(
-    .control(control),
-    .inputA(inputA),
-    .inputB(inputB),
-    .outputALU(outputALU),
-    .overflow(overflow),
-    .zero(zero));
+    .instruction(instruction),
+    .in0(in0),
+    .in1(in1),
+    .out(out),
+    .overflow(overflow));
  
   initial begin
-    $display("control=%b, inputA=%b, inputB=%b, outputALU=%b, overflow=%b, zero=%b", control, inputA, inputB, outputALU, overflow, zero);
-    	control = 3'b000;
-    	inputA = 8'b01;
-    	inputB = 8'b11111111;
-    $monitor("control=%b, inputA=%b, inputB=%b, outputALU=%b, overflow=%b, zero=%b", control, inputA, inputB, outputALU, overflow, zero);
+    $display("instruction=%b, in0=%b, in1=%b, out=%b, overflow=%b, instruction, in0, in1, out, overflow);
+    	instruction = 8'b0;
+    	in0 = 8'b01;
+    	in1 = 8'b11;
+    $monitor("instruction=%b, in0=%b, in1=%b, out=%b, overflow=%b, instruction, in0, in1, out, overflow);
+ 		#10 instruction = 8'b00011101;
+    #10 instruction = 8'b00101101;
+    #10 instruction = 8'b00111101;
+    #10 instruction = 8'b01001101;
+    #10 instruction = 8'b01011101;
+    #10 instruction = 8'b01101101;  
+    #10 instruction = 8'b01111101;
+    #10 instruction = 8'b10001101;
+    #10 instruction = 8'b10011101;
+    #10 instruction = 8'b10101101;
+    #10 instruction = 8'b10111101;
+    #10 instruction = 8'b11001101;
+    #10 instruction = 8'b11011101;
+    #10 instruction = 8'b11101101;
+    #10 instruction = 8'b11111101;
+
+    	
   end
 
 endmodule
