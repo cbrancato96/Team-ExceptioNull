@@ -61,7 +61,7 @@ int main () {
 				if(!oper.compare("mv")){
 					opCode = "0000";
 				}else if(!oper.compare("add")){
-a				} else if(!oper.compare("and")){
+				} else if(!oper.compare("and")){
 					opCode = "0010";
 				} else if(!oper.compare("not")){
 					opCode = "0011";

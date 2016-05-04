@@ -1,260 +1,296 @@
-#! /usr/bin/vvp
-:ivl_version "0.9.7 " "(v0_9_7)";
+#! /usr/local/bin/vvp
+:ivl_version "10.1 (stable)" "(v10_1-17-g9be3fc3)";
+:ivl_delay_selection "TYPICAL";
 :vpi_time_precision + 0;
 :vpi_module "system";
+:vpi_module "vhdl_sys";
 :vpi_module "v2005_math";
 :vpi_module "va_math";
-S_0x82a690 .scope module, "test" "test" 2 112;
+S_0x173b0a0 .scope module, "test" "test" 2 112;
  .timescale 0 0;
-v0x878b20_0 .var "control", 2 0;
-v0x878bc0_0 .var "inputA", 7 0;
-v0x878c70_0 .var "inputB", 7 0;
-v0x878d20_0 .net "outputALU", 7 0, v0x8788f0_0; 1 drivers
-v0x878e00_0 .net "overflow", 0 0, v0x8789a0_0; 1 drivers
-v0x878eb0_0 .net "zero", 0 0, v0x878a40_0; 1 drivers
-S_0x82a780 .scope module, "ALU" "alu" 2 120, 2 13, S_0x82a690;
+v0x175b860_0 .var "control", 2 0;
+v0x175b940_0 .var "inputA", 7 0;
+v0x175ba10_0 .var "inputB", 7 0;
+v0x175bb10_0 .net "outputALU", 7 0, v0x175b4b0_0;  1 drivers
+v0x175bbe0_0 .net "overflow", 0 0, v0x175b590_0;  1 drivers
+v0x175bcd0_0 .net "zero", 0 0, v0x175b6a0_0;  1 drivers
+S_0x173b220 .scope module, "ALU" "alu" 2 120, 2 13 0, S_0x173b0a0;
  .timescale 0 0;
-v0x82a870_0 .net "control", 2 0, v0x878b20_0; 1 drivers
-v0x8787b0_0 .net "inputA", 7 0, v0x878bc0_0; 1 drivers
-v0x878850_0 .net "inputB", 7 0, v0x878c70_0; 1 drivers
-v0x8788f0_0 .var "outputALU", 7 0;
-v0x8789a0_0 .var "overflow", 0 0;
-v0x878a40_0 .var "zero", 0 0;
-E_0x850270 .event edge, v0x82a870_0;
-    .scope S_0x82a780;
+    .port_info 0 /INPUT 3 "control"
+    .port_info 1 /INPUT 8 "inputA"
+    .port_info 2 /INPUT 8 "inputB"
+    .port_info 3 /OUTPUT 8 "outputALU"
+    .port_info 4 /OUTPUT 1 "zero"
+    .port_info 5 /OUTPUT 1 "overflow"
+v0x17314b0_0 .net "control", 2 0, v0x175b860_0;  1 drivers
+v0x175b2e0_0 .net "inputA", 7 0, v0x175b940_0;  1 drivers
+v0x175b3c0_0 .net "inputB", 7 0, v0x175ba10_0;  1 drivers
+v0x175b4b0_0 .var "outputALU", 7 0;
+v0x175b590_0 .var "overflow", 0 0;
+v0x175b6a0_0 .var "zero", 0 0;
+E_0x17324b0 .event edge, v0x17314b0_0;
+    .scope S_0x173b220;
 T_0 ;
-    %wait E_0x850270;
-    %load/v 8, v0x82a870_0, 3;
-    %cmpi/u 8, 0, 3;
+    %wait E_0x17324b0;
+    %load/vec4 v0x17314b0_0;
+    %dup/vec4;
+    %pushi/vec4 0, 0, 3;
+    %cmp/u;
     %jmp/1 T_0.0, 6;
-    %cmpi/u 8, 1, 3;
+    %dup/vec4;
+    %pushi/vec4 1, 0, 3;
+    %cmp/u;
     %jmp/1 T_0.1, 6;
-    %cmpi/u 8, 2, 3;
+    %dup/vec4;
+    %pushi/vec4 2, 0, 3;
+    %cmp/u;
     %jmp/1 T_0.2, 6;
-    %cmpi/u 8, 3, 3;
+    %dup/vec4;
+    %pushi/vec4 3, 0, 3;
+    %cmp/u;
     %jmp/1 T_0.3, 6;
-    %cmpi/u 8, 4, 3;
+    %dup/vec4;
+    %pushi/vec4 4, 0, 3;
+    %cmp/u;
     %jmp/1 T_0.4, 6;
-    %cmpi/u 8, 6, 3;
+    %dup/vec4;
+    %pushi/vec4 6, 0, 3;
+    %cmp/u;
     %jmp/1 T_0.5, 6;
-    %cmpi/u 8, 7, 3;
+    %dup/vec4;
+    %pushi/vec4 7, 0, 3;
+    %cmp/u;
     %jmp/1 T_0.6, 6;
-    %set/v v0x878a40_0, 0, 1;
-    %set/v v0x8789a0_0, 0, 1;
+    %pushi/vec4 0, 0, 1;
+    %store/vec4 v0x175b6a0_0, 0, 1;
+    %pushi/vec4 0, 0, 1;
+    %store/vec4 v0x175b590_0, 0, 1;
     %jmp T_0.8;
 T_0.0 ;
-    %load/v 8, v0x8787b0_0, 8;
-    %set/v v0x8788f0_0, 8, 8;
-    %set/v v0x8789a0_0, 0, 1;
-    %load/v 8, v0x8788f0_0, 8;
-    %mov 16, 0, 1;
-    %cmpi/u 8, 0, 9;
-    %mov 8, 4, 1;
-    %jmp/0  T_0.9, 8;
-    %mov 9, 1, 1;
-    %jmp/1  T_0.11, 8;
+    %load/vec4 v0x175b2e0_0;
+    %store/vec4 v0x175b4b0_0, 0, 8;
+    %pushi/vec4 0, 0, 1;
+    %store/vec4 v0x175b590_0, 0, 1;
+    %load/vec4 v0x175b4b0_0;
+    %pad/u 32;
+    %cmpi/e 0, 0, 32;
+    %flag_mov 8, 4;
+    %jmp/0 T_0.9, 8;
+    %pushi/vec4 1, 0, 2;
+    %jmp/1 T_0.10, 8;
 T_0.9 ; End of true expr.
-    %jmp/0  T_0.10, 8;
+    %pushi/vec4 0, 0, 2;
+    %jmp/0 T_0.10, 8;
  ; End of false expr.
-    %blend  9, 0, 1; Condition unknown.
-    %jmp  T_0.11;
-T_0.10 ;
-    %mov 9, 0, 1; Return false value
-T_0.11 ;
-    %set/v v0x878a40_0, 9, 1;
+    %blend;
+T_0.10;
+    %pad/s 1;
+    %store/vec4 v0x175b6a0_0, 0, 1;
     %jmp T_0.8;
 T_0.1 ;
-    %load/v 8, v0x8787b0_0, 8;
-    %load/v 16, v0x878850_0, 8;
-    %add 8, 16, 8;
-    %set/v v0x8788f0_0, 8, 8;
-    %load/v 8, v0x8787b0_0, 8;
-    %mov 16, 0, 1;
-    %cmp/u 0, 8, 9;
-    %or 5, 4, 1;
-    %mov 8, 5, 1;
-    %load/v 9, v0x878850_0, 8;
-    %mov 17, 0, 1;
-    %cmp/u 0, 9, 9;
-    %or 5, 4, 1;
-    %mov 9, 5, 1;
-    %and 8, 9, 1;
-    %load/v 9, v0x8788f0_0, 8;
-    %mov 17, 0, 1;
-   %cmpi/u 9, 0, 9;
-    %mov 9, 5, 1;
-    %and 8, 9, 1;
-    %load/v 9, v0x8787b0_0, 8;
-    %mov 17, 0, 1;
-   %cmpi/u 9, 0, 9;
-    %mov 9, 5, 1;
-    %load/v 10, v0x878850_0, 8;
-    %mov 18, 0, 1;
-   %cmpi/u 10, 0, 9;
-    %mov 10, 5, 1;
-    %and 9, 10, 1;
-    %load/v 10, v0x8788f0_0, 8;
-    %mov 18, 0, 1;
-    %cmp/u 0, 10, 9;
-    %or 5, 4, 1;
-    %mov 10, 5, 1;
-    %and 9, 10, 1;
-    %or 8, 9, 1;
-    %jmp/0xz  T_0.12, 8;
-    %set/v v0x8789a0_0, 1, 1;
-    %jmp T_0.13;
+    %load/vec4 v0x175b2e0_0;
+    %load/vec4 v0x175b3c0_0;
+    %add;
+    %store/vec4 v0x175b4b0_0, 0, 8;
+    %pushi/vec4 0, 0, 32;
+    %load/vec4 v0x175b2e0_0;
+    %pad/u 32;
+    %cmp/u;
+    %flag_get/vec4 4;
+    %flag_get/vec4 5;
+    %or;
+    %pushi/vec4 0, 0, 32;
+    %load/vec4 v0x175b3c0_0;
+    %pad/u 32;
+    %cmp/u;
+    %flag_get/vec4 4;
+    %flag_get/vec4 5;
+    %or;
+    %and;
+    %load/vec4 v0x175b4b0_0;
+    %pad/u 32;
+    %cmpi/u 0, 0, 32;
+    %flag_get/vec4 5;
+    %and;
+    %flag_set/vec4 8;
+    %load/vec4 v0x175b2e0_0;
+    %pad/u 32;
+    %cmpi/u 0, 0, 32;
+    %flag_get/vec4 5;
+    %load/vec4 v0x175b3c0_0;
+    %pad/u 32;
+    %cmpi/u 0, 0, 32;
+    %flag_get/vec4 5;
+    %and;
+    %pushi/vec4 0, 0, 32;
+    %load/vec4 v0x175b4b0_0;
+    %pad/u 32;
+    %cmp/u;
+    %flag_get/vec4 4;
+    %flag_get/vec4 5;
+    %or;
+    %and;
+    %flag_set/vec4 9;
+    %flag_or 9, 8;
+    %jmp/0xz  T_0.11, 9;
+    %pushi/vec4 1, 0, 1;
+    %store/vec4 v0x175b590_0, 0, 1;
+    %jmp T_0.12;
+T_0.11 ;
+    %pushi/vec4 0, 0, 1;
+    %store/vec4 v0x175b590_0, 0, 1;
 T_0.12 ;
-    %set/v v0x8789a0_0, 0, 1;
-T_0.13 ;
-    %load/v 8, v0x8788f0_0, 8;
-    %mov 16, 0, 1;
-    %cmpi/u 8, 0, 9;
-    %mov 8, 4, 1;
-    %jmp/0  T_0.14, 8;
-    %mov 9, 1, 1;
-    %jmp/1  T_0.16, 8;
-T_0.14 ; End of true expr.
-    %jmp/0  T_0.15, 8;
+    %load/vec4 v0x175b4b0_0;
+    %pad/u 32;
+    %cmpi/e 0, 0, 32;
+    %flag_mov 8, 4;
+    %jmp/0 T_0.13, 8;
+    %pushi/vec4 1, 0, 2;
+    %jmp/1 T_0.14, 8;
+T_0.13 ; End of true expr.
+    %pushi/vec4 0, 0, 2;
+    %jmp/0 T_0.14, 8;
  ; End of false expr.
-    %blend  9, 0, 1; Condition unknown.
-    %jmp  T_0.16;
-T_0.15 ;
-    %mov 9, 0, 1; Return false value
-T_0.16 ;
-    %set/v v0x878a40_0, 9, 1;
+    %blend;
+T_0.14;
+    %pad/s 1;
+    %store/vec4 v0x175b6a0_0, 0, 1;
     %jmp T_0.8;
 T_0.2 ;
-    %load/v 8, v0x8787b0_0, 8;
-    %load/v 16, v0x878850_0, 8;
-    %and 8, 16, 8;
-    %set/v v0x8788f0_0, 8, 8;
-    %set/v v0x8789a0_0, 0, 1;
-    %load/v 8, v0x8788f0_0, 8;
-    %mov 16, 0, 1;
-    %cmpi/u 8, 0, 9;
-    %mov 8, 4, 1;
-    %jmp/0  T_0.17, 8;
-    %mov 9, 1, 1;
-    %jmp/1  T_0.19, 8;
-T_0.17 ; End of true expr.
-    %jmp/0  T_0.18, 8;
+    %load/vec4 v0x175b2e0_0;
+    %load/vec4 v0x175b3c0_0;
+    %and;
+    %store/vec4 v0x175b4b0_0, 0, 8;
+    %pushi/vec4 0, 0, 1;
+    %store/vec4 v0x175b590_0, 0, 1;
+    %load/vec4 v0x175b4b0_0;
+    %pad/u 32;
+    %cmpi/e 0, 0, 32;
+    %flag_mov 8, 4;
+    %jmp/0 T_0.15, 8;
+    %pushi/vec4 1, 0, 2;
+    %jmp/1 T_0.16, 8;
+T_0.15 ; End of true expr.
+    %pushi/vec4 0, 0, 2;
+    %jmp/0 T_0.16, 8;
  ; End of false expr.
-    %blend  9, 0, 1; Condition unknown.
-    %jmp  T_0.19;
-T_0.18 ;
-    %mov 9, 0, 1; Return false value
-T_0.19 ;
-    %set/v v0x878a40_0, 9, 1;
+    %blend;
+T_0.16;
+    %pad/s 1;
+    %store/vec4 v0x175b6a0_0, 0, 1;
     %jmp T_0.8;
 T_0.3 ;
-    %load/v 8, v0x8787b0_0, 8;
-    %inv 8, 8;
-    %set/v v0x8788f0_0, 8, 8;
-    %set/v v0x8789a0_0, 0, 1;
-    %load/v 8, v0x8788f0_0, 8;
-    %mov 16, 0, 1;
-    %cmpi/u 8, 0, 9;
-    %mov 8, 4, 1;
-    %jmp/0  T_0.20, 8;
-    %mov 9, 1, 1;
-    %jmp/1  T_0.22, 8;
-T_0.20 ; End of true expr.
-    %jmp/0  T_0.21, 8;
+    %load/vec4 v0x175b2e0_0;
+    %inv;
+    %store/vec4 v0x175b4b0_0, 0, 8;
+    %pushi/vec4 0, 0, 1;
+    %store/vec4 v0x175b590_0, 0, 1;
+    %load/vec4 v0x175b4b0_0;
+    %pad/u 32;
+    %cmpi/e 0, 0, 32;
+    %flag_mov 8, 4;
+    %jmp/0 T_0.17, 8;
+    %pushi/vec4 1, 0, 2;
+    %jmp/1 T_0.18, 8;
+T_0.17 ; End of true expr.
+    %pushi/vec4 0, 0, 2;
+    %jmp/0 T_0.18, 8;
  ; End of false expr.
-    %blend  9, 0, 1; Condition unknown.
-    %jmp  T_0.22;
-T_0.21 ;
-    %mov 9, 0, 1; Return false value
-T_0.22 ;
-    %set/v v0x878a40_0, 9, 1;
+    %blend;
+T_0.18;
+    %pad/s 1;
+    %store/vec4 v0x175b6a0_0, 0, 1;
     %jmp T_0.8;
 T_0.4 ;
-    %load/v 8, v0x8787b0_0, 8;
-    %load/v 16, v0x878850_0, 8;
-    %or 8, 16, 8;
-    %inv 8, 8;
-    %set/v v0x8788f0_0, 8, 8;
-    %set/v v0x8789a0_0, 0, 1;
-    %load/v 8, v0x8788f0_0, 8;
-    %mov 16, 0, 1;
-    %cmpi/u 8, 0, 9;
-    %mov 8, 4, 1;
-    %jmp/0  T_0.23, 8;
-    %mov 9, 1, 1;
-    %jmp/1  T_0.25, 8;
-T_0.23 ; End of true expr.
-    %jmp/0  T_0.24, 8;
+    %load/vec4 v0x175b2e0_0;
+    %load/vec4 v0x175b3c0_0;
+    %or;
+    %inv;
+    %store/vec4 v0x175b4b0_0, 0, 8;
+    %pushi/vec4 0, 0, 1;
+    %store/vec4 v0x175b590_0, 0, 1;
+    %load/vec4 v0x175b4b0_0;
+    %pad/u 32;
+    %cmpi/e 0, 0, 32;
+    %flag_mov 8, 4;
+    %jmp/0 T_0.19, 8;
+    %pushi/vec4 1, 0, 2;
+    %jmp/1 T_0.20, 8;
+T_0.19 ; End of true expr.
+    %pushi/vec4 0, 0, 2;
+    %jmp/0 T_0.20, 8;
  ; End of false expr.
-    %blend  9, 0, 1; Condition unknown.
-    %jmp  T_0.25;
-T_0.24 ;
-    %mov 9, 0, 1; Return false value
-T_0.25 ;
-    %set/v v0x878a40_0, 9, 1;
+    %blend;
+T_0.20;
+    %pad/s 1;
+    %store/vec4 v0x175b6a0_0, 0, 1;
     %jmp T_0.8;
 T_0.5 ;
-    %load/v 8, v0x8787b0_0, 8;
-    %ix/load 0, 1, 0;
-    %mov 4, 0, 1;
-    %shiftl/i0  8, 8;
-    %set/v v0x8788f0_0, 8, 8;
-    %set/v v0x8789a0_0, 0, 1;
-    %load/v 8, v0x8788f0_0, 8;
-    %mov 16, 0, 1;
-    %cmpi/u 8, 0, 9;
-    %mov 8, 4, 1;
-    %jmp/0  T_0.26, 8;
-    %mov 9, 1, 1;
-    %jmp/1  T_0.28, 8;
-T_0.26 ; End of true expr.
-    %jmp/0  T_0.27, 8;
+    %load/vec4 v0x175b2e0_0;
+    %ix/load 4, 1, 0;
+    %flag_set/imm 4, 0;
+    %shiftl 4;
+    %store/vec4 v0x175b4b0_0, 0, 8;
+    %pushi/vec4 0, 0, 1;
+    %store/vec4 v0x175b590_0, 0, 1;
+    %load/vec4 v0x175b4b0_0;
+    %pad/u 32;
+    %cmpi/e 0, 0, 32;
+    %flag_mov 8, 4;
+    %jmp/0 T_0.21, 8;
+    %pushi/vec4 1, 0, 2;
+    %jmp/1 T_0.22, 8;
+T_0.21 ; End of true expr.
+    %pushi/vec4 0, 0, 2;
+    %jmp/0 T_0.22, 8;
  ; End of false expr.
-    %blend  9, 0, 1; Condition unknown.
-    %jmp  T_0.28;
-T_0.27 ;
-    %mov 9, 0, 1; Return false value
-T_0.28 ;
-    %set/v v0x878a40_0, 9, 1;
+    %blend;
+T_0.22;
+    %pad/s 1;
+    %store/vec4 v0x175b6a0_0, 0, 1;
     %jmp T_0.8;
 T_0.6 ;
-    %load/v 8, v0x8787b0_0, 8;
-    %ix/load 0, 1, 0;
-    %mov 4, 0, 1;
-    %shiftr/i0  8, 8;
-    %set/v v0x8788f0_0, 8, 8;
-    %set/v v0x8789a0_0, 0, 1;
-    %load/v 8, v0x8788f0_0, 8;
-    %mov 16, 0, 1;
-    %cmpi/u 8, 0, 9;
-    %mov 8, 4, 1;
-    %jmp/0  T_0.29, 8;
-    %mov 9, 1, 1;
-    %jmp/1  T_0.31, 8;
-T_0.29 ; End of true expr.
-    %jmp/0  T_0.30, 8;
+    %load/vec4 v0x175b2e0_0;
+    %ix/load 4, 1, 0;
+    %flag_set/imm 4, 0;
+    %shiftr 4;
+    %store/vec4 v0x175b4b0_0, 0, 8;
+    %pushi/vec4 0, 0, 1;
+    %store/vec4 v0x175b590_0, 0, 1;
+    %load/vec4 v0x175b4b0_0;
+    %pad/u 32;
+    %cmpi/e 0, 0, 32;
+    %flag_mov 8, 4;
+    %jmp/0 T_0.23, 8;
+    %pushi/vec4 1, 0, 2;
+    %jmp/1 T_0.24, 8;
+T_0.23 ; End of true expr.
+    %pushi/vec4 0, 0, 2;
+    %jmp/0 T_0.24, 8;
  ; End of false expr.
-    %blend  9, 0, 1; Condition unknown.
-    %jmp  T_0.31;
-T_0.30 ;
-    %mov 9, 0, 1; Return false value
-T_0.31 ;
-    %set/v v0x878a40_0, 9, 1;
+    %blend;
+T_0.24;
+    %pad/s 1;
+    %store/vec4 v0x175b6a0_0, 0, 1;
     %jmp T_0.8;
 T_0.8 ;
+    %pop/vec4 1;
     %jmp T_0;
     .thread T_0, $push;
-    .scope S_0x82a690;
+    .scope S_0x173b0a0;
 T_1 ;
-    %vpi_call 2 129 "$display", "control=%b, inputA=%b, inputB=%b, outputALU=%b, overflow=%b, zero=%b", v0x878b20_0, v0x878bc0_0, v0x878c70_0, v0x878d20_0, v0x878e00_0, v0x878eb0_0;
-    %set/v v0x878b20_0, 0, 3;
-    %movi 8, 1, 8;
-    %set/v v0x878bc0_0, 8, 8;
-    %set/v v0x878c70_0, 1, 8;
-    %vpi_call 2 133 "$monitor", "control=%b, inputA=%b, inputB=%b, outputALU=%b, overflow=%b, zero=%b", v0x878b20_0, v0x878bc0_0, v0x878c70_0, v0x878d20_0, v0x878e00_0, v0x878eb0_0;
+    %vpi_call 2 129 "$display", "control=%b, inputA=%b, inputB=%b, outputALU=%b, overflow=%b, zero=%b", v0x175b860_0, v0x175b940_0, v0x175ba10_0, v0x175bb10_0, v0x175bbe0_0, v0x175bcd0_0 {0 0 0};
+    %pushi/vec4 0, 0, 3;
+    %store/vec4 v0x175b860_0, 0, 3;
+    %pushi/vec4 1, 0, 8;
+    %store/vec4 v0x175b940_0, 0, 8;
+    %pushi/vec4 255, 0, 8;
+    %store/vec4 v0x175ba10_0, 0, 8;
+    %vpi_call 2 133 "$monitor", "control=%b, inputA=%b, inputB=%b, outputALU=%b, overflow=%b, zero=%b", v0x175b860_0, v0x175b940_0, v0x175ba10_0, v0x175bb10_0, v0x175bbe0_0, v0x175bcd0_0 {0 0 0};
     %end;
     .thread T_1;
 # The file index is used to find the file name in the following table.
 :file_names 3;
     "N/A";
     "<interactive>";
-    "alu.v";
+    "/home/krishna/Desktop/CompArch/Team-ExceptioNull/alu.v";
