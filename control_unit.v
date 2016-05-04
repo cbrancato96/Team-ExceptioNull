@@ -248,7 +248,7 @@ module test();
   initial begin
     instruction = 8'b0;
     #10ns;
-    $monitor ("instruction=%b,jump=%b,	mem_w_en=%b,	reg_w_en=%b,	sel_w_source=%b, mem_r_en=%b,	reg_addr_0=%b, reg_addr_1=%b, reg_addr_w=%b",instruction,jump,mem_w_en,reg_w_en,sel_w_source, mem_r_en,reg_addr_0,reg_addr_1,reg_addr_w);
+    $monitor ("instruction=%b, mem_w_en=%b,	reg_w_en=%b,	sel_w_source=%b, mem_r_en=%b,	reg_addr_0=%b, reg_addr_1=%b, reg_addr_w=%b",instruction,mem_w_en,reg_w_en,sel_w_source, mem_r_en,reg_addr_0,reg_addr_1,reg_addr_w);
     #10 instruction = 8'b00011101;
     #10 instruction = 8'b00101101;
     #10 instruction = 8'b00111101;
@@ -268,5 +268,3 @@ module test();
   end
 
 endmodule
-
-
