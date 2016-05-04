@@ -21,5 +21,5 @@ sll $r0 10 #$r0 = 0
 #rand comment2
 addi $r0 10 #Specify offset, $r0 = 2
 addi $r2 01 #$r2 = 75
-bne $r2 $r3 #if $r2 not equal to $r3 then Branch PC+1-$br0
+bne $r2 $r3 #if $r2 not equal to $r3 then Branch PC+1-$r0
 sw $r2 $r1 #Store the result in $r1, should get $r1 = 84
