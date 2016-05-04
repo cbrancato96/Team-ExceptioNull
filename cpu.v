@@ -1,10 +1,8 @@
 module cpu()
  
-    //Declarations
+  //Declarations
   wire [7:0] pc;
   wire [7:0] instruction;
-  wire [3:0] opcode;
-  wire [3:0] imm_data;
   
   // Register File I/O
   wire [1:0] reg_addr_0; // Address of Source Reg 0
@@ -24,24 +22,32 @@ module cpu()
   
   // Results
   wire [7:0] alu_result;
+  wire overflow;
   wire [7:0] mem_r_result;
   
   // Assignments
-  assign opcode = instruction[7:4];
-  assign imm_data = instuction [3:0];
-  always @(opcode)
+  always @(state == 2'b010)
     begin
-      if (opcode == 4'b1010) begin
-        assign mem_r_en = 1
+        assign reg_data_0 = 
  
   // Operation Instantiation
   instruction_mem instMem (.instruction_address(pc), .instruction_data(instruction));
   
-  control_unit ctrl (.instruction(instruction), .jump(jump), .sel_w_source(sel_w_source), .mem_w_e    n(mem_w_en), .reg_w_en(reg_w_en));
+  control_unit ctrl (.instruction(instruction)
+                     .jump(jump),
+                     .sel_w_source(sel_w_source),
+                     .mem_w_en(mem_w_en),
+                     .reg_w_en(reg_w_en),
+                     .mem_r_en(mem_r_en),
+                     .reg_addr_0(reg_addr_0),
+                     .reg_addr_1(reg_addr_1),
+                     .reg_addr_w(reg_addr_w));
   
-  reg_file regs (.raddr0(reg_addr_0), .raddr1(reg_addr_1), .waddr(reg_addr_w), .wren(reg_w_en), .w    data(reg_wdata));
-  
-  alu arithmetics (.control(3bits), .inputA(), .inputB(), .outputALU());
+  alu arithmetics (.instruction(instruction)
+                   .in0(reg_data_0),
+                   .in1(reg_data_1)
+                   .out(alu_result)
+                   .overflow(overflow));
   
   data_mem dataMem (.data_address(data_address), .write_data(write_data), .write_enable(write_enab    le), read_data(read_data));
   
