@@ -24,7 +24,7 @@ endmodule
 
 //Load Data into Memory Module
 module  memory();
-  reg [7:0] data_memory [0:5];
+  reg [7:0] data_memory [63:0];
 
 initial begin
   $readmemh("datamemory.list", data_memory);
