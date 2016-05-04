@@ -1,4 +1,3 @@
-// Code your design here
 module control_unit(
   instruction,
  // jump,
