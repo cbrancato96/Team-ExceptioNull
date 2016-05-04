@@ -2,18 +2,15 @@ module program_counter(
   clk,
   pc_control,
   jump_offset,
-  pc_update,
   pc);
 
   input clk;
   input [7:0] pc_control;
   input [7:0] jump_offset;
-  
+  wire [7:0] pc_update;
   output [7:0] pc;
-  output[7:0] pc_update;
   
   reg [7:0] pc;
-  wire [7:0] pc_update;
   wire [7:0] offset;
   
   initial begin
@@ -30,21 +27,18 @@ module program_counter(
   end 
 endmodule
 
-////////////////////////
-
+// Testbench
 module test;
   
   reg clk;
   reg [7:0] pc_control;
   reg [7:0] jump_offset;
   wire [7:0] pc;
-  wire [7:0] pc_update;
   
    program_counter PROGRAM_COUNTER(
     .clk(clk),
     .pc_control(pc_control),
     .jump_offset(jump_offset),
-    .pc_update(pc_update),
     .pc(pc));
     
   initial begin
@@ -75,7 +69,7 @@ module test;
  
   
  task display;
-   #1 $display("pc:%b, pc_update=%b, pc_control:%b, jump_offset=%b, clk=%b", pc, pc_update, pc_control, jump_offset, clk);
+   #1 $display("pc:%b, pc_control:%b, jump_offset=%b, clk=%b", pc, pc_control, jump_offset, clk);
   endtask
   
   
