@@ -32,6 +32,9 @@ module cpu()
   wire [7:0] extended_imm;
 
   assign imm_data = instruction[1:0];
+  assign rs = instruction[3:2];
+  assign rt = instruction[1:0];
+  
   // Operation Instantiation
   instruction_mem instMem (.instruction_address(pc), .instruction_data(instruction));
   
@@ -48,6 +51,14 @@ module cpu()
   data_mem dataMem (.data_address(data_address), .write_data(write_data), .write_enable(write_enable), read_data(read_data));
   
   program_counter pcounter (.pc_control(pc_control), .jump_offset(jump_offset), .pc(pc), .pc_update(pc_update));
+  
+  always @(posedge clk)
+  begin
+    $display("instruction = %b, output_data = %b, regfile_address1 = %b, regfile_address2 = %b", instruction, output_data, regfile_address1, regfile_address2);
+    $monitor("instruction = %b, output_data = %b, regfile_address1 = %b, regfile_address2 = %b", instruction, output_data, regfile_address1, regfile_address2);
+  end
+  
+  endmodule
   
   
   
