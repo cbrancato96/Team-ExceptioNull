@@ -52,6 +52,7 @@ module cpu()
   
   program_counter pcounter (.pc_control(pc_control), .jump_offset(jump_offset), .pc(pc), .pc_update(pc_update));
   
+  // Display to Screen
   always @(posedge clk)
   begin
     $display("instruction = %b, output_data = %b, regfile_address1 = %b, regfile_address2 = %b", instruction, output_data, regfile_address1, regfile_address2);
