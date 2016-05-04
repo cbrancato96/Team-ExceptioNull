@@ -1,7 +1,7 @@
 // Code your design here
 module control_unit(
   instruction,
-  jump,
+ // jump,
   mem_w_en,
   reg_w_en,
   sel_w_source,
@@ -13,7 +13,7 @@ module control_unit(
 
   input [7:0] instruction;
  
-  output [7:0] jump;
+  //output [7:0] jump;
   output mem_w_en;
   output mem_r_en;
   output reg_w_en;
@@ -26,7 +26,7 @@ module control_unit(
   wire [3:0] opcode;
   wire [7:0] instruction;
   
-  reg [7:0] jump;
+  //reg [7:0] jump;
   reg mem_w_en;
   reg reg_w_en;
   reg mem_r_en;
@@ -44,7 +44,7 @@ module control_unit(
       reg_addr_0 = instruction[1:0]; 
       reg_addr_1 = instruction[3:2]; 
       reg_addr_w = instruction[3:2]; 
-      jump = 8'b0;
+     // jump = 8'b0;
       mem_w_en = 0;
       reg_w_en = 1;
       sel_w_source = 0;
@@ -55,7 +55,7 @@ module control_unit(
       reg_addr_0 = instruction[1:0]; 
       reg_addr_1 = instruction[3:2]; 
       reg_addr_w = 2'b0; 
-      jump = 8'b0;
+      //jump = 8'b0;
       mem_w_en = 0;
       reg_w_en = 1;
       sel_w_source = 0;
@@ -66,7 +66,7 @@ module control_unit(
       reg_addr_0 = instruction[1:0]; 
       reg_addr_1 = instruction[3:2]; 
       reg_addr_w = 2'b0; 
-      jump = 8'b0;
+      //jump = 8'b0;
       mem_w_en = 0;
       reg_w_en = 1;
       sel_w_source = 0;
@@ -77,7 +77,7 @@ module control_unit(
       reg_addr_0 = instruction[1:0]; 
       reg_addr_1 = instruction[3:2]; 
       reg_addr_w = instruction[3:2]; 
-      jump = 8'b0;
+     // jump = 8'b0;
       mem_w_en = 0;
       reg_w_en = 1;
       sel_w_source = 0;
@@ -88,7 +88,7 @@ module control_unit(
       reg_addr_0 = instruction[1:0]; 
       reg_addr_1 = instruction[3:2]; 
       reg_addr_w = 2'b0; 
-      jump = 8'b0;
+     // jump = 8'b0;
       mem_w_en = 0;
       reg_w_en = 1;
       sel_w_source = 0;
@@ -99,7 +99,7 @@ module control_unit(
       reg_addr_0 = instruction[1:0]; 
       reg_addr_1 = instruction[3:2]; 
       reg_addr_w = 2'b0; 
-      jump = 8'b0;
+    //  jump = 8'b0;
       mem_w_en = 0;
       reg_w_en = 1;
       sel_w_source = 0;
@@ -110,7 +110,7 @@ module control_unit(
       reg_addr_0 = instruction[1:0]; 
       reg_addr_1 = instruction[3:2]; 
       reg_addr_w = instruction[3:2]; 
-      jump = 8'b0;
+    //  jump = 8'b0;
       mem_w_en = 0;
       reg_w_en = 1;
       sel_w_source = 0;
@@ -121,7 +121,7 @@ module control_unit(
       reg_addr_0 = instruction[1:0]; 
       reg_addr_1 = instruction[3:2]; 
       reg_addr_w = instruction[3:2]; 
-      jump = 8'b0;
+    //  jump = 8'b0;
       mem_w_en = 0;
       reg_w_en = 1;
       sel_w_source = 0;
@@ -132,7 +132,7 @@ module control_unit(
       reg_addr_0 = instruction[1:0]; 
       reg_addr_1 = instruction[3:2];
       reg_addr_w = instruction[3:2]; 
-      jump = 8'b11111111;
+    //  jump = 8'b11111111;
       mem_w_en = 0;
       reg_w_en = 0;
       sel_w_source = 0;
@@ -143,7 +143,7 @@ module control_unit(
       reg_addr_0 = instruction[1:0]; 
       reg_addr_1 = instruction[3:2];
       reg_addr_w = instruction[3:2];
-      jump = 8'b11111111;
+    //  jump = 8'b11111111;
       mem_w_en = 0;
       reg_w_en = 0;
       sel_w_source = 0;
@@ -154,7 +154,7 @@ module control_unit(
       reg_addr_0 = instruction[1:0]; 
       reg_addr_1 = instruction[3:2];
       reg_addr_w = instruction[3:2];
-      jump = 8'b0;
+    //  jump = 8'b0;
       mem_w_en = 0;
       reg_w_en = 1;
       sel_w_source = 1;
@@ -165,7 +165,7 @@ module control_unit(
       reg_addr_0 = instruction[1:0]; 
       reg_addr_1 = instruction[3:2];
       reg_addr_w = instruction[3:2];
-      jump = 8'b0;
+    //  jump = 8'b0;
       mem_w_en = 1;
       reg_w_en = 0;
       sel_w_source = 0;
@@ -176,7 +176,7 @@ module control_unit(
       reg_addr_0 = instruction[1:0]; 
       reg_addr_1 = instruction[3:2];
       reg_addr_w = 2'b0;
-      jump = 8'b11111111;
+    //  jump = 8'b11111111;
       mem_w_en = 0;
       reg_w_en = 0;
       sel_w_source = 0;
@@ -187,7 +187,7 @@ module control_unit(
       reg_addr_0 = instruction[1:0]; 
       reg_addr_1 = instruction[3:2];
       reg_addr_w = 2'b0;
-      jump = 8'b11111111;
+    //  jump = 8'b11111111;
       mem_w_en = 0;
       reg_w_en = 0;
       sel_w_source = 0;
@@ -198,7 +198,7 @@ module control_unit(
       reg_addr_0 = instruction[1:0]; 
       reg_addr_1 = instruction[3:2];
       reg_addr_w = instruction[3:2];
-      jump = 8'b0;
+    //  jump = 8'b0;
       mem_w_en = 0;
       reg_w_en = 1;
       sel_w_source = 0;
@@ -209,7 +209,7 @@ module control_unit(
       reg_addr_0 = instruction[1:0]; 
       reg_addr_1 = instruction[3:2];
       reg_addr_w = instruction[3:2];
-      jump = 8'b0;
+    //  jump = 8'b0;
       mem_w_en = 0;
       reg_w_en = 1;
       sel_w_source = 0;
@@ -223,7 +223,7 @@ endmodule
 module test();
 
   reg [7:0]instruction;
-  reg [7:0]jump;
+  //reg [7:0]jump;
   reg mem_w_en;
   reg reg_w_en;
   reg sel_w_source;
@@ -236,7 +236,7 @@ module test();
   
   control_unit CONTROL_UNIT(
     .instruction(instruction),
-    .jump(jump),
+    //.jump(jump),
     .mem_w_en(mem_w_en),
     .reg_w_en(reg_w_en),
     .sel_w_source(sel_w_source),
@@ -248,7 +248,7 @@ module test();
   initial begin
     instruction = 8'b0;
     #10ns;
-    $monitor ("instruction=%b,	jump=%b,	mem_w_en=%b,	reg_w_en=%b,	sel_w_source=%b, mem_r_en=%b,	reg_addr_0=%b, reg_addr_1=%b, reg_addr_w=%b",instruction,jump,mem_w_en,reg_w_en,sel_w_source, mem_r_en,reg_addr_0,reg_addr_1,reg_addr_w);
+    $monitor ("instruction=%b,jump=%b,	mem_w_en=%b,	reg_w_en=%b,	sel_w_source=%b, mem_r_en=%b,	reg_addr_0=%b, reg_addr_1=%b, reg_addr_w=%b",instruction,jump,mem_w_en,reg_w_en,sel_w_source, mem_r_en,reg_addr_0,reg_addr_1,reg_addr_w);
     #10 instruction = 8'b00011101;
     #10 instruction = 8'b00101101;
     #10 instruction = 8'b00111101;
