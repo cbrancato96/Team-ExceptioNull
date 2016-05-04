@@ -3,76 +3,127 @@ module alu(
     in0, 		//first input
     in1, 		//second input
     out, 		//alu output
+  	jump,
     overflow);
 
 input [7:0] instruction;
 input [7:0] in0; 
 input [7:0] in1;
 	
-output [7:0] out; 
+output [7:0] out;
+output [7:0] jump;
 output overflow;
 
 reg [7:0] out;
+reg [7:0] jump;
 reg overflow;
 wire [3:0] opcode;
 
 assign opcode = instruction[7:4];
 
 always @(opcode) begin
-
   case (opcode)
-    3'b0000 : // Move
+    4'b0000 : // Move
     begin
     out = in0;
-    overflow = 0; 
+    overflow = 0;
+       jump = 0;
     end	
     
-    3'b0001: // Signed ADD
+    4'b0001: // Signed ADD
     begin
-    out = input0 + input1;
-    if ((in0 >= 0 && in1 >= 0 && out < 0) || (in0 < 0 && in1 < 0 && out >= 0)) 
-			begin
-							overflow = 1;
-						end 
-					else 
-						begin
-							overflow = 0;
-						end
-		end	
+    out = (in0 + in1);
+      if ((in0 >= 0 && in1 >= 0 && out < 0) || (in0 < 0 && in1 < 0 	 && out >= 0)) 
+	begin
+	overflow = 1;
+	end else 
+	begin
+	overflow = 0;
+	end
+	end	
 		
-		3'b010: // AND
+		4'b0010: // AND
 		begin
 		out = in0 & in1;
-		overflow = 0; 
+		overflow = 0;
+           jump = 0;
 		end
 			
-		3'b011: // NOT
+		4'b0011: // NOT
 		begin
 		out = ~in0;
 		overflow = 0;
+           jump = 0;
     end
 		
-		3'b100: // NOR
+		4'b0100: // NOR
 		begin
 		out = ~(in0 | in1);
 		overflow = 0; 
+           jump = 0;
+    end
+    	4'b0101: //Set Less Than
+        begin
+           jump = 0;
+        if (in0 > in1)
+          out = 8'b1;
+        else 
+          out = 8'b0;
     end
     
-		3'b110: // Shift Left Logical
+		4'b0110: // Shift Left Logical
 		begin
-		out = in0 << 1;
+		out = in1 << 1;
 		overflow=0;
+           jump = 0;
     end
 			
-		3'b111: // Shift Right Logical
+		4'b0111: // Shift Right Logical
 		begin
-		out = in0 >> 1;
+		out = in1 >> 1;
 		overflow=0;
+           jump = 0;
     end
-		
+    	4'b1000: // Jump
+          begin
+            
+          end
+    	4'b1001: // Jump and Link
+          begin
+          end
+    	4'b1010: // Load Word
+          begin
+          end
+    	4'b1011: // Store Word
+          begin
+          end
+    	4'b1100: // Branch On Equal
+        begin
+          if (in1 == in0) begin
+            jump = 8'b11111111;
+          end else
+            jump = 8'b0;
+   		 end
+		4'b1101: // Branch On Not Equal
+          begin
+            if (in1 != in0) begin
+            jump = 8'b11111111;
+          end else
+            jump = 8'b0;
+   		 end
+    	4'b1110: // Add Immediate
+          begin
+            out = in1 + in0;
+             jump = 0;
+          end
+    	4'b1111: // Load Immediate
+          begin
+            out = in0;
+             jump = 0;
+          end
 		default:
 		begin
-		overflow=0;
+  		overflow = 0;
 		end				
 		
 		endcase
@@ -81,14 +132,15 @@ always @(opcode) begin
 
 
  endmodule
-
-//Testbench
-
-module test();
+ 
+ // Testbench
+ 
+ module test();
   reg [7:0] instruction;
   reg [7:0] in0;
   reg [7:0] in1;
   wire [7:0] out;
+  wire [7:0] jump;
   wire overflow;
   
   alu ALU(
@@ -96,15 +148,15 @@ module test();
     .in0(in0),
     .in1(in1),
     .out(out),
+    .jump(jump),
     .overflow(overflow));
  
   initial begin
-    $display("instruction=%b, in0=%b, in1=%b, out=%b, overflow=%b, instruction, in0, in1, out, overflow);
     	instruction = 8'b0;
     	in0 = 8'b01;
     	in1 = 8'b11;
-    $monitor("instruction=%b, in0=%b, in1=%b, out=%b, overflow=%b, instruction, in0, in1, out, overflow);
- 		#10 instruction = 8'b00011101;
+    $monitor("instruction=%b, in0=%b, in1=%b, out=%b, jump=%b overflow=%b", instruction, in0, in1, out, jump, overflow);
+ 	#10 instruction = 8'b00011101;
     #10 instruction = 8'b00101101;
     #10 instruction = 8'b00111101;
     #10 instruction = 8'b01001101;
