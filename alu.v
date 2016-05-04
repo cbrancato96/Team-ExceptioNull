@@ -183,7 +183,5 @@ always @(opcode) begin
     #10 instruction = 8'b11011101;
     #10 instruction = 8'b11101101;
     #10 instruction = 8'b11111101;
-
   end
-
 endmodule
