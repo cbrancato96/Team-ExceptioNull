@@ -32,7 +32,7 @@ module cpu()
   wire [7:0] extended_imm;
 
   assign imm_data = instruction[1:0];
-  // Operations
+  // Operation Instantiation
   instruction_mem instMem (.instruction_address(pc), .instruction_data(instruction));
   
   control_unit ctrl (.instruction(instruction), .op(opcode), .imm_data);
@@ -45,6 +45,9 @@ module cpu()
   
   alu arithmetics (.control(3bits), .inputA(), .inputB(), .outputALU());
   
-  data_mem dataMem ();
+  data_mem dataMem (.data_address(data_address), .write_data(write_data), .write_enable(write_enable), read_data(read_data));
   
-  program_counter pcounter ();
+  program_counter pcounter (.pc_control(pc_control), .jump_offset(jump_offset), .pc(pc), .pc_update(pc_update));
+  
+  
+  
