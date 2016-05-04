@@ -8,20 +8,15 @@ output [7:0] instruction_data;
 reg [7:0] instruction_mem [0:255];
   
 assign instruction_data = instruction_mem[instruction_address];
-  
-endmodule
-
-//Loading into Memory Module
-module  memory(
-instruction_mem);
-
-  reg [7:0] instruction_mem [0:255];
-
 
 initial begin
   $readmemb("CompiledBinary.bin", instruction_mem);
 end
+
 endmodule
+
+
+
 
 //Testbench
 module test();
