@@ -1,3 +1,4 @@
+lil $r1 5
 addi $r1 01 #Specify data address, r1 = 1
 sll $r1 10 #multiply $r1 by 4, $r1 = 4
 addi $r1 00 #$r1 = 4

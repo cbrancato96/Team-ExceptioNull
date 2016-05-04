@@ -1,7 +1,4 @@
-li $r3 01
-sll $r3 11
-addi $r3 01
-addi $r3 01 # Load n=10
+addl $r3 10 # Load n=10
 li $r2 00 # Load zero 
 li $r0 01
 sll $r0 01
@@ -12,3 +9,4 @@ addi $r3 11 # n = n-1
 jal $r2 01
 add $r0 $r3
 j back
+	

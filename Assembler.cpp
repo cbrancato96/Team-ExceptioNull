@@ -13,7 +13,7 @@ int main () {
 		ofstream binFile;
 		stringstream assSplitter; 
 		assFile.open ("text.mem");
-		binFile.open("CompiledBinary.txt"); 
+		binFile.open("bin.mem"); 
 		string assRawCmd, assCmd;
 
 		while ( getline (assFile,assRawCmd) ){
@@ -43,29 +43,100 @@ int main () {
 				}
 				else if(!inOne.compare("$r3")){
 					binInOne ="11";
-				}
+				} 
 
 				int param = atoi(inTwo.c_str());
-				int countCmds = param / 4;
-				int extra = param % 4;
 
-				for(int i = 0; i < countCmds; i++)
-					cout << "Yo" << endl;
+				if(param < 0){
+					param = -param;
+					for(int i = 0; i < param; i++)
+						binFile << "1110" << binInOne << "11" << endl;
+				}
+				else{
+					for(int i = 0; i < param; i++)
+						binFile << "1110" << binInOne << "01" << endl;
+				}
 
-			} else if (!oper.compare("lil")){ //load immediate long
+
+			}else if (!oper.compare("lil")){ //load immediate long
+
+				if(!inOne.compare("$r0")){
+					binInOne = "00";
+				}else if(!inOne.compare("$r1")){
+					binInOne = "01";
+				}
+				else if(!inOne.compare("$r2")){
+					binInOne = "10";
+				}
+				else if(!inOne.compare("$r3")){
+					binInOne ="11";
+				} 
+
+				int param = atoi(inTwo.c_str());
+
+				binFile << "1111" << binInOne << "00" << endl;
+
+				if(param < 0){
+					param = -param;
+					for(int i = 0; i < param; i++)
+						binFile << "1110" << binInOne << "11" << endl;
+				}
+				else{
+					for(int i = 0; i < param; i++)
+						binFile << "1110" << binInOne << "01" << endl;
+				}
+
+			}else if(!oper.compare("slll")){ // shift left logical long
+
+				if(!inOne.compare("$r0")){
+					binInOne = "00";
+				}else if(!inOne.compare("$r1")){
+					binInOne = "01";
+				}
+				else if(!inOne.compare("$r2")){
+					binInOne = "10";
+				}
+				else if(!inOne.compare("$r3")){
+					binInOne ="11";
+				} 
+
+				int param = atoi(inTwo.c_str());
+
+				if(param < 0)
+					param = -param;
+
+				for(int i = 0; i < param; i++)
+					binFile << "0110" << binInOne << "01" << endl;
 
 
+			} else if(!oper.compare("srll")){ //shift right logical long
+				
+				if(!inOne.compare("$r0")){
+					binInOne = "00";
+				}else if(!inOne.compare("$r1")){
+					binInOne = "01";
+				}
+				else if(!inOne.compare("$r2")){
+					binInOne = "10";
+				}
+				else if(!inOne.compare("$r3")){
+					binInOne ="11";
+				} 
 
-			} else if(!oper.compare("slL")){ // shift left logical long
+				int param = atoi(inTwo.c_str());
 
-			} else if(!oper.compare("srL")){ //shift right logical long
+				if(param < 0)
+					param = -param;
 
-			} else if(!oper.compare("")){
+				for(int i = 0; i < param; i++)
+					binFile << "0111" << binInOne << "01" << endl;
+
+			} else{
 
 				if(!oper.compare("mv")){
 					opCode = "0000";
 				}else if(!oper.compare("add")){
-					opCode = "0001"; 
+					opCode = "0001";
 				} else if(!oper.compare("and")){
 					opCode = "0010";
 				} else if(!oper.compare("not")){
