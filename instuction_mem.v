@@ -5,12 +5,14 @@ instruction_data);
 input [7:0] instruction_address;
 output [7:0] instruction_data;  
 
-reg [7:0] instruction_mem [0:255];
+reg [7:0] instruction_mem [0:63];
+
+parameter INSTRUCTIONS = "CompiledBinary.bin";
   
 assign instruction_data = instruction_mem[instruction_address];
 
 initial begin
-  $readmemb("CompiledBinary.bin", instruction_mem);
+  $readmemb(INSTRUCTIONS, instruction_mem);
 end
 
 endmodule
