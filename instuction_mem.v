@@ -14,14 +14,14 @@ assign instruction_data = instruction_mem[instruction_address];
 endmodule
 
 //Loading into Memory Module
-module  memory();
-  reg [1:0] instruction_memory [1:0];
+module  memory(
+instruction_mem);
 
-  reg [7:0] instruction_memory [0:255];
+  reg [7:0] instruction_mem [0:255];
 
 
 initial begin
-  $readmemb("CompiledBinary.bin", instruction_memory);
+  $readmemb("CompiledBinary.bin", instruction_mem);
 end
 endmodule
 
