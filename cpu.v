@@ -4,19 +4,19 @@ module cpu()
   
   wire [7:0] pc;
   wire [7:0] instruction;
-  wire [7:0] stack_state;
   
-  wire [1:0] reg_add_s0;
-  wire [1:0] reg_add_s1;
-  wire [1:0] reg_add_w;
+  wire [1:0] reg_addr_0; // Address of Source Reg 0
+  wire [1:0] reg_addr_1; // Address of Source Reg 1
+  wire [1:0] reg_addr_w; // Address of Destination Reg
   
-  wire [7:0] reg_sdata0;
-  wire [7:0] reg_sdata1;
-  wire [7:0] op1;
-  wire [7:0] reg_wdata;
+  wire [7:0] reg_data0; // Data from Reg 0
+  wire [7:0] reg_data1; // Data from Reg 1
+  wire [7:0] op1; // Reg 1 Or Immidieate Data
+  wire [7:0] reg_wdata; // Data to Destination Reg
+  
   
   wire [3:0] opcode; //Control unit outputs
-  wire [1:0] imm_data;
+  wire branch;
   wire sel_op1;
   wire sel_w_loc;
   wire sel_w_result;
@@ -28,8 +28,26 @@ module cpu()
   wire [7:0] alu_result;
   wire [7:0] mem_r_result;
 
-  // Operations
-  instruction_mem instMem()
+  wire [1:0] imm_data;
+  wire [7:0] extended_imm;
+
+  assign imm_data = instruction[1:0];
+  // Operation Instantiation
+  instruction_mem instMem (.instruction_address(pc), .instruction_data(instruction));
+  
+  control_unit ctrl (.instruction(instruction), .op(opcode), .imm_data);
+  
+  reg_file regs (.raddr0(reg_addr_0), .raddr1(reg_addr_1), .waddr(reg_addr_w), .wren(reg_w_en), .wdata(reg_wdata));
+  
+  sign_extension sign_extend (.immediate(imm_data), .sign_extended(extended_imm));
+  
+  mux operand_1_selector(.in0(), .in1(), .out(), .sel());
+  
+  alu arithmetics (.control(3bits), .inputA(), .inputB(), .outputALU());
+  
+  data_mem dataMem (.data_address(data_address), .write_data(write_data), .write_enable(write_enable), read_data(read_data));
+  
+  program_counter pcounter (.pc_control(pc_control), .jump_offset(jump_offset), .pc(pc), .pc_update(pc_update));
   
   
   
