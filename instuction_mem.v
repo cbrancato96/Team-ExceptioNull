@@ -6,7 +6,7 @@ input [7:0] instruction_address;
 output [7:0] instruction_data;  
 
 
-reg [7:0] instruction_mem [5:0];
+reg [7:0] instruction_mem [255:0];
   
 assign instruction_data = instruction_mem[instruction_address];
   
@@ -14,7 +14,7 @@ endmodule
 
 //Loading into Memory Module
 module  memory();
-  reg [5:0] instruction_memory [0:7];
+  reg [7:0] instruction_memory [255:0];
 
 initial begin
   $readmemh("CompiledBinary.txt", instruction_memory);
