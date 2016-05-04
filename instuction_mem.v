@@ -7,7 +7,6 @@ output [7:0] instruction_data;
 
 reg [7:0] instruction_mem;
 
-=======
 reg [7:0] instruction_mem [0:255];
   
 assign instruction_data = instruction_mem[instruction_address];
