@@ -43,7 +43,7 @@ module cpu()
   
   mux operand_1_selector(.in0(), .in1(), .out(), .sel());
   
-  alu arithmatics (.control(3bits), .inputA(), .inputB(), .outputALU());
+  alu arithmetics (.control(3bits), .inputA(), .inputB(), .outputALU());
   
   data_mem dataMem ();
   
