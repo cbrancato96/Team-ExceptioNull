@@ -31,7 +31,7 @@ int main () {
 			assSplitter >> inOne; 
 			assSplitter >> inTwo; 
 
-			if(!oper.compare("addl")){
+			if(!oper.compare("addl")){   // add long
 
 				if(!inOne.compare("$r0")){
 					binInOne = "00";
@@ -52,15 +52,20 @@ int main () {
 				for(int i = 0; i < countCmds; i++)
 					cout << "Yo" << endl;
 
-			}else if(!oper.compare("sup")){
+			} else if (!oper.compare("lil")){ //load immediate long
 
-				cout << "Hello " << endl;
 
-			}else{
+
+			} else if(!oper.compare("slL")){ // shift left logical long
+
+			} else if(!oper.compare("srL")){ //shift right logical long
+
+			} else if(!oper.compare("")){
 
 				if(!oper.compare("mv")){
 					opCode = "0000";
 				}else if(!oper.compare("add")){
+					opCode = "0001"; 
 				} else if(!oper.compare("and")){
 					opCode = "0010";
 				} else if(!oper.compare("not")){
