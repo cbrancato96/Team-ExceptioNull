@@ -41,7 +41,10 @@ module cpu()
   // Assignments
   assign opcode instruction [7:4];
   assign state_update = state + 1;
-  assign result = (alu_result & (~sel_w_source) + mem_r_result & sel_w_source)
+  
+  initial begin
+    state = 3'b0;
+  end
   
   always @(state) begin
     case (state)
@@ -65,7 +68,7 @@ module cpu()
           end
           state <= state_update;
         end
-      3'b011: // ALU
+      3'b011: // Execute
         begin
           execute <= 1'b1;
           execute <= #1 1'b0;
@@ -136,8 +139,10 @@ module cpu()
  always @(posedge clk)
  begin
 
-    $display("instruction = %b, output_data = %b, regfile_address1 = %b, regfile_address2 = %b", instruction, output_data, regfile_address1, regfile_address2);
-    $monitor("instruction = %b, output_data = %b, regfile_address1 = %b, regfile_address2 = %b", instruction, output_data, regfile_address1, regfile_address2);
+    $display("state = %b, instruction = %b, pc = %b, reg_addr_0 = %b, reg_addr_1 = %b, reg_addr_w = %b, reg_data_0 = %b, reg_data_1 = %b, reg_data_w = %b, result=%b",
+    instruction, pc, reg_addr_0, reg_addr_1, reg_addr_w, reg_data_0, reg_data_1, reg_data_w, result);
+    $monitor("state = %b, instruction = %b, pc = %b, reg_addr_0 = %b, reg_addr_1 = %b, reg_addr_w = %b, reg_data_0 = %b, reg_data_1 = %b, reg_data_w = %b, result=%b",
+    instruction, pc, reg_addr_0, reg_addr_1, reg_addr_w, reg_data_0, reg_data_1, reg_data_w, result);
   end
   
   endmodule
