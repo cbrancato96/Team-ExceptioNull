@@ -207,20 +207,29 @@ int main () {
 	while(getline(checkSizeBin, line))
 		numLines++;
 
-	cout << numLines << endl;
-
 	checkSizeBin.close();
+	numLines = 123; 
 
-	int padSize = 64-numLines;
+	if(numLines > 64){
+		cout << "Instruction overflow! Decrease your program size!" << endl;
+		cout << "Program exiting!" << endl;
+		return 0;
+	}
+	else{
+		int padSize = 64-numLines;
 
-	ofstream zeroPadBin; 
+		ofstream zeroPadBin; 
 
-	zeroPadBin.open("bin.mem", ios::app);
+		zeroPadBin.open("bin.mem", ios::app);
 
-	for(int i = 0; i < padSize; i++)
-		cout << "00000000" << endl;
+		for(int i = 0; i < padSize; i++)
+			zeroPadBin << "00000000" << endl;
 
-	zeroPadBin.close();
-	return 0;
+		zeroPadBin.close();
+		cout << "Compilation complete!" << endl;
+		cout << "Exiting program..." << endl; 
+		return 0;
+	}
+
 }
 
