@@ -111,13 +111,15 @@ module cpu()
                      .mem_r_en(mem_r_en),
                      .reg_addr_0(reg_addr_0),
                      .reg_addr_1(reg_addr_1),
-                     .reg_addr_w(reg_addr_w));
+                     .reg_addr_w(reg_addr_w)
+                     .clk(decode));
   
   alu arithmetics (.instruction(instruction)
                    .in0(reg_data_0),
                    .in1(reg_data_1)
                    .out(alu_result)
-                   .overflow(overflow));
+                   .overflow(overflow)
+                   .clk(execute));
   
   data_mem dataMem (.data_address(data_address),
                     .write_data(write_data),
