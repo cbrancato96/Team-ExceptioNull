@@ -16,7 +16,7 @@ int main () {
 		binFile.open("bin.mem"); 
 		string assRawCmd, assCmd;
 
-		while ( getline (assFile,assRawCmd) ){
+		while(getline(assFile,assRawCmd)){
 
 			assCmd = assRawCmd.substr(0,assRawCmd.find('#'));
 
@@ -31,7 +31,7 @@ int main () {
 			assSplitter >> inOne; 
 			assSplitter >> inTwo; 
 
-			if(!oper.compare("addl")){   // add long
+			if(!oper.compare("addl")){   // add large
 
 				if(!inOne.compare("$r0")){
 					binInOne = "00";
@@ -58,7 +58,7 @@ int main () {
 				}
 
 
-			}else if (!oper.compare("lil")){ //load immediate long
+			}else if (!oper.compare("lil")){ //load immediate large
 
 				if(!inOne.compare("$r0")){
 					binInOne = "00";
@@ -86,7 +86,7 @@ int main () {
 						binFile << "1110" << binInOne << "01" << endl;
 				}
 
-			}else if(!oper.compare("slll")){ // shift left logical long
+			}else if(!oper.compare("slll")){ // shift left logical large
 
 				if(!inOne.compare("$r0")){
 					binInOne = "00";
@@ -109,7 +109,7 @@ int main () {
 					binFile << "0110" << binInOne << "01" << endl;
 
 
-			} else if(!oper.compare("srll")){ //shift right logical long
+			} else if(!oper.compare("srll")){ //shift right logical large
 				
 				if(!inOne.compare("$r0")){
 					binInOne = "00";
