@@ -1,50 +1,47 @@
-module data_mem (
+module data_memory (
 data_address,
 write_data,
 write_enable,
 read_data,
 clk);
 
-input [5:0] data_address; //data RAM depth is 64 lines
+input [7:0] data_address; //data RAM depth is 64 lines
 input [7:0] write_data; 
 input write_enable;
 input clk;
   
 output [7:0] read_data;
 
-reg [7:0] mem [4:0];
+reg [7:0] data_mem [64:127];
 reg [7:0] read_data;
+parameter DATA = "Compileddata.bin";
   
-  always @(posedge clk)
+  always @ (posedge clk)
 		begin
           	if (write_enable) begin     
-    		mem[data_address] <= write_data;
+    			data_mem[data_address] <= write_data;
 		end else
         begin
-			read_data <= mem[data_address];
+			read_data <= data_mem[data_address];
         end
     end
-endmodule
-
-// Load Data into Memory Module
-module  memory();
-  reg [7:0] data_memory [63:0]; // Need to check this works
 
 initial begin
-  $readmemh("datamemory.list", data_memory);
+  $readmemb(DATA, data_mem);
 end
+  
 endmodule
 
 // Testbench
 module test();
 
-  reg [5:0] data_address;
+  reg [7:0] data_address;
   reg [7:0] write_data;
   reg write_enable;
   reg clk;
   wire [7:0] read_data;
   
-  data_mem data_mem(
+  data_memory DATA_MEMORY(
     .data_address(data_address),
     .write_data(write_data),
     .write_enable(write_enable),
@@ -57,10 +54,11 @@ module test();
 	write_enable = 8'b0;
     data_address = 8'b0;
 	write_data = 8'b1;
-    $monitor("data_address=%b, write_data=%b, write_enable=%b, read_data=%b", data_address, write_data, write_enable, read_data);
+    $monitor("data_address=%b, write_data=%b, write_enable=%b, read_data=%b, clk=%b", data_address, write_data, write_enable, read_data, clk);
+    write_enable = 8'b1;
     #10 clk = 1;
+    write_enable = 8'b1;
     #10 clk = 0;
   end
 
 endmodule
-
