@@ -199,6 +199,28 @@ int main () {
 		}
 	assFile.close();
 	binFile.close();
+
+	ifstream checkSizeBin("bin.mem");
+	string line; 
+	int numLines;
+
+	while(getline(checkSizeBin, line))
+		numLines++;
+
+	cout << numLines << endl;
+
+	checkSizeBin.close();
+
+	int padSize = 64-numLines;
+
+	ofstream zeroPadBin; 
+
+	zeroPadBin.open("bin.mem", ios::app);
+
+	for(int i = 0; i < padSize; i++)
+		cout << "00000000" << endl;
+
+	zeroPadBin.close();
 	return 0;
 }
 
