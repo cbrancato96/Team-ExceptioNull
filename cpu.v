@@ -20,9 +20,9 @@ module cpu()
   wire [1:0] reg_addr_1; // Address of Source Reg 1
   wire [1:0] reg_addr_w; // Address of Destination Reg
  
-  wire [7:0] reg_data_0; // Data from Reg 0
-  wire [7:0] reg_data_1; // Data from Reg 1
-  wire [7:0] reg_data_w; // Data to Destination Reg
+  reg [7:0] reg_data_0; // Data from Reg 0
+  reg [7:0] reg_data_1; // Data from Reg 1
+  reg [7:0] reg_data_w; // Data to Destination Reg
  
   // Control Unit Flags
   wire [7:0] jump; // jump = 8'b1 if opcode == (j or jal or bne or beq)
@@ -61,8 +61,8 @@ module cpu()
         end
       3'b010: // Get Data From Registers
         begin
-          assign reg_data_0 = reg_file[reg_addr_0];
-          assign reg_data_1 = reg_file[reg_addr_1];
+          reg_data_0 <= reg_file[reg_addr_0];
+          reg_data_1 <= reg_file[reg_addr_1];
           if (opcode == 4'b1100 || opcode == 4'b1101) begin // beq or bne
             assign jump_offset = reg_file[2'b00];
           end
