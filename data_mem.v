@@ -31,7 +31,6 @@ initial begin
 end
   
 endmodule
-
 // Testbench
 module test();
 
@@ -55,9 +54,9 @@ module test();
     data_address = 8'b0;
 	write_data = 8'b1;
     $monitor("data_address=%b, write_data=%b, write_enable=%b, read_data=%b, clk=%b", data_address, write_data, write_enable, read_data, clk);
-    write_enable = 8'b1;
+    write_enable = 8'b0;
     #10 clk = 1;
-    write_enable = 8'b1;
+    write_enable = 8'b0;
     #10 clk = 0;
   end
 
