@@ -15,8 +15,13 @@ output [7:0] read_data;
 reg [7:0] data_mem [64:127];
 reg [7:0] read_data;
 parameter DATA = "dataMem.bin";
+
+initial begin
+  $readmemb(DATA, data_mem);
+end
   
-  always @ (posedge clk) begin
+  always @ (posedge clk) 
+    begin
           if (write_enable == 1) begin     
     			data_mem[data_address] <= write_data;
 		end else
@@ -24,10 +29,6 @@ parameter DATA = "dataMem.bin";
 			read_data <= data_mem[data_address];
         end
     end
-
-initial begin
-  $readmemb(DATA, data_mem);
-end
   
 endmodule
 
