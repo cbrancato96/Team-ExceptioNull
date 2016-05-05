@@ -25,7 +25,7 @@ end
           if (write_enable == 1) begin     
     			data_mem[data_address] <= write_data;
 		end else
-          if (write_enable == 0) begin
+          begin
 			read_data <= data_mem[data_address];
         end
     end
