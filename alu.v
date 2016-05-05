@@ -34,14 +34,14 @@ always @(opcode) begin
     begin
     jump = 8'b0;
     out = (in0 + in1);
-      if ((in0 >= 0 && in1 >= 0 && out < 0) || (in0 < 0 && in1 < 0 	 && out >= 0)) 
+      if ((in0 >= 0 && in1 >= 0 && out < 0) || (in0 < 0 && in1 < 0 && out >= 0)) 
 				begin
 				overflow = 1;
 				end else 
-				begin
-				overflow = 0;
+			begin
+			overflow = 0;
 			end
-		end	
+    end	
 		
 		4'b0010: // AND
 		begin
