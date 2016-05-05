@@ -14,14 +14,13 @@ output [7:0] read_data;
 
 reg [7:0] data_mem [64:127];
 reg [7:0] read_data;
-parameter DATA = "Compileddata.bin";
+parameter DATA = "dataMem.bin";
   
-  always @ (posedge clk)
-		begin
-          	if (write_enable) begin     
+  always @ (posedge clk) begin
+          if (write_enable == 1) begin     
     			data_mem[data_address] <= write_data;
 		end else
-        begin
+          if (write_enable == 0) begin
 			read_data <= data_mem[data_address];
         end
     end
@@ -55,9 +54,9 @@ module test();
     data_address = 8'b0;
 	write_data = 8'b1;
     $monitor("data_address=%b, write_data=%b, write_enable=%b, read_data=%b, clk=%b", data_address, write_data, write_enable, read_data, clk);
-    write_enable = 8'b1;
+    write_enable = 8'b0;
     #10 clk = 1;
-    write_enable = 8'b1;
+    write_enable = 8'b0;
     #10 clk = 0;
   end
 

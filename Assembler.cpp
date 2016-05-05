@@ -8,17 +8,23 @@
 
 using namespace std;
 
+string progFileName = "test.prog";
+string binFileName = "instMem.bin";
+
 int main () {
 		ifstream assFile;
 		ofstream binFile;
 		stringstream assSplitter; 
-		assFile.open ("text.mem");
-		binFile.open("bin.mem"); 
+		assFile.open (progFileName.c_str());
+		binFile.open(binFileName.c_str()); 
 		string assRawCmd, assCmd;
 
 		while(getline(assFile,assRawCmd)){
 
 			assCmd = assRawCmd.substr(0,assRawCmd.find('#'));
+
+			if(!assCmd.find("j "))
+				assCmd = assCmd + " 00";
 
 			if(!assRawCmd.compare("") || !assCmd.compare(""))
 				continue; 
@@ -41,7 +47,7 @@ int main () {
 				else if(!inOne.compare("$r2")){
 					binInOne = "10";
 				}
-				else if(!inOne.compare("$r3")){
+				else if(!inOne.compare("$sp")){
 					binInOne ="11";
 				} 
 
@@ -68,7 +74,7 @@ int main () {
 				else if(!inOne.compare("$r2")){
 					binInOne = "10";
 				}
-				else if(!inOne.compare("$r3")){
+				else if(!inOne.compare("$sp")){
 					binInOne ="11";
 				} 
 
@@ -96,7 +102,7 @@ int main () {
 				else if(!inOne.compare("$r2")){
 					binInOne = "10";
 				}
-				else if(!inOne.compare("$r3")){
+				else if(!inOne.compare("$sp")){
 					binInOne ="11";
 				} 
 
@@ -119,7 +125,7 @@ int main () {
 				else if(!inOne.compare("$r2")){
 					binInOne = "10";
 				}
-				else if(!inOne.compare("$r3")){
+				else if(!inOne.compare("$sp")){
 					binInOne ="11";
 				} 
 
@@ -175,11 +181,11 @@ int main () {
 				else if(!inOne.compare("$r2")){
 					binInOne = "10";
 				}
-				else if(!inOne.compare("$r3")){
+				else if(!inOne.compare("$sp")){
 					binInOne ="11";
 				}
 
-				if(!inTwo.compare("$r0")){
+				if(!inTwo.compare("$r0") || !opCode.compare("1000")){
 					binInTwo = "00";
 				}else if(!inTwo.compare("$r1")){
 					binInTwo = "01";
@@ -187,20 +193,20 @@ int main () {
 				else if(!inTwo.compare("$r2")){
 					binInTwo = "10";
 				}
-				else if(!inTwo.compare("$r3")){
+				else if(!inTwo.compare("$sp")){
 					binInTwo ="11";
-				}
-				else{
+				}else{
 					binInTwo = inTwo;
 				}
 
 				binFile << opCode << binInOne << binInTwo << "\n";
+
 			}
 		}
 	assFile.close();
 	binFile.close();
 
-	ifstream checkSizeBin("bin.mem");
+	ifstream checkSizeBin(binFileName.c_str());
 	string line; 
 	int numLines;
 
@@ -219,7 +225,7 @@ int main () {
 
 		ofstream zeroPadBin; 
 
-		zeroPadBin.open("bin.mem", ios::app);
+		zeroPadBin.open(binFileName.c_str(), ios::app);
 
 		for(int i = 0; i < padSize; i++)
 			zeroPadBin << "00000000" << endl;
