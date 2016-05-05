@@ -208,7 +208,6 @@ int main () {
 		numLines++;
 
 	checkSizeBin.close();
-	numLines = 123; 
 
 	if(numLines > 64){
 		cout << "Instruction overflow! Decrease your program size!" << endl;
