@@ -7,7 +7,7 @@ output [7:0] instruction_data;
 
 reg [7:0] instruction_mem [0:63];
 
-parameter INSTRUCTIONS = "bin.mem";
+parameter INSTRUCTIONS = "instMem.bin";
   
 assign instruction_data = instruction_mem[instruction_address];
 
