@@ -143,7 +143,7 @@ module control_unit(
       reg_addr_1 = instruction[3:2];
       reg_addr_w = instruction[3:2];
     //  jump = 8'b11111111;
-      mem_w_en = 0;
+      mem_w_en = 1;
       reg_w_en = 0;
       sel_w_source = 8'b0;
       mem_r_en = 0;

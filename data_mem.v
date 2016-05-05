@@ -17,6 +17,7 @@ reg [7:0] data_mem [64:127];
 reg [7:0] read_data;
 parameter DATA = "dataMem.bin";
   
+<<<<<<< HEAD
   always @ ( clk == 1)
 		begin
       if (write_enable == 1)
@@ -27,6 +28,15 @@ parameter DATA = "dataMem.bin";
             begin
 			       read_data <= data_mem[data_address];
             end
+=======
+  always @ (posedge clk) begin
+          if (write_enable == 1) begin     
+    			data_mem[data_address] <= write_data;
+		end else
+          if (write_enable == 0) begin
+			read_data <= data_mem[data_address];
+        end
+>>>>>>> 0ca769c2886f121be38b62f0ec3fae611a3fc6d7
     end
 
 initial 
@@ -35,6 +45,7 @@ begin
 end
   
 endmodule
+
 // Testbench
 module test();
 

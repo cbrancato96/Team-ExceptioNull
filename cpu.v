@@ -4,10 +4,11 @@ module cpu()
   reg [2:0] state;
   reg [2:0] state_update;
   reg [7:0] instruction;
-  reg update_pc;
-  reg access_mem;
+  reg fetch;
   reg decode;
   reg execute;
+  reg access_mem;
+  reg update_pc;
   
   wire [7:0] instruction_data;
   wire [7:0] pc;
@@ -50,7 +51,9 @@ module cpu()
     case (state)
       3'b000: // Fetch Instruction
         begin
+          fetch <= 1'b1;
           instruction <= instuction_data;
+	  fetch <= 1'b0;
           state <= state_update; 
         end
       3'b001: // Decode Instruction
@@ -104,9 +107,11 @@ module cpu()
     end  
  
   // Operation Instantiation
-  instruction_mem instMem (.instruction_address(pc), .instruction_data(instruction_data));
+  instruction_mem instMem (.instruction_address(pc),
+	                   .instruction_data(instruction_data),
+		           .clk(fetch));
   
-  control_unit ctrl (.instruction(instruction)
+  control_unit ctrl (.instruction(instruction),
                      .jump(jump),
                      .sel_w_source(sel_w_source),
                      .mem_w_en(mem_w_en),
@@ -117,11 +122,12 @@ module cpu()
                      .reg_addr_w(reg_addr_w)
                      .clk(decode));
   
-  alu arithmetics (.instruction(instruction)
+  alu arithmetics (.instruction(instruction),
+                   .pc(pc),
                    .in0(reg_data_0),
-                   .in1(reg_data_1)
-                   .out(alu_result)
-                   .overflow(overflow)
+                   .in1(reg_data_1),
+                   .out(alu_result),
+                   .overflow(overflow),
                    .clk(execute));
   
   data_mem dataMem (.data_address(data_address),
@@ -132,20 +138,17 @@ module cpu()
   
   program_counter pcounter (.pc_control(jump),
                             .jump_offset(jump_offset),
-                            .pc(pc)
+                            .pc(pc),
                             .clk(update_pc));
                             
  // Display to Screen
  always @(posedge clk)
  begin
 
-    $display("state = %b, instruction = %b, pc = %b, reg_addr_0 = %b, reg_addr_1 = %b, reg_addr_w = %b, reg_data_0 = %b, reg_data_1 = %b, reg_data_w = %b, result=%b",
+   $display("state = %b, instruction = %b, pc = %b, reg_addr_0 = %b, reg_addr_1 = %b, reg_addr_w = %b, reg_data_0 = %b, reg_data_1 = %b, reg_data_w = %b, result=%b",
     instruction, pc, reg_addr_0, reg_addr_1, reg_addr_w, reg_data_0, reg_data_1, reg_data_w, result);
     $monitor("state = %b, instruction = %b, pc = %b, reg_addr_0 = %b, reg_addr_1 = %b, reg_addr_w = %b, reg_data_0 = %b, reg_data_1 = %b, reg_data_w = %b, result=%b",
     instruction, pc, reg_addr_0, reg_addr_1, reg_addr_w, reg_data_0, reg_data_1, reg_data_w, result);
   end
   
   endmodule
-  
-  
-  
