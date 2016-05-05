@@ -14,7 +14,7 @@ output [7:0] read_data;
 
 reg [7:0] data_mem [64:127];
 reg [7:0] read_data;
-parameter DATA = "Compileddata.bin";
+parameter DATA = "dataMem.bin";
   
   always @ (posedge clk)
 		begin
