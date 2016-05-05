@@ -16,11 +16,11 @@ module control_unit(
   output mem_w_en;
   output mem_r_en;
   output reg_w_en;
-  output sel_w_source;
+  output [7:0] sel_w_source;
   
-  output [1:0]reg_addr_0;
-  output [1:0]reg_addr_1;
-  output [1:0]reg_addr_w;
+  output [1:0] reg_addr_0;
+  output [1:0] reg_addr_1;
+  output [1:0] reg_addr_w;
   
   wire [3:0] opcode;
   wire [7:0] instruction;
@@ -29,10 +29,10 @@ module control_unit(
   reg mem_w_en;
   reg reg_w_en;
   reg mem_r_en;
-  reg sel_w_source;
-  reg [1:0]reg_addr_0;
-  reg [1:0]reg_addr_1;
-  reg [1:0]reg_addr_w;
+  reg [7:0] sel_w_source;
+  reg [1:0] reg_addr_0;
+  reg [1:0] reg_addr_1;
+  reg [1:0] reg_addr_w;
 
   assign opcode = instruction[7:4];
   
@@ -46,7 +46,7 @@ module control_unit(
      // jump = 8'b0;
       mem_w_en = 0;
       reg_w_en = 1;
-      sel_w_source = 0;
+      sel_w_source = 8'b0;
       mem_r_en = 0;
       end else
         
@@ -57,7 +57,7 @@ module control_unit(
       //jump = 8'b0;
       mem_w_en = 0;
       reg_w_en = 1;
-      sel_w_source = 0;
+      sel_w_source = 8'b0;
       mem_r_en = 0;
       end else 
         
@@ -68,7 +68,7 @@ module control_unit(
       //jump = 8'b0;
       mem_w_en = 0;
       reg_w_en = 1;
-      sel_w_source = 0;
+      sel_w_source = 8'b0;
       mem_r_en = 0;
       end else
         
@@ -79,7 +79,7 @@ module control_unit(
      // jump = 8'b0;
       mem_w_en = 0;
       reg_w_en = 1;
-      sel_w_source = 0;
+      sel_w_source = 8'b0;
       mem_r_en = 0;
       end else
         
@@ -90,7 +90,7 @@ module control_unit(
      // jump = 8'b0;
       mem_w_en = 0;
       reg_w_en = 1;
-      sel_w_source = 0;
+      sel_w_source = 8'b0;
       mem_r_en = 0;
   	  end else 
         
@@ -101,7 +101,7 @@ module control_unit(
     //  jump = 8'b0;
       mem_w_en = 0;
       reg_w_en = 1;
-      sel_w_source = 0;
+      sel_w_source = 8'b0;
       mem_r_en = 0;
       end else
         
@@ -112,7 +112,7 @@ module control_unit(
     //  jump = 8'b0;
       mem_w_en = 0;
       reg_w_en = 1;
-      sel_w_source = 0;
+      sel_w_source = 8'b0;
       mem_r_en = 0;
       end else
         
@@ -123,7 +123,7 @@ module control_unit(
     //  jump = 8'b0;
       mem_w_en = 0;
       reg_w_en = 1;
-      sel_w_source = 0;
+      sel_w_source = 8'b0;
       mem_r_en = 0;
       end else 
     
@@ -134,7 +134,7 @@ module control_unit(
     //  jump = 8'b11111111;
       mem_w_en = 0;
       reg_w_en = 0;
-      sel_w_source = 0;
+      sel_w_source = 8'b0;
       mem_r_en = 0;
   	  end else 
         
@@ -145,7 +145,7 @@ module control_unit(
     //  jump = 8'b11111111;
       mem_w_en = 0;
       reg_w_en = 0;
-      sel_w_source = 0;
+      sel_w_source = 8'b0;
       mem_r_en = 0;
   	  end else
         
@@ -156,7 +156,7 @@ module control_unit(
     //  jump = 8'b0;
       mem_w_en = 0;
       reg_w_en = 1;
-      sel_w_source = 1;
+      sel_w_source = 8'b11111111;
       mem_r_en = 1;
       end else 
         
@@ -167,7 +167,7 @@ module control_unit(
     //  jump = 8'b0;
       mem_w_en = 1;
       reg_w_en = 0;
-      sel_w_source = 0;
+      sel_w_source = 8'b0;
       mem_r_en = 0;
       end else
         
@@ -178,7 +178,7 @@ module control_unit(
     //  jump = 8'b11111111;
       mem_w_en = 0;
       reg_w_en = 0;
-      sel_w_source = 0;
+      sel_w_source = 8'b0;
       mem_r_en = 0;
       end else
         
@@ -189,7 +189,7 @@ module control_unit(
     //  jump = 8'b11111111;
       mem_w_en = 0;
       reg_w_en = 0;
-      sel_w_source = 0;
+      sel_w_source = 8'b0;
       mem_r_en = 0;
       end else
         
@@ -200,7 +200,7 @@ module control_unit(
     //  jump = 8'b0;
       mem_w_en = 0;
       reg_w_en = 1;
-      sel_w_source = 0;
+      sel_w_source = 8'b0;
       mem_r_en = 0;
   	  end else 
         
@@ -211,7 +211,7 @@ module control_unit(
     //  jump = 8'b0;
       mem_w_en = 0;
       reg_w_en = 1;
-      sel_w_source = 0;
+      sel_w_source = 8'b0;
       mem_r_en = 0;
       end
     end   
@@ -225,11 +225,11 @@ module test();
   //reg [7:0]jump;
   reg mem_w_en;
   reg reg_w_en;
-  reg sel_w_source;
+  reg [7:0] sel_w_source;
   reg mem_r_en;
-  reg [1:0]reg_addr_0;
-  reg [1:0]reg_addr_1;
-  reg [1:0]reg_addr_w;
+  reg [1:0] reg_addr_0;
+  reg [1:0] reg_addr_1;
+  reg [1:0] reg_addr_w;
   
   wire [3:0] opcode;
   
