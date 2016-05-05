@@ -22,7 +22,7 @@ wire [7:0] read_data;
         end
 endmodule
 
-//Load Data into Memory Module
+// Load Data into Memory Module
 module  memory();
   reg [7:0] data_memory [63:0];
 
@@ -31,7 +31,7 @@ initial begin
 end
 endmodule
 
-//Testbench
+// Testbench
 module test();
 
   reg [5:0] data_address;
