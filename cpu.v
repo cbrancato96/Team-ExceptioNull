@@ -1,4 +1,4 @@
-`include "instuction_mem.v"
+`include "instruction_mem.v"
 `include "control_unit.v"
 `include "alu.v"
 `include "data_mem.v"
