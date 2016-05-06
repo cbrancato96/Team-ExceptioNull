@@ -53,10 +53,6 @@ module cpu();
   assign opcode = instruction [7:4];
   assign state_update = state + 1;
   
-  initial begin
-    state = 3'b0;
-  end
-  
   always @(state) begin
     case (state)
       3'b000: // Fetch Instruction
@@ -147,7 +143,7 @@ module cpu();
                     .write_data(mem_data_w),
                     .write_enable(mem_w_en),
                     .read_data(mem_data_r),
-                    .clk(access_mem)); //Other than access mem, none of other variables are declared
+                    .clk(access_mem));
   
   program_counter pcounter (.pc_control(jump),
                             .jump_offset(jump_offset),
@@ -155,14 +151,17 @@ module cpu();
                             .clk(update_pc));
                             
  // Display to Screen
-// always// @(posedge clk)
- initial
- begin
-
+//always @(state == 3'b0)
+ initial begin
+   state = 3'b0;
    $display("state = %b, instruction = %b, pc = %b, reg_addr_0 = %b, reg_addr_1 = %b, reg_addr_w = %b, reg_data_0 = %b, reg_data_1 = %b, reg_data_w = %b",
-    instruction, pc, reg_addr_0, reg_addr_1, reg_addr_w, reg_data_0, reg_data_1, reg_data_w);
+    state,instruction, pc,
+    reg_addr_0, reg_addr_1, reg_addr_w,
+    reg_data_0, reg_data_1, reg_data_w);
     $monitor("state = %b, instruction = %b, pc = %b, reg_addr_0 = %b, reg_addr_1 = %b, reg_addr_w = %b, reg_data_0 = %b, reg_data_1 = %b, reg_data_w = %b",
-    instruction, pc, reg_addr_0, reg_addr_1, reg_addr_w, reg_data_0, reg_data_1, reg_data_w);
+    state, instruction, pc,
+    reg_addr_0, reg_addr_1, reg_addr_w,
+    reg_data_0, reg_data_1, reg_data_w);
   end
 
   endmodule
