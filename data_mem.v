@@ -1,9 +1,10 @@
 module data_memory (
-data_address,
-write_data,
-write_enable,
-read_data,
-clk);
+  data_address,
+  write_data,
+  write_enable,
+  read_data,
+  clk
+);
 
 input [7:0] data_address; //data RAM depth is 64 lines
 input [7:0] write_data; 

@@ -32,7 +32,7 @@ module cpu();
  
   // Control Unit Flags
   wire [7:0] jump; // jump = 8'b1 if opcode == (j or jal or bne or beq)
-  wire sel_w_source; // sel_w_source = 1 if opcode == lw
+  wire sel_w_source[7:0]; // sel_w_source = 1 if opcode == lw
   wire mem_w_en; // Data Memory Write Enable
   wire mem_r_en; // Data Memory Read Enable
   wire reg_w_en; // Register File Write Enable
@@ -117,15 +117,15 @@ module cpu();
 		           .clk(fetch));
   
   control_unit ctrl (.instruction(instruction),
-                     .sel_w_source(sel_w_source),
-                     .mem_w_en(mem_w_en),
-                     .reg_w_en(reg_w_en),
-                     .mem_r_en(mem_r_en),
-                     .reg_addr_0(reg_addr_0),
+                      .mem_w_en(mem_w_en),
+                      .reg_w_en(reg_w_en),
+                      .sel_w_source(sel_w_source),
+                      .mem_r_en(mem_r_en),
+                      .reg_addr_0(reg_addr_0),
                      .reg_addr_1(reg_addr_1),
                      .reg_addr_w(reg_addr_w),
                      .clk(decode));
-  
+
   alu arithmetics (.instruction(instruction),
                    .pc(pc),
                    .in0(reg_data_0),
@@ -138,7 +138,7 @@ module cpu();
                     .write_data(write_data),
                     .write_enable(write_enable),
                     .read_data(read_data),
-                    .clk(access_mem));
+                    .clk(access_mem)); //Other than access mem, none of other variables are declared
   
   program_counter pcounter (.pc_control(jump),
                             .jump_offset(jump_offset),
