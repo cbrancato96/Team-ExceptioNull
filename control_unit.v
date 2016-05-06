@@ -1,3 +1,4 @@
+// Code your design here
 module control_unit(
   instruction,
  // jump,
@@ -8,9 +9,11 @@ module control_unit(
   reg_addr_0,
   reg_addr_1,
   reg_addr_w,
+  clk,
   );
 
   input [7:0] instruction;
+  input clk;
  
   //output [7:0] jump;
   output mem_w_en;
@@ -36,12 +39,9 @@ module control_unit(
 
   assign opcode = instruction[7:4];
   
-  always @(clk)
+  always @(posedge clk)
   begin
-
-  if(instruction) 
-    begin
-      
+   
     if (opcode == 4'b0000) begin   //Move
       reg_addr_0 = instruction[1:0]; 
       reg_addr_1 = instruction[3:2]; 
@@ -218,11 +218,9 @@ module control_unit(
       mem_r_en = 0;
       end
     end  
-    end  
     
 endmodule
 /*
-//Testbench
 module test();
 
   reg [7:0]instruction;
@@ -234,6 +232,7 @@ module test();
   reg [1:0] reg_addr_0;
   reg [1:0] reg_addr_1;
   reg [1:0] reg_addr_w;
+  reg clk;
   
   wire [3:0] opcode;
   
@@ -246,27 +245,23 @@ module test();
     .mem_r_en(mem_r_en),
     .reg_addr_0(reg_addr_0),
     .reg_addr_1(reg_addr_1),
-    .reg_addr_w(reg_addr_w));
+    .reg_addr_w(reg_addr_w),
+    .clk(clk));
  
   initial begin
     instruction = 8'b0;
     #10ns;
-    $monitor ("instruction=%b, mem_w_en=%b,	reg_w_en=%b,	sel_w_source=%b, mem_r_en=%b,	reg_addr_0=%b, reg_addr_1=%b, reg_addr_w=%b",instruction,mem_w_en,reg_w_en,sel_w_source, mem_r_en,reg_addr_0,reg_addr_1,reg_addr_w);
-    #10 instruction = 8'b00011101;
+    $monitor ("instruction=%b, mem_w_en=%b,	reg_w_en=%b,	sel_w_source=%b, mem_r_en=%b,	reg_addr_0=%b, reg_addr_1=%b, reg_addr_w=%b, clk=%b",instruction,mem_w_en,reg_w_en,sel_w_source, mem_r_en,reg_addr_0,reg_addr_1,reg_addr_w,clk);
+    clk=0;
+    #10 instruction = 8'b0;
+    clk=1;
     #10 instruction = 8'b00101101;
-    #10 instruction = 8'b00111101;
-    #10 instruction = 8'b01001101;
-    #10 instruction = 8'b01011101;
-    #10 instruction = 8'b01101101;  
-    #10 instruction = 8'b01111101;
-    #10 instruction = 8'b10001101;
-    #10 instruction = 8'b10011101;
-    #10 instruction = 8'b10101101;
-    #10 instruction = 8'b10111101;
-    #10 instruction = 8'b11001101;
-    #10 instruction = 8'b11011101;
-    #10 instruction = 8'b11101101;
-    #10 instruction = 8'b11111101;
+    clk=0;
+    #10 instruction = 8'b00101101;
+    clk=1;
+
+  
+
 
   end
 
