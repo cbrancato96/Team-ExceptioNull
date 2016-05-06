@@ -5,12 +5,14 @@ in0, 		//first input
 in1, 		//second input
 out, 		//alu output
 jump,
-overflow);
+overflow,
+clk);
 
 input [7:0] instruction;
 input [7:0] in0; 
 input [7:0] in1;
 input [7:0] pc;
+input clk;
 	
 output [7:0] out;
 output [7:0] jump;
