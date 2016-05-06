@@ -31,7 +31,7 @@ initial begin
 end
   
 endmodule
-
+/*
 // Testbench
 module test();
 
@@ -67,3 +67,4 @@ module test();
   end
 
 endmodule
+*/

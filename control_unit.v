@@ -36,7 +36,10 @@ module control_unit(
 
   assign opcode = instruction[7:4];
   
-  always @(instruction) 
+  always @(clk)
+  begin
+
+  if(instruction) 
     begin
       
     if (opcode == 4'b0000) begin   //Move
@@ -214,10 +217,11 @@ module control_unit(
       sel_w_source = 8'b0;
       mem_r_en = 0;
       end
-    end   
+    end  
+    end  
     
 endmodule
-
+/*
 //Testbench
 module test();
 
@@ -267,3 +271,4 @@ module test();
   end
 
 endmodule
+*/

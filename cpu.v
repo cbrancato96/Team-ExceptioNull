@@ -1,8 +1,13 @@
-module cpu()
+`include "instuction_mem.v"
+`include "control_unit.v"
+`include "alu.v"
+`include "data_mem.v"
+`include "program_counter.v"
+module cpu();
  
   //Declarations
   reg [2:0] state;
-  reg [2:0] state_update;
+  wire [2:0] state_update;
   reg [7:0] instruction;
   reg fetch;
   reg decode;
@@ -15,7 +20,7 @@ module cpu()
   wire [3:0] opcode;
   
   // Register File I/O
-  reg [7:0] reg_file [3:0]
+  reg [7:0] reg_file [3:0]; 
   
   wire [1:0] reg_addr_0; // Address of Source Reg 0
   wire [1:0] reg_addr_1; // Address of Source Reg 1
@@ -40,7 +45,7 @@ module cpu()
   wire [7:0] mem_r_result;
   
   // Assignments
-  assign opcode instruction [7:4];
+  assign opcode = instruction [7:4];
   assign state_update = state + 1;
   
   initial begin
@@ -59,7 +64,7 @@ module cpu()
       3'b001: // Decode Instruction
         begin
           decode <= 1'b1;
-          decode <= #1 0'b0;
+          decode <= 1'b0; //changed from #1 0'b0 to this
           state <= state_update;
         end
       3'b010: // Get Data From Registers
@@ -87,7 +92,7 @@ module cpu()
         end
       3'b101: // Writeback Data Resolution
         begin
-            reg_w_data <= (alu_result & (~sel_w_source) + mem_r_result & sel_w_source)
+            reg_w_data <= (alu_result & (~sel_w_source) + mem_r_result & sel_w_source); 
           state <= state_update;
         end
       3'b110: // Writeback
@@ -112,14 +117,13 @@ module cpu()
 		           .clk(fetch));
   
   control_unit ctrl (.instruction(instruction),
-                     .jump(jump),
                      .sel_w_source(sel_w_source),
                      .mem_w_en(mem_w_en),
                      .reg_w_en(reg_w_en),
                      .mem_r_en(mem_r_en),
                      .reg_addr_0(reg_addr_0),
                      .reg_addr_1(reg_addr_1),
-                     .reg_addr_w(reg_addr_w)
+                     .reg_addr_w(reg_addr_w),
                      .clk(decode));
   
   alu arithmetics (.instruction(instruction),
@@ -130,7 +134,7 @@ module cpu()
                    .overflow(overflow),
                    .clk(execute));
   
-  data_mem dataMem (.data_address(data_address),
+  data_memory dataMem (.data_address(data_address),
                     .write_data(write_data),
                     .write_enable(write_enable),
                     .read_data(read_data),

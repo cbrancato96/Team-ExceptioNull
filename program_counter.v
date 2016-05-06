@@ -26,7 +26,7 @@ module program_counter(
       end
   end 
 endmodule
-
+/*
 // Testbench
 module test;
   
@@ -74,3 +74,4 @@ module test;
   
   
 endmodule
+*/

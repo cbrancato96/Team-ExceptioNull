@@ -154,7 +154,7 @@ always @(opcode) begin
 	end
 
  endmodule
- 
+ /*
  // Testbench
  module test();
   reg [7:0] instruction;
@@ -201,3 +201,4 @@ always @(opcode) begin
     #10 instruction = 8'b01011011;
   end
 endmodule
+*/
