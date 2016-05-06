@@ -32,7 +32,7 @@ module cpu();
  
   // Control Unit Flags
   wire [7:0] jump; // jump = 8'b1 if opcode == (j or jal or bne or beq)
-  wire sel_w_source[7:0]; // sel_w_source = 1 if opcode == lw
+  wire [7:0] sel_w_source; // sel_w_source = 1 if opcode == lw
   wire mem_w_en; // Data Memory Write Enable
   wire mem_r_en; // Data Memory Read Enable
   wire reg_w_en; // Register File Write Enable
@@ -41,7 +41,7 @@ module cpu();
   wire [7:0] alu_result;
   wire branch;
   wire overflow;
-  wire [7:0] jump_offset;
+  reg [7:0] jump_offset;
   wire [7:0] mem_r_result;
   
   // Assignments
@@ -72,7 +72,7 @@ module cpu();
           reg_data_0 <= reg_file[reg_addr_0];
           reg_data_1 <= reg_file[reg_addr_1];
           if (opcode == 4'b1100 || opcode == 4'b1101) begin // beq or bne
-            assign jump_offset = reg_file[2'b00];
+            jump_offset <= reg_file[2'b00];
           end
           state <= state_update;
         end
@@ -92,7 +92,7 @@ module cpu();
         end
       3'b101: // Writeback Data Resolution
         begin
-            reg_w_data <= (alu_result & (~sel_w_source) + mem_r_result & sel_w_source); 
+            reg_data_w <= (alu_result & (~sel_w_source) + mem_r_result & sel_w_source); 
           state <= state_update;
         end
       3'b110: // Writeback
@@ -146,13 +146,14 @@ module cpu();
                             .clk(update_pc));
                             
  // Display to Screen
- always @(posedge clk)
+// always// @(posedge clk)
+ initial
  begin
 
-   $display("state = %b, instruction = %b, pc = %b, reg_addr_0 = %b, reg_addr_1 = %b, reg_addr_w = %b, reg_data_0 = %b, reg_data_1 = %b, reg_data_w = %b, result=%b",
-    instruction, pc, reg_addr_0, reg_addr_1, reg_addr_w, reg_data_0, reg_data_1, reg_data_w, result);
-    $monitor("state = %b, instruction = %b, pc = %b, reg_addr_0 = %b, reg_addr_1 = %b, reg_addr_w = %b, reg_data_0 = %b, reg_data_1 = %b, reg_data_w = %b, result=%b",
-    instruction, pc, reg_addr_0, reg_addr_1, reg_addr_w, reg_data_0, reg_data_1, reg_data_w, result);
+   $display("state = %b, instruction = %b, pc = %b, reg_addr_0 = %b, reg_addr_1 = %b, reg_addr_w = %b, reg_data_0 = %b, reg_data_1 = %b, reg_data_w = %b",
+    instruction, pc, reg_addr_0, reg_addr_1, reg_addr_w, reg_data_0, reg_data_1, reg_data_w);
+    $monitor("state = %b, instruction = %b, pc = %b, reg_addr_0 = %b, reg_addr_1 = %b, reg_addr_w = %b, reg_data_0 = %b, reg_data_1 = %b, reg_data_w = %b",
+    instruction, pc, reg_addr_0, reg_addr_1, reg_addr_w, reg_data_0, reg_data_1, reg_data_w);
   end
-  
+
   endmodule
