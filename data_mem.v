@@ -51,14 +51,19 @@ module test();
   initial begin
     $display("data_address=%b, write_data=%b, write_enable=%b, read_data=%b", data_address, write_data, write_enable, read_data);
     clk = 0;
-	write_enable = 8'b0;
+	write_enable = 1'b0;
     data_address = 8'b1000010;
 	write_data = 8'b1;
     $monitor("data_address=%b, write_data=%b, write_enable=%b, read_data=%b, clk=%b", data_address, write_data, write_enable, read_data, clk);
-    write_enable = 8'b0;
+    write_enable = 1'b1;
     #10 clk = 1;
-    write_enable = 8'b0;
+    write_enable = 1'b1;
     #10 clk = 0;
+
+    #10 clk = 1;
+    write_enable = 1'b0;
+
+    #10 clk = 0; 
   end
 
 endmodule
