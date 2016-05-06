@@ -36,13 +36,18 @@ module cpu();
   wire mem_w_en; // Data Memory Write Enable
   wire mem_r_en; // Data Memory Read Enable
   wire reg_w_en; // Register File Write Enable
+
+  // Data Memory Interactions
+  wire [7:0] mem_data_r;
+  reg [7:0] mem_data_w;
+  reg [7:0] mem_address;
   
   // Results
   wire [7:0] alu_result;
   wire branch;
   wire overflow;
   reg [7:0] jump_offset;
-  wire [7:0] mem_r_result;
+  reg [7:0] mem_r_result;
   
   // Assignments
   assign opcode = instruction [7:4];
@@ -57,7 +62,7 @@ module cpu();
       3'b000: // Fetch Instruction
         begin
           fetch <= 1'b1;
-          instruction <= instuction_data;
+  //        instruction <= instuction_data;
 	  fetch <= 1'b0;
           state <= state_update; 
         end
@@ -85,9 +90,13 @@ module cpu();
       3'b100: // Data Memory Access
         begin
           if (mem_r_en || mem_w_en) begin
+	    if (opcode == 4'b1010 || opcode == 4'b1011)
+	      mem_address <= reg_data_0;
+              mem_r_result <= mem_data_r;
+              mem_data_w <= reg_data_1;
+            end
             access_mem <= 1'b1;
             access_mem <= #1 1'b0;
-            end
           state <= state_update;
         end
       3'b101: // Writeback Data Resolution
@@ -134,10 +143,10 @@ module cpu();
                    .overflow(overflow),
                    .clk(execute));
   
-  data_memory dataMem (.data_address(data_address),
-                    .write_data(write_data),
-                    .write_enable(write_enable),
-                    .read_data(read_data),
+  data_memory dataMem (.data_address(mem_address),
+                    .write_data(mem_data_w),
+                    .write_enable(mem_w_en),
+                    .read_data(mem_data_r),
                     .clk(access_mem)); //Other than access mem, none of other variables are declared
   
   program_counter pcounter (.pc_control(jump),
