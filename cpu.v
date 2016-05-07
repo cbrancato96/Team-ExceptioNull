@@ -58,7 +58,7 @@ module cpu();
       3'b000: // Fetch Instruction
         begin
           fetch <= 1'b1;
-          instruction <= instruction_data;
+          instruction = instruction_data;
 	  fetch <= 1'b0;
           state <= state_update; 
         end
@@ -153,16 +153,16 @@ module cpu();
  // Display to Screen
 //always @(state == 3'b0)
  initial begin
-   state = 3'b0;	 
-   $display("state = %b, instruction = %b, pc = %b, reg_addr_0 = %b, reg_addr_1 = %b, reg_addr_w = %b, reg_data_0 = %b, reg_data_1 = %b, reg_data_w = %b, instruction_Data = %b",
+   state = 3'b1;	 
+   $display("state = %b, instruction = %b, pc = %b, reg_addr_0 = %b, reg_addr_1 = %b, reg_addr_w = %b, reg_data_0 = %b, reg_data_1 = %b, reg_data_w = %b",
                      state,instruction, pc,
                      reg_addr_0, reg_addr_1, reg_addr_w,
-                     reg_data_0, reg_data_1, reg_data_w, instruction_data);
-    $monitor("state = %b, instruction = %b, pc = %b, reg_addr_0 = %b, reg_addr_1 = %b, reg_addr_w = %b, reg_data_0 = %b, reg_data_1 = %b, reg_data_w = %b, instruction_Data = %b",
+                     reg_data_0, reg_data_1, reg_data_w);
+    $monitor("state = %b, instruction = %b, pc = %b, reg_addr_0 = %b, reg_addr_1 = %b, reg_addr_w = %b, reg_data_0 = %b, reg_data_1 = %b, reg_data_w = %b",
                      state, instruction, pc,
                      reg_addr_0, reg_caddr_1, reg_addr_w,
-                     reg_data_0, reg_data_1, reg_data_w, instruction_data);
-   #10 state = 3'b1;
+                     reg_data_0, reg_data_1, reg_data_w);
+   #10 state = 3'b0;
   end
 
   endmodule
