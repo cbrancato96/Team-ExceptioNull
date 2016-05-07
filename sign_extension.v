@@ -11,7 +11,7 @@ module sign_extension (immediate, sign_extended, clk);
       sign_extended[7:0] <= $signed(immediate);
 	end
 endmodule
-
+/*
 //Testbench
 module test();
   reg clk;
@@ -37,3 +37,4 @@ module test();
  endtask
   
 endmodule
+*/

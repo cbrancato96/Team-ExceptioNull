@@ -39,6 +39,7 @@ module reg_file(
   end
 endmodule
 
+/*
 // Testbench
 module test();
   reg [1:0] raddr0;
@@ -70,3 +71,4 @@ module test();
 
 endmodule
 
+)*/
