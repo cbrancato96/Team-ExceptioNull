@@ -8,7 +8,7 @@
 
 using namespace std;
 
-string progFileName = "text.mem";
+string progFileName = "text.code";
 string binFileName = "instMem.bin";
 
 int main () {
