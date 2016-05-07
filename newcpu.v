@@ -54,7 +54,7 @@ module cpu();
   assign opcode = instruction [7:4];
   assign state_update = state + 1;
   
-  always @ (state or state_update)
+  always @ (state)
    begin
     case (state)
       3'b000: // Fetch Instruction
