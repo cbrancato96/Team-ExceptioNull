@@ -16,7 +16,8 @@ module cpu();
   reg update_pc;
   
   wire [7:0] instruction_data;
-  wire [7:0] pc;
+  reg [7:0] pc;
+  wire [7:0] pc_update;
   wire [3:0] opcode;
   
   // Register File I/O
@@ -62,7 +63,7 @@ module cpu();
           $display("state = %b, instruction = %b, pc = %b, reg_addr_0 = %b, reg_addr_1 = %b, reg_addr_w = %b, reg_data_0 = %b, reg_data_1 = %b, reg_data_w = %b, instruction_Data = %b",state,instruction, pc,reg_addr_0, reg_addr_1, reg_addr_w,reg_data_0, reg_data_1, reg_data_w, instruction_data);
           fetch <= 1'b1;
           instruction <= instruction_data;
-		  fetch <= 1'b0;
+	  fetch <= 1'b0;
       	  state <= state_update; 
         end
       
@@ -127,6 +128,7 @@ module cpu();
         begin
           $display("state = %b, instruction = %b, pc = %b, reg_addr_0 = %b, reg_addr_1 = %b, reg_addr_w = %b, reg_data_0 = %b, reg_data_1 = %b, reg_data_w = %b, instruction_Data = %b",state,instruction, pc,reg_addr_0, reg_addr_1, reg_addr_w,reg_data_0, reg_data_1, reg_data_w, instruction_data);
           update_pc <= 1'b0;
+	  pc <= pc_update;
           update_pc <= #1 1'b1;
           state <= state_update;
         end
@@ -165,6 +167,7 @@ module cpu();
   program_counter pcounter (.pc_control(jump),
                             .jump_offset(jump_offset),
                             .pc(pc),
+			    .pc_update(pc_update),
                             .clk(update_pc));
                     
  // Display to Screen
