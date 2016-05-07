@@ -6,46 +6,46 @@
 :vpi_module "vhdl_sys";
 :vpi_module "v2005_math";
 :vpi_module "va_math";
-S_0x7fda43600f50 .scope module, "test" "test" 2 27;
+S_0x7f992ae01690 .scope module, "test" "test" 2 27;
  .timescale 0 0;
-v0x7fda4370da10_0 .var "clk", 0 0;
-v0x7fda4370dad0_0 .var "instruction_address", 7 0;
-v0x7fda4370db80_0 .net "instruction_data", 7 0, v0x7fda4370d880_0;  1 drivers
-S_0x7fda436010b0 .scope module, "INSTRUCTION_MEM" "instruction_mem" 2 32, 2 1 0, S_0x7fda43600f50;
+v0x7f992ae11bc0_0 .var "clk", 0 0;
+v0x7f992ae11c60_0 .var "instruction_address", 7 0;
+v0x7f992ae11d10_0 .net "instruction_data", 7 0, v0x7f992ae11a10_0;  1 drivers
+S_0x7f992ae017f0 .scope module, "INSTRUCTION_MEM" "instruction_mem" 2 32, 2 1 0, S_0x7f992ae01690;
  .timescale 0 0;
     .port_info 0 /INPUT 8 "instruction_address"
     .port_info 1 /OUTPUT 8 "instruction_data"
     .port_info 2 /INPUT 1 "clk"
-P_0x7fda43600cd0 .param/str "INSTRUCTIONS" 0 2 13, "instMem.bin";
-v0x7fda43601290_0 .net "clk", 0 0, v0x7fda4370da10_0;  1 drivers
-v0x7fda4370d7c0_0 .net "instruction_address", 7 0, v0x7fda4370dad0_0;  1 drivers
-v0x7fda4370d880_0 .var "instruction_data", 7 0;
-v0x7fda4370d920 .array "instruction_mem", 63 0, 7 0;
-E_0x7fda43601260 .event posedge, v0x7fda43601290_0;
-    .scope S_0x7fda436010b0;
+P_0x7f992ae00050 .param/str "INSTRUCTIONS" 0 2 13, "instMem.bin";
+v0x7f992ae019a0_0 .net "clk", 0 0, v0x7f992ae11bc0_0;  1 drivers
+v0x7f992ae11960_0 .net "instruction_address", 7 0, v0x7f992ae11c60_0;  1 drivers
+v0x7f992ae11a10_0 .var "instruction_data", 7 0;
+v0x7f992ae11ad0 .array "instruction_mem", 63 0, 7 0;
+E_0x7f992ae000d0 .event posedge, v0x7f992ae019a0_0;
+    .scope S_0x7f992ae017f0;
 T_0 ;
-    %wait E_0x7fda43601260;
-    %ix/getv 4, v0x7fda4370d7c0_0;
-    %load/vec4a v0x7fda4370d920, 4;
-    %assign/vec4 v0x7fda4370d880_0, 0;
+    %wait E_0x7f992ae000d0;
+    %ix/getv 4, v0x7f992ae11960_0;
+    %load/vec4a v0x7f992ae11ad0, 4;
+    %assign/vec4 v0x7f992ae11a10_0, 0;
     %jmp T_0;
     .thread T_0;
-    .scope S_0x7fda436010b0;
+    .scope S_0x7f992ae017f0;
 T_1 ;
-    %vpi_call 2 20 "$readmemb", P_0x7fda43600cd0, v0x7fda4370d920 {0 0 0};
+    %vpi_call 2 20 "$readmemb", P_0x7f992ae00050, v0x7f992ae11ad0 {0 0 0};
     %end;
     .thread T_1;
-    .scope S_0x7fda43600f50;
+    .scope S_0x7f992ae01690;
 T_2 ;
     %pushi/vec4 0, 0, 8;
-    %store/vec4 v0x7fda4370dad0_0, 0, 8;
+    %store/vec4 v0x7f992ae11c60_0, 0, 8;
     %pushi/vec4 0, 0, 1;
-    %store/vec4 v0x7fda4370da10_0, 0, 1;
-    %vpi_call 2 41 "$display", "instruction_address=%b,instruction_data=%b, clk=%b", v0x7fda4370dad0_0, v0x7fda4370db80_0, v0x7fda4370da10_0 {0 0 0};
-    %vpi_call 2 43 "$monitor", "instruction_address=%b,instruction_data=%b, clk=%b", v0x7fda4370dad0_0, v0x7fda4370db80_0, v0x7fda4370da10_0 {0 0 0};
+    %store/vec4 v0x7f992ae11bc0_0, 0, 1;
+    %vpi_call 2 41 "$display", "instruction_address=%b,instruction_data=%b, clk=%b", v0x7f992ae11c60_0, v0x7f992ae11d10_0, v0x7f992ae11bc0_0 {0 0 0};
+    %vpi_call 2 43 "$monitor", "instruction_address=%b,instruction_data=%b, clk=%b", v0x7f992ae11c60_0, v0x7f992ae11d10_0, v0x7f992ae11bc0_0 {0 0 0};
     %delay 10, 0;
     %pushi/vec4 1, 0, 1;
-    %store/vec4 v0x7fda4370da10_0, 0, 1;
+    %store/vec4 v0x7f992ae11bc0_0, 0, 1;
     %end;
     .thread T_2;
 # The file index is used to find the file name in the following table.

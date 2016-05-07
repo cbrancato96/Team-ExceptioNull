@@ -22,7 +22,7 @@ end
 
 endmodule
 
-/*
+
 //Testbench
 module test();
   reg [7:0] instruction_address;
