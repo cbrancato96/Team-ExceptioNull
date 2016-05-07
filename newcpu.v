@@ -1,10 +1,9 @@
-/*
 `include "instruction_mem.v"
 `include "control_unit.v"
 `include "alu.v"
 `include "data_mem.v"
 `include "program_counter.v"
-*/
+
 module cpu();
  
   //Declarations
@@ -141,9 +140,9 @@ module cpu();
       endcase
     end  
  
-  /*
+  
   // Operation Instantiation 
-  instruction_mem instMem (.instruction_address(pc),
+ instruction_mem instMem (.instruction_address(pc),
  	                   .instruction_data(instruction_data),
  		           .clk(fetch));
    
@@ -156,7 +155,7 @@ module cpu();
                       .reg_addr_1(reg_addr_1),
                       .reg_addr_w(reg_addr_w),
                       .clk(decode));
- 
+
    alu arithmetics (.instruction(instruction),
                     .pc(pc),
                     .in0(reg_data_0),
@@ -164,7 +163,7 @@ module cpu();
                     .out(alu_result),
                     .overflow(overflow),
                     .clk(execute));
-   
+  
    data_memory dataMem (.data_address(mem_address),
                      .write_data(mem_data_w),
                      .write_enable(mem_w_en),
@@ -175,7 +174,7 @@ module cpu();
                              .jump_offset(jump_offset),
                              .pc(pc),
                              .clk(update_pc));
-         */            
+                    
  // Display to Screen
  initial begin
  state = 3'b000;

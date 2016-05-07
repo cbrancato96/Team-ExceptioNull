@@ -14,6 +14,10 @@ module program_counter(
   wire [7:0] offset;
   
   assign pc_update = pc + 1 + (pc_control & jump_offset);
+  initial
+    begin
+      pc = 8'b0;
+    end
   
   always @ (posedge clk)
     begin 
