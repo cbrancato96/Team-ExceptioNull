@@ -173,6 +173,7 @@ module cpu();
  // Display to Screen
  initial begin
 state = 3'b000;
+pc = 8'b0;
   end 
   
   endmodule
