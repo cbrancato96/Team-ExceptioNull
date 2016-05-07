@@ -8,7 +8,7 @@
 
 using namespace std;
 
-string progFileName = "text.code";
+string progFileName = "test.code";
 string binFileName = "instMem.bin";
 
 int main () {
@@ -23,7 +23,7 @@ int main () {
 
 			assCmd = assRawCmd.substr(0,assRawCmd.find('#'));
 
-			if(!assCmd.find("j "))
+			if(!assCmd.find("j"))
 				assCmd = assCmd + " 00";
 
 			if(!assRawCmd.compare("") || !assCmd.compare(""))
@@ -208,10 +208,11 @@ int main () {
 
 	ifstream checkSizeBin(binFileName.c_str());
 	string line; 
-	int numLines;
+	int numLines=0;
 
-	while(getline(checkSizeBin, line))
+	while(getline(checkSizeBin, line)){
 		numLines++;
+	}
 
 	checkSizeBin.close();
 
