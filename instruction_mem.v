@@ -45,4 +45,3 @@ module test();
   end
 
 endmodule
-*/
