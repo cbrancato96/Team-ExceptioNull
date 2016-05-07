@@ -1,15 +1,15 @@
 // Code your design here
 module control_unit(
-  instruction,
- // jump,
-  mem_w_en,
-  reg_w_en,
-  sel_w_source,
-  mem_r_en,
-  reg_addr_0,
-  reg_addr_1,
-  reg_addr_w,
-  clk,
+    instruction,
+   // jump,
+    mem_w_en,
+    reg_w_en,
+    sel_w_source,
+    mem_r_en,
+    reg_addr_0,
+    reg_addr_1,
+    reg_addr_w,
+    clk,
   );
 
   input [7:0] instruction;
