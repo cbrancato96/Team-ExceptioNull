@@ -31,7 +31,7 @@ module alu(
     assign imm2 = instruction [1:0];
     assign imm4 = instruction [3:0];
 
-    always @(opcode) 
+  always @(posedge clk) 
     begin
         case (opcode)
             4'b0000 : // Move
@@ -162,13 +162,15 @@ module alu(
     end
 
 endmodule
- /*
- // Testbench
+
+/*
+// Testbench
  module test();
   reg [7:0] instruction;
   reg [7:0] in0;
   reg [7:0] in1;
   reg [7:0] pc;
+  reg clk;
   wire [7:0] out;
   wire [7:0] jump;
   wire overflow;
@@ -180,33 +182,25 @@ endmodule
     .in1(in1),
     .out(out),
     .jump(jump),
-    .overflow(overflow));
+    .overflow(overflow),
+    .clk(clk));
  
   initial begin
+    	clk = 0;
     	instruction = 8'b0;
     	in0 = 8'b11111111;
     	in1 = 8'b111;
-	pc = 8'b11;
-    $monitor("instruction=%b, in0=%b, in1=%b, out=%b, jump=%b overflow=%b", instruction, in0, in1, out, jump, overflow);
+		pc = 8'b11;
+    $monitor("instruction=%b, in0=%b, in1=%b, out=%b, jump=%b overflow=%b, clk=%b", instruction, in0, in1, out, jump, overflow, clk);
+    
+    #10 clk = 1;
+    #10 clk= 0;
  	#10 instruction = 8'b00011101;
+    #10 clk = 1;
+    #10 clk = 0;
     #10 instruction = 8'b00101101;
-    #10 instruction = 8'b00111101;
-    #10 instruction = 8'b01001101;
-    #10 instruction = 8'b01011101;
-    #10 instruction = 8'b01101101;  
-    #10 instruction = 8'b01111101;
-    #10 instruction = 8'b10001101;
-    #10 instruction = 8'b10011101;
-    #10 instruction = 8'b10101101;
-    #10 instruction = 8'b10111101;
-    #10 instruction = 8'b11001101;
-    #10 instruction = 8'b11011101;
-    #10 instruction = 8'b11101101;
-    #10 instruction = 8'b11111101;
-    #10 instruction = 8'b11101011;
-    #10 instruction = 8'b11111011;
-    #10 in0 = 8'b100;
-    #10 instruction = 8'b01011011;
+	#10 clk = 1;
+
   end
+    
 endmodule
-*/
