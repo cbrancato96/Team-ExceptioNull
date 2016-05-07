@@ -8,15 +8,21 @@
 
 using namespace std;
 
-string progFileName = "test.code";
-string binFileName = "instMem.bin";
-
-int main () {
+int main (int argn, char ** argv) {
 		ifstream assFile;
 		ofstream binFile;
 		stringstream assSplitter; 
-		assFile.open (progFileName.c_str());
-		binFile.open(binFileName.c_str()); 
+
+		if(argn != 3){
+			cout << "SYNTAX ERROR: Assembler assemb.code binary.code" << endl;
+			return 0;
+		}
+
+		char* cStrProgFileName = argv[1];
+		char* cStrBinFileName = argv[2]; 
+
+		assFile.open (cStrProgFileName);
+		binFile.open(cStrBinFileName); 
 		string assRawCmd, assCmd;
 
 		while(getline(assFile,assRawCmd)){
@@ -206,7 +212,7 @@ int main () {
 	assFile.close();
 	binFile.close();
 
-	ifstream checkSizeBin(binFileName.c_str());
+	ifstream checkSizeBin(cStrBinFileName);
 	string line; 
 	int numLines=0;
 
@@ -226,7 +232,7 @@ int main () {
 
 		ofstream zeroPadBin; 
 
-		zeroPadBin.open(binFileName.c_str(), ios::app);
+		zeroPadBin.open(cStrBinFileName, ios::app);
 
 		for(int i = 0; i < padSize; i++)
 			zeroPadBin << "00000000" << endl;
