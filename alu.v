@@ -144,7 +144,7 @@ module alu(
             4'b1110: // Add Immediate
                 begin
                     out = $signed(imm2) + $signed(in1);
-                    jump = 0;
+                    jump = 8'b0;
                 end
             
             4'b1111: // Load Immediate
@@ -159,6 +159,11 @@ module alu(
         		end				
         		
         endcase		
+    end
+
+    initial
+    begin
+        jump = 8'b0; 
     end
 
 endmodule
@@ -205,3 +210,4 @@ endmodule
     
 endmodule
 */
+

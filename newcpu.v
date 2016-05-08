@@ -107,11 +107,11 @@ module cpu();
           if (mem_r_en || mem_w_en) begin
 	    if (opcode == 4'b1010 || opcode == 4'b1011)
 	      #10 mem_address <= reg_data_0;
-              #10 mem_r_result <= mem_data_r;
               #10 mem_data_w <= reg_data_1;
             end
             #10 access_mem <= 1'b1;
             #10 access_mem <= #1 1'b0;
+            #10 mem_r_result <= mem_data_r;
           #10 $display("state = %b, instruction = %b, pc = %b, reg0 = %b, reg1 = %b, reg2 = %b, sp = %b, addr0 = %b, addr1 = %b, addrw = %b, dataw = %b",state,instruction, pc, reg_file[0], reg_file[1], reg_file[2], reg_file[3], reg_addr_0, reg_addr_1, reg_addr_w, reg_data_w);
           #10 state <= state_update;
         end
@@ -120,6 +120,7 @@ module cpu();
         begin
             #10 reg_data_w <= ((alu_result & (~sel_w_source)) +( mem_r_result & sel_w_source)); 
           #10 $display("state = %b, instruction = %b, pc = %b, reg0 = %b, reg1 = %b, reg2 = %b, sp = %b, addr0 = %b, addr1 = %b, addrw = %b, dataw = %b, ar = %b mr = %b",state,instruction, pc, reg_file[0], reg_file[1], reg_file[2], reg_file[3], reg_addr_0, reg_addr_1, reg_addr_w, reg_data_w, alu_result, mem_r_result);
+          $display("write_enable: %b", mem_w_en);
           #10 state <= state_update;
         end
       
@@ -134,19 +135,9 @@ module cpu();
       
       3'b111: // PC Update
         begin
-          /////////////////////////////
-          //begin
-          //if (instruction_data == 8'b11110100) 
-          	//begin
-          	//startup = 1;
-          	//end else 
-          	//#10 startup = 0; 
-          //end
-          ////////////////////////////////
-          //update_pc <= 1'b0;
-          //update_pc <= #1 1'b1;
+        jump_offset <= alu_result;
 	  #10 pc <= pc + 1 + (jump & jump_offset);
-          #10 $display("state = %b, instruction = %b, pc = %b, reg0 = %b, reg1 = %b, reg2 = %b, sp = %b, addr0 = %b, addr1 = %b, addrw = %b, dataw = %b",state,instruction, pc, reg_file[0], reg_file[1], reg_file[2], reg_file[3], reg_addr_0, reg_addr_1, reg_addr_w, reg_data_w);
+          #10 $display("state = %b, instruction = %b, pc = %b, reg0 = %b, reg1 = %b, reg2 = %b, sp = %b, addr0 = %b, addr1 = %b, addrw = %b, dataw = %b, jump = %b , jump_offset= %b",state,instruction, pc, reg_file[0], reg_file[1], reg_file[2], reg_file[3], reg_addr_0, reg_addr_1, reg_addr_w, reg_data_w, jump, jump_offset);
           #10 state <= state_update;
         end
       endcase
@@ -156,7 +147,7 @@ module cpu();
   // Operation Instantiation 
  instruction_mem instMem (.instruction_address(pc),
  	                   .instruction_data(instruction_data),
- 		           .clk(fetch));
+ 		                 .clk(fetch));
    
    control_unit ctrl (.instruction(instruction),
                        .mem_w_en(mem_w_en),
@@ -174,7 +165,8 @@ module cpu();
                     .in1(reg_data_1),
                     .out(alu_result),
                     .overflow(overflow),
-                    .clk(execute));
+                    .clk(execute), 
+                    .jump(jump));
   
    data_memory dataMem (.data_address(mem_address),
                      .write_data(mem_data_w),

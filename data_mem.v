@@ -13,7 +13,7 @@ input clk;
   
 output [7:0] read_data;
 
-reg [7:0] data_mem [64:127];
+reg [7:0] data_mem [0:63];
 reg [7:0] read_data;
 parameter DATA = "dataMem.bin";
 

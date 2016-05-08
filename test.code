@@ -8,9 +8,9 @@ nor $r1 $r2
 slt $r1 $r2
 sll $r1 10
 srl $r1 11
-j $r2
 jal $r2
 lw $r1 $r2
 sw $r1 $r2
-beq $r1 $r2
-bne $r1 $r2
+lw $r0 $r2
+beq $r1 $r1
+bne $r1 $r1

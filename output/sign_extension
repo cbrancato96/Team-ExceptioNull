@@ -6,23 +6,23 @@
 :vpi_module "vhdl_sys";
 :vpi_module "v2005_math";
 :vpi_module "va_math";
-S_0x7f8efbf010e0 .scope module, "sign_extension" "sign_extension" 2 1;
+S_0x7f85cb405c90 .scope module, "sign_extension" "sign_extension" 2 1;
  .timescale 0 0;
     .port_info 0 /INPUT 2 "immediate"
     .port_info 1 /OUTPUT 8 "sign_extended"
     .port_info 2 /INPUT 1 "clk"
-o0x102465008 .functor BUFZ 1, C4<z>; HiZ drive
-v0x7f8efbf01280_0 .net "clk", 0 0, o0x102465008;  0 drivers
-o0x102465038 .functor BUFZ 2, C4<zz>; HiZ drive
-v0x7f8efbf11330_0 .net "immediate", 1 0, o0x102465038;  0 drivers
-v0x7f8efbf113d0_0 .var "sign_extended", 7 0;
-E_0x7f8efbf01240 .event posedge, v0x7f8efbf01280_0;
-    .scope S_0x7f8efbf010e0;
+o0x109365008 .functor BUFZ 1, C4<z>; HiZ drive
+v0x7f85cb405df0_0 .net "clk", 0 0, o0x109365008;  0 drivers
+o0x109365038 .functor BUFZ 2, C4<zz>; HiZ drive
+v0x7f85cb415e40_0 .net "immediate", 1 0, o0x109365038;  0 drivers
+v0x7f85cb415ee0_0 .var "sign_extended", 7 0;
+E_0x7f85cb4044c0 .event posedge, v0x7f85cb405df0_0;
+    .scope S_0x7f85cb405c90;
 T_0 ;
-    %wait E_0x7f8efbf01240;
-    %load/vec4 v0x7f8efbf11330_0;
+    %wait E_0x7f85cb4044c0;
+    %load/vec4 v0x7f85cb415e40_0;
     %pad/s 8;
-    %assign/vec4 v0x7f8efbf113d0_0, 0;
+    %assign/vec4 v0x7f85cb415ee0_0, 0;
     %jmp T_0;
     .thread T_0;
 # The file index is used to find the file name in the following table.
