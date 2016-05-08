@@ -14,10 +14,7 @@ module program_counter(
   wire [7:0] offset;
   
   assign pc_update = pc + 1 + (pc_control & jump_offset);
-  initial
-    begin
-      pc = 8'b0;
-    end
+
   
   always @ (posedge clk)
     begin 
@@ -26,14 +23,14 @@ module program_counter(
       end
   end 
 endmodule
-/*
+
 // Testbench
 module test;
   
   reg clk;
   reg [7:0] pc_control;
   reg [7:0] jump_offset;
-  wire [7:0] pc;
+  reg [7:0] pc;
   
    program_counter PROGRAM_COUNTER(
     .clk(clk),
@@ -43,6 +40,7 @@ module test;
     
   initial begin
     $display("Initial conditions");
+    pc = 8'b0;
     clk = 0;
     pc_control = 8'b0;
     jump_offset = 8'b11;
@@ -74,4 +72,3 @@ module test;
   
   
 endmodule
-*/

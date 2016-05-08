@@ -17,7 +17,7 @@ module cpu();
   reg update_pc;
   
   wire [7:0] instruction_data;
-  wire [7:0] pc;
+  reg [7:0] pc;
   wire [3:0] opcode;
   
   // Register File I/O
@@ -178,6 +178,7 @@ module cpu();
  // Display to Screen
  initial begin
  state = 3'b000;
+ pc = 8'b0;
   end 
   
  endmodule
