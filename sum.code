@@ -1,0 +1,18 @@
+lil $r2 15    #  load n = 15 to $r2
+li $r1 00     #  load zero to $r1 to compare with n
+lil $r0 3     #  load 3 to $r0
+bne $r1 $r2   #  branch to PC + 1 + $r0 = 3 + 1 + 3 = 7 = line 8
+addi $sp 01   #  pop $ra off the stack
+lw $r0 $sp    #  load $ra to $r0
+j $r0         #  jr $ra or jump back 
+sw $r2 $sp    #  store n 
+addi $r2 11   #  $r2 = n-1
+addl $sp -2   #  push 2 values to stack : n & $ra
+jal $r0       #  store $ra at ($sp + 1) and (call sum(n-1) or jump to line 4)
+addi $sp 01   #  pop n off the stack
+lw $r2 $sp    #  load n to $r2
+add $r1 $r2   #  $r0 = sum(n-1) + n = sum(n)
+mv $r1 $r0    #  move sum(n) to $r1
+addi $sp 01   #  pop $ra off the stack
+lw $r0 $sp    #  load $ra to $r0
+j $r0         #  jr $ra or jump back
