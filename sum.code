@@ -6,6 +6,7 @@ addi $sp 01   #  pop $ra off the stack
 lw $r0 $sp    #  load $ra to $r0
 j $r0         #  jr $ra or jump back 
 sw $r2 $sp    #  store n 
+addi $r2 11   #  $r2 = n-1
 addl $sp -2   #  push 2 values to stack : n & $ra
 jal $r0       #  store $ra at ($sp + 1) and (call sum(n-1) or jump to line 4)
 addi $sp 01   #  pop n off the stack
