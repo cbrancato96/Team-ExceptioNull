@@ -33,7 +33,7 @@ end
   
 endmodule
 
-// Testbench
+/* Testbench
 module test();
 
   reg [7:0] data_address;
@@ -68,4 +68,4 @@ module test();
   end
 
 endmodule
-
+*/

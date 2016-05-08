@@ -67,73 +67,73 @@ module cpu();
     case (state)
      3'b000: // Fetch Instruction
         begin
-          $display("state = %b, instruction = %b, pc = %b, reg_addr_0 = %b, reg_addr_1 = %b, reg_addr_w = %b, reg_data_0 = %b, reg_data_1 = %b, reg_data_w = %b, instruction_Data = %b",state,instruction, pc,reg_addr_0, reg_addr_1, reg_addr_w,reg_data_0, reg_data_1, reg_data_w, instruction_data);
-          fetch <= 1'b1;
-          instruction <= instruction_data;
-	  fetch <= 1'b0;
-      	  state <= state_update; 
+
+          #10 fetch <= 1'b1;
+          #10 instruction <= instruction_data;
+	  #10 fetch <= 1'b0;
+          #10 $display("state = %b, instruction = %b, pc = %b, reg0 = %b, reg1 = %b, reg2 = %b, sp = %b, addr0 = %b, addr1 = %b, addrw = %b, dataw = %b",state,instruction, pc, reg_file[0], reg_file[1], reg_file[2], reg_file[3], reg_addr_0, reg_addr_1, reg_addr_w, reg_data_w);
+      	  #10 state <= state_update; 
         end
       
       3'b001: // Decode Instruction
         begin
-           $display("state = %b, instruction = %b, pc = %b, reg_addr_0 = %b, reg_addr_1 = %b, reg_addr_w = %b, reg_data_0 = %b, reg_data_1 = %b, reg_data_w = %b, instruction_Data = %b",state,instruction, pc,reg_addr_0, reg_addr_1, reg_addr_w,reg_data_0, reg_data_1, reg_data_w, instruction_data);
-          decode <= 1'b1;
-          decode <= 1'b0; //changed from #1 0'b0 to this
-         state <= state_update;
+          #10 decode <= 1'b1;
+          #10 decode <= 1'b0; //changed from #1 0'b0 to this
+          #10 $display("state = %b, instruction = %b, pc = %b, reg0 = %b, reg1 = %b, reg2 = %b, sp = %b, addr0 = %b, addr1 = %b, addrw = %b, dataw = %b",state,instruction, pc, reg_file[0], reg_file[1], reg_file[2], reg_file[3], reg_addr_0, reg_addr_1, reg_addr_w, reg_data_w);
+         #10 state <= state_update;
         end
       
      3'b010: // Get Data From Registers
         begin
-           $display("state = %b, instruction = %b, pc = %b, reg_addr_0 = %b, reg_addr_1 = %b, reg_addr_w = %b, reg_data_0 = %b, reg_data_1 = %b, reg_data_w = %b, instruction_Data = %b",state,instruction, pc,reg_addr_0, reg_addr_1, reg_addr_w,reg_data_0, reg_data_1, reg_data_w, instruction_data);
-          reg_data_0 <= reg_file[reg_addr_0];
-          reg_data_1 <= reg_file[reg_addr_1];
+          #10 reg_data_0 <= reg_file[reg_addr_0];
+          #10 reg_data_1 <= reg_file[reg_addr_1];
           if (opcode == 4'b1100 || opcode == 4'b1101) begin // beq or bne
             jump_offset <= reg_file[2'b00];
           end
-          state <= state_update;
+          #10 $display("state = %b, instruction = %b, pc = %b, reg0 = %b, reg1 = %b, reg2 = %b, sp = %b, addr0 = %b, addr1 = %b, addrw = %b, dataw = %b",state,instruction, pc, reg_file[0], reg_file[1], reg_file[2], reg_file[3], reg_addr_0, reg_addr_1, reg_addr_w, reg_data_w);
+          #10 state <= state_update;
         end
       
       3'b011: // Execute
         begin
-          $display("state = %b, instruction = %b, pc = %b, reg_addr_0 = %b, reg_addr_1 = %b, reg_addr_w = %b, reg_data_0 = %b, reg_data_1 = %b, reg_data_w = %b, instruction_Data = %b",state,instruction, pc,reg_addr_0, reg_addr_1, reg_addr_w,reg_data_0, reg_data_1, reg_data_w, instruction_data);
-          execute <= 1'b1;
-          execute <= #1 1'b0;
-          state <= state_update;
+          #10 execute <= 1'b1;
+          #10 execute <= #1 1'b0;
+          #10 $display("state = %b, instruction = %b, pc = %b, reg0 = %b, reg1 = %b, reg2 = %b, sp = %b, addr0 = %b, addr1 = %b, addrw = %b, dataw = %b",state,instruction, pc, reg_file[0], reg_file[1], reg_file[2], reg_file[3], reg_addr_0, reg_addr_1, reg_addr_w, reg_data_w);
+          #10 state <= state_update;
         end
       
       3'b100: // Data Memory Access
         begin
-          $display("state = %b, instruction = %b, pc = %b, reg_addr_0 = %b, reg_addr_1 = %b, reg_addr_w = %b, reg_data_0 = %b, reg_data_1 = %b, reg_data_w = %b, instruction_Data = %b",state,instruction, pc,reg_addr_0, reg_addr_1, reg_addr_w,reg_data_0, reg_data_1, reg_data_w, instruction_data);
           if (mem_r_en || mem_w_en) begin
 	    if (opcode == 4'b1010 || opcode == 4'b1011)
-	      mem_address <= reg_data_0;
-              mem_r_result <= mem_data_r;
-              mem_data_w <= reg_data_1;
+	      #10 mem_address <= reg_data_0;
+              #10 mem_r_result <= mem_data_r;
+              #10 mem_data_w <= reg_data_1;
             end
-            access_mem <= 1'b1;
-            access_mem <= #1 1'b0;
-          state <= state_update;
+            #10 access_mem <= 1'b1;
+            #10 access_mem <= #1 1'b0;
+          #10 $display("state = %b, instruction = %b, pc = %b, reg0 = %b, reg1 = %b, reg2 = %b, sp = %b, addr0 = %b, addr1 = %b, addrw = %b, dataw = %b",state,instruction, pc, reg_file[0], reg_file[1], reg_file[2], reg_file[3], reg_addr_0, reg_addr_1, reg_addr_w, reg_data_w);
+          #10 state <= state_update;
         end
       
       3'b101: // Writeback Data Resolution
         begin
-           $display("state = %b, instruction = %b, pc = %b, reg_addr_0 = %b, reg_addr_1 = %b, reg_addr_w = %b, reg_data_0 = %b, reg_data_1 = %b, reg_data_w = %b, instruction_Data = %b",state,instruction, pc,reg_addr_0, reg_addr_1, reg_addr_w,reg_data_0, reg_data_1, reg_data_w, instruction_data);
-            reg_data_w <= (alu_result & (~sel_w_source) + mem_r_result & sel_w_source); 
-          state <= state_update;
+            #10 reg_data_w <= ((alu_result & (~sel_w_source)) +( mem_r_result & sel_w_source)); 
+          #10 $display("state = %b, instruction = %b, pc = %b, reg0 = %b, reg1 = %b, reg2 = %b, sp = %b, addr0 = %b, addr1 = %b, addrw = %b, dataw = %b, ar = %b mr = %b",state,instruction, pc, reg_file[0], reg_file[1], reg_file[2], reg_file[3], reg_addr_0, reg_addr_1, reg_addr_w, reg_data_w, alu_result, mem_r_result);
+          #10 state <= state_update;
         end
       
       3'b110: // Writeback
         begin
-           $display("state = %b, instruction = %b, pc = %b, reg_addr_0 = %b, reg_addr_1 = %b, reg_addr_w = %b, reg_data_0 = %b, reg_data_1 = %b, reg_data_w = %b, instruction_Data = %b",state,instruction, pc,reg_addr_0, reg_addr_1, reg_addr_w,reg_data_0, reg_data_1, reg_data_w, instruction_data);
           if (reg_w_en) begin
-            reg_file[reg_addr_w] <= reg_data_w;
+            #10 reg_file[reg_addr_w] <= reg_data_w;
             end
-          state <= state_update;  
+          #10 $display("state = %b, instruction = %b, pc = %b, reg0 = %b, reg1 = %b, reg2 = %b, sp = %b, addr0 = %b, addr1 = %b, addrw = %b, dataw = %b",state,instruction, pc, reg_file[0], reg_file[1], reg_file[2], reg_file[3], reg_addr_0, reg_addr_1, reg_addr_w, reg_data_w);
+          #10 state <= state_update;  
         end
       
       3'b111: // PC Update
         begin
-          $display("state = %b, instruction = %b, pc = %b, reg_addr_0 = %b, reg_addr_1 = %b, reg_addr_w = %b, reg_data_0 = %b, reg_data_1 = %b, reg_data_w = %b, instruction_Data = %b",state,instruction, pc,reg_addr_0, reg_addr_1, reg_addr_w,reg_data_0, reg_data_1, reg_data_w, instruction_data);
           /////////////////////////////
           //begin
           //if (instruction_data == 8'b11110100) 
@@ -145,8 +145,9 @@ module cpu();
           ////////////////////////////////
           //update_pc <= 1'b0;
           //update_pc <= #1 1'b1;
-	  pc <= pc + 1 + (jump & jump_offset);
-          state <= state_update;
+	  #10 pc <= pc + 1 + (jump & jump_offset);
+          #10 $display("state = %b, instruction = %b, pc = %b, reg0 = %b, reg1 = %b, reg2 = %b, sp = %b, addr0 = %b, addr1 = %b, addrw = %b, dataw = %b",state,instruction, pc, reg_file[0], reg_file[1], reg_file[2], reg_file[3], reg_addr_0, reg_addr_1, reg_addr_w, reg_data_w);
+          #10 state <= state_update;
         end
       endcase
     end  
@@ -186,6 +187,11 @@ module cpu();
  state = 3'b000;
  pc = 8'b0; 
  jump_offset = 8'b0;
+ reg_file[0] = 8'b11;
+ reg_file[1] = 8'b0;
+ reg_file[2] = 8'b0;
+ reg_file[3] = 8'b0;
+ mem_r_result = 8'b0;
  end 
   
  endmodule
