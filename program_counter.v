@@ -2,11 +2,13 @@ module program_counter(
   clk,
   pc_control,
   jump_offset,
-  pc);
+  pc,
+startup);
 
   input clk;
   input [7:0] pc_control;
   input [7:0] jump_offset;
+  input startup;
   wire [7:0] pc_update;
   output [7:0] pc;
   
@@ -18,37 +20,54 @@ module program_counter(
   
   always @ (posedge clk)
     begin 
-      if (clk) begin 
-  	    pc <= pc_update;
-      end
+      if (startup == 1) begin 
+        pc = 8'b0;
+    	end else
+          pc <= pc_update;
   end 
 endmodule
 
+<<<<<<< HEAD
 // Testbench
+=======
+/*
+//Testbench
+>>>>>>> 4d6a32566784de6976dc15622f2a071d692b5961
 module test;
   
   reg clk;
   reg [7:0] pc_control;
   reg [7:0] jump_offset;
+<<<<<<< HEAD
+=======
+  reg startup;
+>>>>>>> 4d6a32566784de6976dc15622f2a071d692b5961
   reg [7:0] pc;
   
    program_counter PROGRAM_COUNTER(
     .clk(clk),
     .pc_control(pc_control),
     .jump_offset(jump_offset),
-    .pc(pc));
+    .pc(pc),
+    .startup(startup));
     
   initial begin
     $display("Initial conditions");
+<<<<<<< HEAD
     pc = 8'b0;
+=======
+    startup = 1;
+>>>>>>> 4d6a32566784de6976dc15622f2a071d692b5961
     clk = 0;
     pc_control = 8'b0;
     jump_offset = 8'b11;
     display;
     
+    #10 startup = 1;
     clk = 1;
     display;
     
+    #10 startup = 0;
     clk = 0;
     display;
     
@@ -67,8 +86,13 @@ module test;
  
   
  task display;
-   #1 $display("pc:%b, pc_control:%b, jump_offset=%b, clk=%b", pc, pc_control, jump_offset, clk);
+   #1 $display("pc:%b, pc_control:%b, jump_offset=%b, clk=%b, startup=%b", pc, pc_control, jump_offset, clk, startup);
   endtask
+<<<<<<< HEAD
   
   
 endmodule
+=======
+endmodule
+*/
+>>>>>>> 4d6a32566784de6976dc15622f2a071d692b5961
