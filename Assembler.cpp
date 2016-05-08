@@ -14,7 +14,7 @@ int main (int argn, char ** argv) {
 		stringstream assSplitter; 
 
 		if(argn != 3){
-			cout << "SYNTAX ERROR: Assembler assemb.code binary.code" << endl;
+			cout << "SYNTAX ERROR: Assemb`ler assemb.code binary.code" << endl;
 			return 0;
 		}
 
