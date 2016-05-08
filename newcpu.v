@@ -108,7 +108,10 @@ module cpu();
 	    if (opcode == 4'b1010 || opcode == 4'b1011)
 	      #10 mem_address <= reg_data_0;
               #10 mem_data_w <= reg_data_1;
-            end
+            end else if (opcode == 4'b1001) begin
+              #10 mem_address <= (reg_file[3] + 1);
+	      #10 mem_data_w <= (pc + 1);
+            end  
             #10 access_mem <= 1'b1;
             #10 access_mem <= #1 1'b0;
             #10 mem_r_result <= mem_data_r;
