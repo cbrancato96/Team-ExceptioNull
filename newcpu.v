@@ -2,22 +2,21 @@
 `include "control_unit.v"
 `include "alu.v"
 `include "data_mem.v"
-`include "program_counter.v"
 
 module cpu();
  
   //Declarations
   reg [2:0] state;
-  wire [2:0] state_update;
   reg [7:0] instruction;
+  reg [7:0] pc;
   reg fetch;
   reg decode;
   reg execute;
   reg access_mem;
   reg update_pc;
   
+  wire [2:0] state_update;
   wire [7:0] instruction_data;
-  wire [7:0] pc;
   wire [3:0] opcode;
   
   // Register File I/O
@@ -136,16 +135,17 @@ module cpu();
         begin
           $display("state = %b, instruction = %b, pc = %b, reg_addr_0 = %b, reg_addr_1 = %b, reg_addr_w = %b, reg_data_0 = %b, reg_data_1 = %b, reg_data_w = %b, instruction_Data = %b",state,instruction, pc,reg_addr_0, reg_addr_1, reg_addr_w,reg_data_0, reg_data_1, reg_data_w, instruction_data);
           /////////////////////////////
-          begin
-          if (instruction_data == 8'b11110100) 
-          	begin
-          	startup = 1;
-          	end else 
-          	#10 startup = 0; 
-          end
+          //begin
+          //if (instruction_data == 8'b11110100) 
+          	//begin
+          	//startup = 1;
+          	//end else 
+          	//#10 startup = 0; 
+          //end
           ////////////////////////////////
-          update_pc <= 1'b0;
-          update_pc <= #1 1'b1;
+          //update_pc <= 1'b0;
+          //update_pc <= #1 1'b1;
+	  pc <= pc + 1 + (jump & jump_offset);
           state <= state_update;
         end
       endcase
@@ -181,19 +181,11 @@ module cpu();
                      .read_data(mem_data_r),
                      .clk(access_mem));
    
-   program_counter pcounter (.pc_control(jump),
-                             .jump_offset(jump_offset),
-                             .pc(pc),
-                             .startup(startup),
-                             .clk(update_pc));
-                    
  // Display to Screen
  initial begin
- initialize = 1; 
- #10 initialize = 0; 
  state = 3'b000;
- 
- startup = 1;
-  end 
+ pc = 8'b0; 
+ jump_offset = 8'b0;
+ end 
   
  endmodule
