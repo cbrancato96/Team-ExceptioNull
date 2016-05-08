@@ -21,15 +21,13 @@ startup);
   always @ (posedge clk)
     begin 
       if (startup == 1) begin 
-        pc = 8'b0;
+        pc <= 8'b0;
     	end else
           pc <= pc_update;
   end 
 endmodule
 
-<<<<<<< HEAD
-// Testbench
-=======
+//TestBench
 /*
 //Testbench
 >>>>>>> 4d6a32566784de6976dc15622f2a071d692b5961
@@ -95,4 +93,3 @@ endmodule
 =======
 endmodule
 */
->>>>>>> 4d6a32566784de6976dc15622f2a071d692b5961

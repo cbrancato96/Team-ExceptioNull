@@ -6,85 +6,47 @@
 :vpi_module "vhdl_sys";
 :vpi_module "v2005_math";
 :vpi_module "va_math";
-S_0x7fcf21500070 .scope module, "test" "test" 2 28;
- .timescale 0 0;
-v0x7fcf21518590_0 .var "clk", 0 0;
-v0x7fcf21518620_0 .var "jump_offset", 7 0;
-v0x7fcf215186d0_0 .net "pc", 7 0, v0x7fcf21518180_0;  1 drivers
-v0x7fcf215187a0_0 .var "pc_control", 7 0;
-S_0x7fcf21508210 .scope module, "PROGRAM_COUNTER" "program_counter" 2 35, 2 1 0, S_0x7fcf21500070;
+S_0x7faa42404b90 .scope module, "program_counter" "program_counter" 2 1;
  .timescale 0 0;
     .port_info 0 /INPUT 1 "clk"
     .port_info 1 /INPUT 8 "pc_control"
     .port_info 2 /INPUT 8 "jump_offset"
     .port_info 3 /OUTPUT 8 "pc"
-L_0x7fcf215189d0 .functor AND 8, v0x7fcf215187a0_0, v0x7fcf21518620_0, C4<11111111>, C4<11111111>;
-L_0x10f52d008 .functor BUFT 1, C4<00000001>, C4<0>, C4<0>, C4<0>;
-v0x7fcf21501d60_0 .net/2u *"_s0", 7 0, L_0x10f52d008;  1 drivers
-v0x7fcf21517e80_0 .net *"_s2", 7 0, L_0x7fcf21518870;  1 drivers
-v0x7fcf21517f30_0 .net *"_s4", 7 0, L_0x7fcf215189d0;  1 drivers
-v0x7fcf21517ff0_0 .net "clk", 0 0, v0x7fcf21518590_0;  1 drivers
-v0x7fcf21518090_0 .net "jump_offset", 7 0, v0x7fcf21518620_0;  1 drivers
-v0x7fcf21518180_0 .var "pc", 7 0;
-v0x7fcf21518230_0 .net "pc_control", 7 0, v0x7fcf215187a0_0;  1 drivers
-v0x7fcf215182e0_0 .net "pc_update", 7 0, L_0x7fcf21518ac0;  1 drivers
-E_0x7fcf215056d0 .event posedge, v0x7fcf21517ff0_0;
-L_0x7fcf21518870 .arith/sum 8, v0x7fcf21518180_0, L_0x10f52d008;
-L_0x7fcf21518ac0 .arith/sum 8, L_0x7fcf21518870, L_0x7fcf215189d0;
-S_0x7fcf215183d0 .scope task, "display" "display" 2 68, 2 68 0, S_0x7fcf21500070;
- .timescale 0 0;
-TD_test.display ;
-    %delay 1, 0;
-    %vpi_call 2 69 "$display", "pc:%b, pc_control:%b, jump_offset=%b, clk=%b", v0x7fcf215186d0_0, v0x7fcf215187a0_0, v0x7fcf21518620_0, v0x7fcf21518590_0 {0 0 0};
-    %end;
-    .scope S_0x7fcf21508210;
-T_1 ;
-    %wait E_0x7fcf215056d0;
-    %load/vec4 v0x7fcf21517ff0_0;
-    %flag_set/vec4 8;
-    %jmp/0xz  T_1.0, 8;
-    %load/vec4 v0x7fcf215182e0_0;
-    %assign/vec4 v0x7fcf21518180_0, 0;
-T_1.0 ;
-    %jmp T_1;
-    .thread T_1;
-    .scope S_0x7fcf21500070;
-T_2 ;
-    %vpi_call 2 42 "$display", "Initial conditions" {0 0 0};
-    %pushi/vec4 0, 0, 1;
-    %store/vec4 v0x7fcf21518590_0, 0, 1;
+    .port_info 4 /INPUT 1 "startup"
+o0x109056128 .functor BUFZ 8, C4<zzzzzzzz>; HiZ drive
+o0x1090560c8 .functor BUFZ 8, C4<zzzzzzzz>; HiZ drive
+L_0x7faa42415410 .functor AND 8, o0x109056128, o0x1090560c8, C4<11111111>, C4<11111111>;
+L_0x109088008 .functor BUFT 1, C4<00000001>, C4<0>, C4<0>, C4<0>;
+v0x7faa42404cf0_0 .net/2u *"_s0", 7 0, L_0x109088008;  1 drivers
+v0x7faa42414ca0_0 .net *"_s2", 7 0, L_0x7faa42415310;  1 drivers
+v0x7faa42414d40_0 .net *"_s4", 7 0, L_0x7faa42415410;  1 drivers
+o0x109056098 .functor BUFZ 1, C4<z>; HiZ drive
+v0x7faa42414df0_0 .net "clk", 0 0, o0x109056098;  0 drivers
+v0x7faa42414e90_0 .net "jump_offset", 7 0, o0x1090560c8;  0 drivers
+v0x7faa42414f80_0 .var "pc", 7 0;
+v0x7faa42415030_0 .net "pc_control", 7 0, o0x109056128;  0 drivers
+v0x7faa424150e0_0 .net "pc_update", 7 0, L_0x7faa424154a0;  1 drivers
+o0x109056188 .functor BUFZ 1, C4<z>; HiZ drive
+v0x7faa42415190_0 .net "startup", 0 0, o0x109056188;  0 drivers
+E_0x7faa424033a0 .event posedge, v0x7faa42414df0_0;
+L_0x7faa42415310 .arith/sum 8, v0x7faa42414f80_0, L_0x109088008;
+L_0x7faa424154a0 .arith/sum 8, L_0x7faa42415310, L_0x7faa42415410;
+    .scope S_0x7faa42404b90;
+T_0 ;
+    %wait E_0x7faa424033a0;
+    %load/vec4 v0x7faa42415190_0;
+    %pad/u 32;
+    %cmpi/e 1, 0, 32;
+    %jmp/0xz  T_0.0, 4;
     %pushi/vec4 0, 0, 8;
-    %store/vec4 v0x7fcf215187a0_0, 0, 8;
-    %pushi/vec4 3, 0, 8;
-    %store/vec4 v0x7fcf21518620_0, 0, 8;
-    %fork TD_test.display, S_0x7fcf215183d0;
-    %join;
-    %pushi/vec4 1, 0, 1;
-    %store/vec4 v0x7fcf21518590_0, 0, 1;
-    %fork TD_test.display, S_0x7fcf215183d0;
-    %join;
-    %pushi/vec4 0, 0, 1;
-    %store/vec4 v0x7fcf21518590_0, 0, 1;
-    %fork TD_test.display, S_0x7fcf215183d0;
-    %join;
-    %pushi/vec4 255, 0, 8;
-    %store/vec4 v0x7fcf215187a0_0, 0, 8;
-    %pushi/vec4 1, 0, 1;
-    %store/vec4 v0x7fcf21518590_0, 0, 1;
-    %fork TD_test.display, S_0x7fcf215183d0;
-    %join;
-    %pushi/vec4 0, 0, 8;
-    %store/vec4 v0x7fcf215187a0_0, 0, 8;
-    %pushi/vec4 0, 0, 1;
-    %store/vec4 v0x7fcf21518590_0, 0, 1;
-    %fork TD_test.display, S_0x7fcf215183d0;
-    %join;
-    %pushi/vec4 1, 0, 1;
-    %store/vec4 v0x7fcf21518590_0, 0, 1;
-    %fork TD_test.display, S_0x7fcf215183d0;
-    %join;
-    %end;
-    .thread T_2;
+    %assign/vec4 v0x7faa42414f80_0, 0;
+    %jmp T_0.1;
+T_0.0 ;
+    %load/vec4 v0x7faa424150e0_0;
+    %assign/vec4 v0x7faa42414f80_0, 0;
+T_0.1 ;
+    %jmp T_0;
+    .thread T_0;
 # The file index is used to find the file name in the following table.
 :file_names 3;
     "N/A";

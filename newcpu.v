@@ -17,7 +17,7 @@ module cpu();
   reg update_pc;
   
   wire [7:0] instruction_data;
-  reg [7:0] pc;
+  wire [7:0] pc;
   wire [3:0] opcode;
   
   // Register File I/O
@@ -137,11 +137,11 @@ module cpu();
           $display("state = %b, instruction = %b, pc = %b, reg_addr_0 = %b, reg_addr_1 = %b, reg_addr_w = %b, reg_data_0 = %b, reg_data_1 = %b, reg_data_w = %b, instruction_Data = %b",state,instruction, pc,reg_addr_0, reg_addr_1, reg_addr_w,reg_data_0, reg_data_1, reg_data_w, instruction_data);
           /////////////////////////////
           begin
-          if (instruction = 11110100) 
+          if (instruction_data == 8'b11110100) 
           	begin
           	startup = 1;
           	end else 
-          	startup = 0;
+          	#10 startup = 0; 
           end
           ////////////////////////////////
           update_pc <= 1'b0;
@@ -189,12 +189,11 @@ module cpu();
                     
  // Display to Screen
  initial begin
+ initialize = 1; 
+ #10 initialize = 0; 
  state = 3'b000;
-<<<<<<< HEAD
- pc = 8'b0;
-=======
+ 
  startup = 1;
->>>>>>> 4d6a32566784de6976dc15622f2a071d692b5961
   end 
   
  endmodule
