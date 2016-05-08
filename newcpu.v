@@ -70,7 +70,7 @@ module cpu();
           $display("state = %b, instruction = %b, pc = %b, reg_addr_0 = %b, reg_addr_1 = %b, reg_addr_w = %b, reg_data_0 = %b, reg_data_1 = %b, reg_data_w = %b, instruction_Data = %b",state,instruction, pc,reg_addr_0, reg_addr_1, reg_addr_w,reg_data_0, reg_data_1, reg_data_w, instruction_data);
           fetch <= 1'b1;
           instruction <= instruction_data;
-		  fetch <= 1'b0;
+	  fetch <= 1'b0;
       	  state <= state_update; 
         end
       
