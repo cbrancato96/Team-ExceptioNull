@@ -13,7 +13,7 @@ input clk;
   
 output [7:0] read_data;
 
-reg [7:0] data_mem [0:63];
+reg [7:0] data_mem [0:191];
 reg [7:0] read_data;
 parameter DATA = "dataMem.bin";
 
@@ -29,11 +29,12 @@ parameter DATA = "dataMem.bin";
     
 initial begin
   $readmemb(DATA, data_mem);
+  
 end
   
 endmodule
-
-/* Testbench
+/*
+ //Testbench
 module test();
 
   reg [7:0] data_address;
@@ -56,9 +57,9 @@ module test();
     data_address = 8'b1000010;
 	write_data = 8'b1;
     $monitor("data_address=%b, write_data=%b, write_enable=%b, read_data=%b, clk=%b", data_address, write_data, write_enable, read_data, clk);
-    write_enable = 1'b1;
+    write_enable = 1'b0;
     #10 clk = 1;
-    write_enable = 1'b1;
+    write_enable = 1'b0;
     #10 clk = 0;
 
     #10 clk = 1;
@@ -68,4 +69,5 @@ module test();
   end
 
 endmodule
+
 */

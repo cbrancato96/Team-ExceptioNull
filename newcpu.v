@@ -48,9 +48,6 @@ module cpu();
   wire overflow;
   reg [7:0] jump_offset;
   reg [7:0] mem_r_result;
-  ////////////////
-  reg startup;
-  ///////////////
   // Assignments
 
   assign opcode = instruction [7:4];
@@ -58,7 +55,7 @@ module cpu();
   
   always @ (state) 
     
-    if (instruction == 8'b0)
+    if (instruction == 8'b0 || reg_file[3] < 8'b01111111)
       begin
        disable states;
       end else
@@ -185,7 +182,7 @@ module cpu();
  reg_file[0] = 8'b11;
  reg_file[1] = 8'b0;
  reg_file[2] = 8'b0;
- reg_file[3] = 8'b0;
+ reg_file[3] = 8'b11111111;
  mem_r_result = 8'b0;
  end 
   
