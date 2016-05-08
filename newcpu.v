@@ -49,7 +49,9 @@ module cpu();
   wire overflow;
   reg [7:0] jump_offset;
   reg [7:0] mem_r_result;
-  
+  ////////////////
+  reg startup;
+  ///////////////
   // Assignments
 
   assign opcode = instruction [7:4];
@@ -133,6 +135,15 @@ module cpu();
       3'b111: // PC Update
         begin
           $display("state = %b, instruction = %b, pc = %b, reg_addr_0 = %b, reg_addr_1 = %b, reg_addr_w = %b, reg_data_0 = %b, reg_data_1 = %b, reg_data_w = %b, instruction_Data = %b",state,instruction, pc,reg_addr_0, reg_addr_1, reg_addr_w,reg_data_0, reg_data_1, reg_data_w, instruction_data);
+          /////////////////////////////
+          begin
+          if (instruction = 11110100) 
+          	begin
+          	startup = 1;
+          	end else 
+          	startup = 0;
+          end
+          ////////////////////////////////
           update_pc <= 1'b0;
           update_pc <= #1 1'b1;
           state <= state_update;
@@ -173,11 +184,13 @@ module cpu();
    program_counter pcounter (.pc_control(jump),
                              .jump_offset(jump_offset),
                              .pc(pc),
+                             .startup(startup),
                              .clk(update_pc));
                     
  // Display to Screen
  initial begin
  state = 3'b000;
+ startup = 1;
   end 
   
  endmodule
