@@ -1,0 +1,173 @@
+\documentclass[12pt]{article} 
+\usepackage[margin=.5cm]{geometry}
+\geometry{a4paper}  
+\setlength\parindent{7.0cm}
+\begin{document}
+
+\begin{center}
+\LARGE
+\textbf{Team ExceptioNull Reference Data}
+\hline
+\end{center}
+\section*{Core Instruction Set}
+\begin{center}
+\begin{tabular}{ |c|c|c|c|c| } 
+ \hline
+ NAME & MNEMONIC & FORMAT & OPERATION & OPCODE \\ 
+ \hline
+ Move & mv & R & R[rs] = R[rt] & 0000\\ 
+  \hline
+ Add & add & R & R[r0] = R[rs] + R[rt] & 0001\\ 
+  \hline
+  And & and & R & R[r0] = R[rs] \& R[rt] & 0010\\ 
+ \hline
+  Not & not & R & R[rs] = \sim R[rt] & 0011\\ 
+  \hline
+ Nor & nor & R & R[r0] = \sim(R[rs] \mid R[rt]) & 0100\\ 
+  \hline
+ Set Less Than & slt & R & R[r0] = (R[rs] $<$ R[rt]) ? 1 : 0 & 0101\\ 
+ \hline
+ Shift Left Logical & sll & I & R[rs] = R[rs] $<$$<$ Shamt & 0110\\ 
+  \hline
+ Shift Right Logical & srl & I & R[rs] = R[rs] $>$$>$ Shamt & 0111\\ 
+  \hline
+  Jump & j & I & PC = R[rs] & 1000\\ 
+  \hline
+  Jump and Link & jal & I & M[sp + 1] = PC + 1; PC = R[rs] & 1001\\ 
+  \hline
+ Load Word & lw & R & R[rs] = M[R[rt]] & 1010\\ 
+  \hline
+ Store Word & sw & R & M[R[rt]] = R[rs] & 1011\\
+  \hline 
+ Branch On Equal & beq & R & if(R[rs]==R[rt]): PC = PC+1+ R[r0] & 1100\\ 
+  \hline
+  Branch On Not Equal & bne & R &  if(R[rs]!=R[rt]): PC = PC+1+ R[r0] & 1101\\ 
+
+  \hline
+ Add Immediate & addi & I & R[rs] = R[rs] + Imm & 1110\\ 
+  \hline
+ Load Immediate & li & I & R[rs] = Imm & 1111\\ 
+ \hline
+ 
+\end{tabular}
+\end{center}
+
+\section*{Basic Instruction Formats}
+
+\begin{center}
+\begin{tabular}{ |c|c|c|c| } 
+ \hline
+ R & opcode (4 bits) & rs (2 bits) & rt (2 bits) \\ 
+ \hline
+
+\end{tabular}
+\end{center}
+
+\begin{center}
+\begin{tabular}{ |c|c|c|c| } 
+\hline
+ I & opcode (4 bits) & rs (2 bits) & immediate (2 bits)\\ 
+ \hline
+ \end{tabular}
+\end{center}
+
+
+
+\section*{Pseudo Instruction Set}
+\begin{center}
+\begin{tabular}{ |c|c|c| } 
+ \hline
+ NAME & MNEMONIC & OPERATION \\ 
+ \hline
+ Add Large & addl & R[rs] = R[rs] + LargeDecimal   \\ 
+  \hline
+ Load Immediate Large & lil & R[rs] = R[rs] + LargeImm \\ 
+  \hline
+ Shift Left Logical Large & slll & R[rs] = R[rs] $<$$<$ LargeDecimal \\
+  \hline 
+ Shift Right Logical Large & srll &  R[rs] = R[rs] $>$$>$ LargeDecimal \\ 
+ \hline
+\end{tabular}
+\end{center}
+
+\section*{Register Name, Number, Use, Call Convention}
+\begin{center}
+\begin{tabular}{ |c|c|c|c|c| } 
+\hline
+ NAME & NUMBER & BINARY & USE & PRESERVED ACROSS A CALL?\\ 
+ \hline
+ \$r0 & 0 & 00 &  General & No \\ 
+  \hline
+ \$r1 & 1 & 01 & General & No \\ 
+  \hline
+ \$r2 & 2 & 10 & General & No\\
+  \hline 
+ \$sp & 3 & 11 	& Stack Pointer & Yes\\ 
+ \hline
+\end{tabular}
+\end{center}
+\section*{Memory Allocation}
+\begin{center}
+\begin{tabular}{ |c| } 
+ \hline
+ Stack 		\\\\\\\\\\\\ 
+\hline
+ \ Data  \\\\
+  \hline 
+ Text \& Reserved \\\\
+ \hline
+\end{tabular}
+\end{center}
+
+\begin{center}
+Stack: 8 bits x 128 lines \\
+Data: 8 bits x  64 lines\\
+Text \& Reserved: 8 bits x 64 lines \\
+\end{center}
+
+\section*{Opcodes, Base Conversion, ASCII Symbols}
+\begin{center}
+\begin{tabular}{ |c|c|c|c|c| } 
+ \hline
+ OPCODE & Binary & Decimal & Hexadecimal & ASCII Character \\ 
+ \hline
+ Move & 0000 & 0 & 0 & NUL\\ 
+  \hline
+ Add & 0001 & 1 & 1 & SOH\\ 
+  \hline
+  And & 0010 & 2 & 2 & STX\\ 
+ \hline
+  Not & 0011 & 3 & 3 & ETX\\ 
+  \hline
+ Nor & 0100 & 4 & 4 & EOT\\ 
+  \hline
+ Set Less Than & 0101 & 5 & 5 & ENQ\\ 
+ \hline
+ Shift Left Logical & 0110 & 6 & 6 & ACK\\ 
+  \hline
+ Shift Right Logical & 0111 & 7 & 7 & BEL\\ 
+  \hline
+  Jump & 1000 & 8 & 8 & BS\\ 
+  \hline
+  Jump and Link & 1001 & 9 & 9 & HT\\ 
+  \hline
+ Load Word & 1010 & 10 & a & LF\\ 
+  \hline
+ Store Word & 1011 & 11 & b & VT\\
+  \hline 
+ Branch On Equal & 1100 & 12 & c & FF\\ 
+ \hline
+   Branch On Not Equal & 1101 & 13 & d & CR\\ 
+  \hline
+ Add Immediate & 1101 & 14 & e & SO\\ 
+  \hline
+ Load Immediate & 1111 & 15 & f & SI\\ 
+ \hline
+ 
+\end{tabular}
+\end{center}
+
+\end{document}
+
+
+
