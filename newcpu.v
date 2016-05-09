@@ -58,7 +58,7 @@ module cpu();
     if (instruction == 8'b0 || reg_file[3] < 8'b10111111)
       begin
        disable states;
-      end else
+      end els
         
   begin : states
     case (state)
