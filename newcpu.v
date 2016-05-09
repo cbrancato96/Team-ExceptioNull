@@ -14,8 +14,6 @@ module cpu();
   reg execute;
   reg access_mem;
   reg update_pc;
-  reg [7:0] rand0;
-  reg [7:0] rand1;
   
   wire [2:0] state_update;
   wire [7:0] instruction_data;
@@ -108,15 +106,12 @@ module cpu();
             if (opcode == 4'b1010 || opcode == 4'b1011)
               begin
                 #10 mem_address <= reg_data_0;
-		#10 $display("fuuuuuuuuuckk!!!!!!!!!!!!!!!!!!!!");
+		            #10
                 #10 mem_data_w <= reg_data_1;
               end
             else if (opcode == 4'b1001) 
               begin
                 #10 mem_address <= (reg_file[3] + 8'b1);
-	        #10 rand0 <= 8'b10101011;
-	        $display("fuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuck!");
-	        #10 rand1 <= pc;
                 #10 mem_data_w <= (pc + 8'b1);
               end  
             #10 access_mem <= 1'b1;
@@ -131,7 +126,7 @@ module cpu();
       3'b101: // Writeback Data Resolution
         begin
             #10 reg_data_w <= ((alu_result & (~sel_w_source)) +( mem_r_result & sel_w_source)); 
-          #10 $display("state = %b, instruction = %b, pc = %b, reg0 = %b, sp = %b, dataw = %b, ar = %b mr = %b, r0 = %b, r1 = %b",state,instruction, pc, reg_file[0], reg_file[3], reg_data_w, alu_result, mem_r_result, rand0, rand1);
+          #10 $display("state = %b, instruction = %b, pc = %b, reg0 = %b, sp = %b, dataw = %b, ar = %b mr = %b",state,instruction, pc, reg_file[0], reg_file[3], reg_data_w, alu_result, mem_r_result);
           $display("we: %b", mem_w_en);
           #10 state <= state_update;
         end
