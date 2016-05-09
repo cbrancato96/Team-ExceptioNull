@@ -110,8 +110,8 @@ module cpu();
 	      #10 mem_data_w <= (pc + 1);
             end  
             #10 access_mem <= 1'b1;
-            #10 access_mem <= #1 1'b0;
             #10 mem_r_result <= mem_data_r;
+            #10 access_mem <= #1 1'b0;
           //#10 $display("state = %b, instruction = %b, pc = %b, reg0 = %b, reg1 = %b, reg2 = %b, sp = %b, addr0 = %b, addr1 = %b, addrw = %b, dataw = %b",state,instruction, pc, reg_file[0], reg_file[1], reg_file[2], reg_file[3], reg_addr_0, reg_addr_1, reg_addr_w, reg_data_w);
           #10 state <= state_update;
         end
