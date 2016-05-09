@@ -6,12 +6,11 @@
 
 \begin{document}
 
-\title{8-Bit Computer \\ Based on 32-Bits MIPS Processor}
+\title{8-Bit MIPS Computer \\ Based on 32-Bits MIPS Processor \\ The Cooper Union - Electrical Eng.  Dept. }
 
 
-\author{Krishna~Thiyagarajan, Chris~Brancato, and~Ihsan~Gunay}
+\author{Krishna~Thiyagarajan, Chris~Brancato, and~Ihsan~Gunay\\ krisht@cooper.edu, ~ gunay@cooper.edu, ~ brancato@cooper.edu \\ Submitted: May 9, 2016}
 \maketitle
-
 
 \begin{abstract}
     A computer processor based on a 32-bit MIPS processor was designed. An 8-bit ISA analgous to the 32-bit MIPS ISA was made and the ISA was then implemented in Verilog with a descriptive level of abstraction. The final implementation included modules such as the arithmetic logic unit, a control unit, a data memory module, an instruction memory module, a program counter module, a register file module and the main CPU module. This report briefly describes the design of each.
@@ -42,6 +41,7 @@ For example, if the operation to be performed is addi, then the control unit rec
 \section{Data Memory}
 Data memory deals with the stack, the heap and data manipulation. The data memory module takes in data address, write data, write enable and the clock signal as inputs. It outputs the read  data, the data that was read from the memory if that is necessary. The stack, heap and data are all stored in a text file. The data memory module initially reads the data into an internal 8 bit by  191 bit register file. Then, at every positive clock edge, it simply checks whether the write enable is activated and writes to the given data address. If write enable is not activated, it reads the data and outputs the read data to the defined output register.
 
+\newpage
 
 \section{Instruction Memory}
 Instruction memory deals with the instructions that are being fed to the CPU. Similar to the data memory module, the instruction memory module takes in instruction address and clock signal as inputs and outputs the instruction data. Initially, all the instructions are read from the instMem.bin text file which contains the compiled binary instructions for the program. Then, at each positive clock edge, the memory is read at the instruction address as given by the program counter and the instruction data is outputted.

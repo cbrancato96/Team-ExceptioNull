@@ -1,6 +1,6 @@
 addi $r0 01 # Intializes $r0 to 1 to return to number
 li $r2 01 # Loading 1 to $r2
-sll $r2 00 # Can shift $r2 by 0($r0=1) 1 ($r0=2) or 2 ($r0=4) or 3 ($r0=8)
+sll $r2 11 # Can shift $r2 by 0($r0=1) 1 ($r0=2) or 2 ($r0=4) or 3 ($r0=8)
 addi $r1 01 # adds 1 to $r1
 beq $r1 $r2 # compares $r1 to #r2 if equal, stops because it jumps out of range
 j $r0 # jumps to 1 and continues if not equal
