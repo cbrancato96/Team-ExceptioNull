@@ -26,7 +26,7 @@ module cpu();
   wire [1:0] reg_addr_1; // Address of Source Reg 1
   wire [1:0] reg_addr_w; // Address of Destination Reg
  
-  reg [7:0] reg_data_0; // Data from Reg 0
+  reg [7:0] reg_data_0; // Data from Reg 0B
   reg [7:0] reg_data_1; // Data from Reg 1
   reg [7:0] reg_data_w; // Data to Destination Reg
  
