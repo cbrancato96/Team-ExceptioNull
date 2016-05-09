@@ -11,7 +11,8 @@ lw $r0 $sp    #  load $ra to $r0
 j $r0         #  jr $ra or jump back 
 sw $r2 $sp    #  store n 
 addi $r2 11   #  $r2 = n-1
-addl $sp -2   #  push 2 values to stack : n & $ra
+addi $sp 11   #  push 2 values to stack : n & $ra
+addi $sp 11   #  ---
 li $r0 01     #  load 5 to $r0
 sll $r0 10    #  ---
 addi $r0 01   #  ---
