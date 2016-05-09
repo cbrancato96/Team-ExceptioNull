@@ -55,7 +55,7 @@ module cpu();
   
   always @ (state) 
     
-    if (instruction == 8'b0 || reg_file[3] < 8'b01111111)
+    if (instruction == 8'b0 || reg_file[3] < 8'b10111111)
       begin
        disable states;
       end else
@@ -179,7 +179,7 @@ module cpu();
  state = 3'b000;
  pc = 8'b0; 
  jump_offset = 8'b0;
- reg_file[0] = 8'b11;
+ reg_file[0] = 8'b0;
  reg_file[1] = 8'b0;
  reg_file[2] = 8'b0;
  reg_file[3] = 8'b11111111;
