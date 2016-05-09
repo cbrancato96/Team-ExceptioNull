@@ -55,7 +55,7 @@ module cpu();
   
   always @ (state) 
     
-    if (instruction == 8'b0 || reg_file[3] < 8'b10111111)
+    if (instruction == 8'b0 || reg_file[3] < 8'b1111111)
       begin
        disable states;
       end else
@@ -101,17 +101,23 @@ module cpu();
       
       3'b100: // Data Memory Access
         begin
-          if (mem_r_en || mem_w_en) begin
-	    if (opcode == 4'b1010 || opcode == 4'b1011)
-	      #10 mem_address <= reg_data_0;
-              #10 mem_data_w <= reg_data_1;
-            end else if (opcode == 4'b1001) begin
-              #10 mem_address <= (reg_file[3] + 1);
-	      #10 mem_data_w <= (pc + 1);
+          if (mem_r_en || mem_w_en) 
+          begin
+            if (opcode == 4'b1010 || opcode == 4'b1011)
+              begin
+                #10 mem_address <= reg_data_0;
+                #10 mem_data_w <= reg_data_1;
+              end
+          end 
+          else if (opcode == 4'b1001) 
+            begin
+              #10 mem_address <= (reg_file[3] + 8'b1);
+              #10 mem_data_w <= (pc + 8'b1);
             end  
             #10 access_mem <= 1'b1;
             #10 mem_r_result <= mem_data_r;
             #10 access_mem <= #1 1'b0;
+            $display("mem_data_w: %b", mem_data_w );
           //#10 $display("state = %b, instruction = %b, pc = %b, reg0 = %b, reg1 = %b, reg2 = %b, sp = %b, addr0 = %b, addr1 = %b, addrw = %b, dataw = %b",state,instruction, pc, reg_file[0], reg_file[1], reg_file[2], reg_file[3], reg_addr_0, reg_addr_1, reg_addr_w, reg_data_w);
           #10 state <= state_update;
         end
