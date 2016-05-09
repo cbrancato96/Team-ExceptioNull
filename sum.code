@@ -13,9 +13,8 @@ sw $r2 $sp    #  store n
 addi $r2 11   #  $r2 = n-1
 addi $sp 11   #  push 2 values to stack : n & $ra
 addi $sp 11   #  ---
-li $r0 01     #  load 5 to $r0
+li $r0 01     #  load 4 to $r0
 sll $r0 10    #  ---
-addi $r0 01   #  ---
 jal $r0       #  store $ra at ($sp + 1) and (call sum(n-1) or jump to line 4)
 addi $sp 01   #  pop n off the stack
 lw $r2 $sp    #  load n to $r2
