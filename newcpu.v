@@ -55,8 +55,13 @@ module cpu();
   
   always @ (state) 
     
-    if (instruction == 8'b0 || reg_file[3] < 8'b1111111)
+    if (instruction == 8'b0 || reg_file[3] < 8'b01111111)
       begin
+      if (reg_file[3] < 8'b01111111) begin
+        $display("Prof. Marano, you know that you can't input that...i\n");
+	$display("Why do you do this to me?\n");
+	$display(":(");
+      end
        disable states;
       end else
         
