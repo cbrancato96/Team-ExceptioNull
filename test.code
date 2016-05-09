@@ -1,16 +1,16 @@
 li $r0 01
-addi $r1 01
-mv $r2 $r0
-add $r1 $r2
-and $r1 $r2
-not $r0 $r2
-nor $r1 $r2
-slt $r1 $r2
-sll $r1 10
-srl $r1 11
-jal $r2
-lw $r1 $r2
-sw $r1 $r2
-lw $r0 $r2
-beq $r1 $r1
-bne $r1 $r1
+addi $r1 01 
+mv $r2 $r0 
+add $r1 $r2 
+and $r1 $r2 
+not $r0 $r2 
+nor $r1 $r2 
+slt $r1 $r2 
+sll $r1 10 
+srl $r1 11 
+jal $r2 
+lw $r1 $r2 
+sw $r1 $r2 
+lw $r0 $r2 
+beq $r1 $r1 
+bne $r1 $r1 
